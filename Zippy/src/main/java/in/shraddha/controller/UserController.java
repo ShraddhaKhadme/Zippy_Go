@@ -20,6 +20,11 @@ public class UserController {
 	@Autowired
 	private UserService service;
 	
+	@GetMapping("/")
+	public String loadPage() {
+		return "index";
+	}
+	
 	@GetMapping("/register")
 	public String showForm()
 	{
