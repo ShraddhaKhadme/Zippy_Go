@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import in.shraddha.entity.User;
 import in.shraddha.repository.UserRepo;
 import in.shraddha.service.UserService;
+import jakarta.servlet.http.HttpSession;
 @Service 
 public class UserServiceImpl implements UserService {
 
@@ -43,5 +44,31 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		urepo.save(u);
 	}
+
+	@Override
+	public String loginUser(String email, String password, HttpSession session) {
+		System.out.println(email + "this is in imple");
+		String b;
+		if ((urepo.findByEmail(email).getEmail().equals(email))
+				&& (urepo.findByEmail(email).getPassword().equals(password))) {
+			System.out.println("login Succesfull...........");
+			session.setAttribute("umail", urepo.findByEmail(email).getEmail());
+			session.setAttribute("uname", urepo.findByEmail(email).getName());
+			session.setAttribute("uphone", urepo.findByEmail(email).getPhone());
+			b = "success";
+		} else {
+			System.out.println("Login unsuccess..");
+			b = "fail";
+		}
+		return b;
+
+	}
+
+	@Override
+	public boolean checkUser(String email) {
+		// TODO Auto-generated method stub
+		return urepo.existsByEmail(email);
+	}
+	
 
 }
