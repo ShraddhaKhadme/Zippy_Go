@@ -14,5 +14,5 @@ public interface UserService {
 	void update(User u);
 	boolean checkUser(String email);
 	String loginUser(String email, String password, HttpSession session);
-	
+	//String forgotPassword(String email, String password);
 }

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .navbar {
-            background-color: #343a40; 
+            background-color: #FFB300; 
         }
         .navbar a {
             color: white;
@@ -31,15 +31,185 @@
         .carousel {
             margin-top: 80px; 
         }
+        
+        /* Reduce navbar height */
+.navbar {
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  height:100px;
+  min-height: 30px; /* Optional: limits the minimum height */
+}
+
+/* Shrink nav links spacing */
+.navbar-nav .nav-link {
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  font-size: 16px; /* Optional: slightly reduce font size */
+}
+
+
+        
+            * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fffdf3;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .head {
+      background: linear-gradient(135deg, #fbbf24, #f97316);
+      color: white;
+      padding: 2.5rem 1rem;
+      text-align: center;
+    }
+
+    .head h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .head p {
+      font-size: 1.2rem;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .container {
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      font-weight:bold;
+    }
+
+    .section {
+      margin-bottom: 3rem;
+    }
+
+    .section h2 {
+      font-size: 2rem;
+      color: #10b981;
+      margin-bottom: 1rem;
+    }
+
+    .about-text {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .about-text .text {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .about-text .image {
+      flex: 1;
+      min-width: 280px;
+      height: 320px;
+      border-radius: 14px;
+      background-color: #fef3c7;
+      background-image: url("aboutimagezippy.jpeg");
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .mission-vision {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .card {
+      flex: 1;
+      min-width: 280px;
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      color: #ef4444;
+      margin-bottom: 0.8rem;
+      font-size: 1.5rem;
+    }
+
+    .card p {
+      color: #4b5563;
+    }
+
+    footer {
+      background-color: #1f2937;
+      color: #fff;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 3rem;
+    }
+    
+    .head {
+  background: linear-gradient(135deg, #fbbf24, #f97316);
+  color: white;
+  padding: 1.5rem 1rem; /* Reduced from 2.5rem */
+  text-align: center;
+}
+
+.about-text .image {
+  flex: 1;
+  min-width: 280px;
+  height: 270px;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-text .image img {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+.background-video1 {
+  height: 65px;
+  width: 65px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid white;
+}
+
+
+    @media (max-width: 768px) {
+      .about-text,
+      .mission-vision {
+        flex-direction: column;
+      }
+        }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" th:href="@{/zippy/}">
-                <img src="https://static.vecteezy.com/system/resources/thumbnails/017/302/638/small_2x/creative-zg-letter-with-luxury-concept-modern-zg-logo-design-for-business-and-company-identity-free-vector.jpg" 
-                     alt="ZippyGo Logo">
+                <video autoplay loop muted playsinline class="background-video1">
+                    <source src="/video/logo.mp4" type="video/mp4">
+                </video>
             </a>
+            
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -50,7 +220,7 @@
                     <li class="nav-item"><a class="nav-link text-white" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="#services">Services</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="#footer">Contact Us</a></li>
-                    <li class="nav-item"><a class="nav-link text-white btn btn-outline-success ms-2" href="/login">Login</a></li>
+                    <li class="nav-item"><a class="nav-link text-white btn btn-outline-success ms-2" href="/user/login">Login</a></li>
                 </ul>
             </div>
         </div>
@@ -119,6 +289,43 @@
         </div>
     </div>
     
+    <div id="about">
+  <header class="head">
+    <h1>About ZippyGo</h1>
+    <p>Your trusted partner for delivering farm-fresh fruits and vegetables right to your doorstep.</p>
+  </header>
+
+  <div class="container">
+    <!-- About Section -->
+    <section class="section about-text">
+      <div class="text">
+        <h2>Who We Are</h2>
+        <p>At ZippyGo, we believe fresh is not just a flavor — it’s a lifestyle. Our journey began with a dream to reconnect people with the goodness of nature. By working closely with local farmers, we ensure every delivery is packed with freshness, flavor, and nutrients.</p>
+        <p>From crunchy greens to juicy seasonal fruits, we curate the best picks daily and bring them to your home with care, speed, and a smile.</p>
+      </div>
+     <div class="image">
+  <img src="/images/aboutimagezippy.jpeg" alt="About ZippyGo">
+</div>
+
+    </section>
+
+    <!-- Mission and Vision -->
+    <section class="section mission-vision">
+      <div class="card">
+        <h3>🌿 Our Mission</h3>
+        <p>To create a healthier world by making it simple and joyful for everyone to eat fresh, seasonal, and locally-grown produce — delivered straight from the farm to their doorstep.</p>
+      </div>
+      <div class="card">
+        <h3>🌞 Our Vision</h3>
+        <p>To become the most beloved farm-to-home delivery service in the world, cultivating healthier communities and a more sustainable planet through every delivery.</p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 ZippyGo. Handpicked with love, delivered with care.</p>
+  </footer>
+  </div>
     
     <section id="footer" class="float-start w-100">
     <footer class="text-white pt-5 pb-4" style="background-color: #131f34;">

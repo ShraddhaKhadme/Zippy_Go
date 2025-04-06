@@ -116,6 +116,19 @@ public class UserController {
 		return page;
 	}
 
-	
+/*	@PostMapping("forgot")
+	public String forgotPass(User u, Model model) {
+		String page = "";
+		System.out.println(u.getEmail());
+		String result = service.forgotPassword(u.getEmail(), u.getPassword());
+		if (result.equals("success")) {
+			model.addAttribute("message", "Password changed succesfully");
+			page = "login";
+		} else {
+			model.addAttribute(("message"), "No such user email");
+			page = "forgot";
+		}
+		return page;
+	}*/
 
 }
