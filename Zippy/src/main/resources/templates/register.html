@@ -1,101 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Page</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup Page</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+  <style>
+    @charset "UTF-8";
+    .background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .signup-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 30%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+     
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .signup-container h2 {
+      color: white;
+      font-size: larger;
+      font-weight: bold;
+      text-transform: uppercase;
+       text-align: center;
+    }
+
+    .signup-container input {
+      display: block;
+	  width: 80%;
+	  padding: 10px;
+	  margin: 8px auto 2px auto; /* tight spacing between input and error */
+	  border: none;
+	  border-radius: 5px;
+    }
+
+    .signup-container button {
+      width: 50%;
+      padding: 10px;
+      border: none;
+      background: #ff4757;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    a {
+      color: blue;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .error {
+      color: black;
+	  font-size: 13px;
+	  margin: 2px auto 10px auto; 
+	  text-align: left;
+	  width: 80%;
+      
+      
+    }
+   
+  </style>
 </head>
-<Style>
-@charset "UTF-8";
-/* Fullscreen Video Background */
-.background-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-}
-
-/* Signup Form Styling */
-.signup-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 30%;
-    transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
-.signup-container h2 {
-    color: white;
-    font-size: larger;
-    font-weight: bold;
-    text-transform: uppercase;
-    
-}
-
-.signup-container input {
-    display: block;
-    width: 80%;
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-    position: relative;
-    left: 30px;
-}
-
-.signup-container button {
-    width: 50%;
-    padding: 10px;
-    border: none;
-    background: #ff4757;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-}
-a {
-    color: blue;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-
-</Style>
 <body>
 
-    <!-- Video Background -->
-    <video autoplay loop muted playsinline class="background-video">
-        <source src="/video/Untitled design.mp4" type="video/mp4">
-       
-    </video>
+<video autoplay loop muted playsinline class="background-video">
+  <source src="/video/Untitled design.mp4" type="video/mp4" />
+</video>
 
-    <!-- Signup Form -->
-    <div class="signup-container">
-        <h2>Sign Up</h2>
-        <form action=/user/userregister method="post">
-            <input type="text" name="name"placeholder="Username" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="phone" name="phone"  placeholder="Phone number" required>
-            <input type="password" name="password"  placeholder="Password" required>
-            <input type="password"  name="cpassword" placeholder="confirm password" required>
-            <button type="submit">Register</button>
-            <p>Already have an account? <a href="/user/login">Please login</a></p>
+<div class="signup-container">
+  <h2>Sign Up</h2>
+  <form action="/user/userregister" method="post" id="signup">
+    <input type="text" name="name" id="name" placeholder="Username" />
+    <div class="error" id="nameError"></div>
 
-        </form>
-    </div>
+    <input type="email" name="email" id="email" placeholder="Email" />
+    <div class="error" id="emailError"></div>
+
+    <input type="text" name="phone" id="phone" placeholder="Phone number" />
+    <div class="error" id="phoneError"></div>
+
+    <input type="password" name="password" id="password" placeholder="Password" />
+    <div class="error" id="passwordError"></div>
+
+    <input type="password" name="cpassword" id="confirm" placeholder="Confirm password" />
+    <div class="error" id="confirmError"></div>
+
+   <center> <button type="submit" class="mt-1">Register</button>
+    <p>Already have an account? <a href="/user/login">Please login</a></p></center>
+  </form>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $('#signup').submit(function (e) {
+      e.preventDefault(); 
+      
+      $('.error').text('');
+      let isValid = true;
+
+      const name = $('#name').val().trim();
+      const email = $('#email').val().trim();
+      const phone = $('#phone').val().trim();
+      const password = $('#password').val().trim();
+      const confirmPassword = $('#confirm').val().trim();
+
+      
+      if (!name && !email && !phone && !password && !confirmPassword) {
+        $('#nameError').text('Name is required.');
+        $('#emailError').text('Email is required.');
+        $('#phoneError').text('Phone number is required.');
+        $('#passwordError').text('Password is required.');
+        $('#confirmError').text('Please confirm your password.');
+        return; 
+      }
+
+      
+      if (!name) {
+        $('#nameError').text('Name is required.');
+        isValid = false;
+      }
+
+     
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email) {
+        $('#emailError').text('Email is required.');
+        isValid = false;
+      } else if (!emailRegex.test(email)) {
+        $('#emailError').text('Enter a valid email address.');
+        isValid = false;
+      }
+
+      
+      const phoneRegex = /^[0-9]{10}$/;
+      if (!phone) {
+        $('#phoneError').text('Phone number is required.');
+        isValid = false;
+      } else if (!phoneRegex.test(phone)) {
+        $('#phoneError').text('Enter a valid 10-digit phone number.');
+        isValid = false;
+      }
+
+      
+      if (!password) {
+        $('#passwordError').text('Password is required.');
+        isValid = false;
+      }
+
+    
+      if (!confirmPassword) {
+        $('#confirmError').text('Please confirm your password.');
+        isValid = false;
+      } else if (password !== confirmPassword) {
+        $('#confirmError').text("Passwords don't match.");
+        isValid = false;
+      }
+
+      
+      if (isValid) {
+        alert('Signup successful!');
+        $('#signup')[0].reset();
+      }
+    });
+  });
+</script>
 
 </body>
 </html>

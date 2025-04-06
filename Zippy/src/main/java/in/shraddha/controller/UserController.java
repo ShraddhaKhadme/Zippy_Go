@@ -31,6 +31,11 @@ public class UserController {
 		return "register";
 	}
 	
+	@GetMapping("/forgot")
+	public String forgot()
+	{
+		return "forgot";
+	}
 	@GetMapping("/login")
 	public String login()
 	{

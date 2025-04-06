@@ -71,6 +71,15 @@ a {
 a:hover {
     text-decoration: underline;
 }
+.error {
+      color: black;
+	  font-size: 13px;
+	  margin: 2px auto 10px auto; 
+	  text-align: left;
+	  width: 80%;
+      
+      
+    }
 
 
 </style>
@@ -85,18 +94,67 @@ a:hover {
     <!-- Signup Form -->
     <div class="signup-container">
         <h2>Login</h2>
-        <form action="/user/userlogin" method="post">
+        <form action="/user/userlogin" method="post" id=login>
             
-            <input type="email" placeholder="Email" required>
+            <input type="email" placeholder="Email" id="email">
+            <div class="error" id="emailError"></div>
           
-            <input type="password" placeholder="Password" required>
+            <input type="password" placeholder="Password" id="password">
+            <div class="error" id="passwordError"></div>
           
             <button type="submit">Login</button>
-            <p>Forgot password? <a href="forgot.html">forgot password</a></p>
-            <p>No Account Please Register <a href="register.html">SignUp</a></p>
+            <p>Forgot password? <a href="forgot">forgot password</a></p>
+            <p>Don't have an Account? <a href="register">SignUp</a></p>
 
         </form>
     </div>
+    
+    <script>
+  $(document).ready(function () {
+    $('#login').submit(function (e) {
+      e.preventDefault(); 
+      
+      $('.error').text('');
+      let isValid = true;
+
+      const email = $('#email').val().trim();
+      const password = $('#password').val().trim();
+
+      
+      if (!email && !password) {
+        $('#emailError').text('Email is required.');
+        $('#passwordError').text('Password is required.');
+        return; 
+      }
+
+      
+
+     
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email) {
+        $('#emailError').text('Email is required.');
+        isValid = false;
+      } else if (!emailRegex.test(email)) {
+        $('#emailError').text('Enter a valid email address.');
+        isValid = false;
+      }
+
+      
+
+      
+      if (!password) {
+        $('#passwordError').text('Password is required.');
+        isValid = false;
+      }
+
+
+      
+      if (isValid) {
+        $('#login')[0].reset();
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
