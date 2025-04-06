@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="styles.css">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js" integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <style>
 @charset "UTF-8";
@@ -153,6 +154,27 @@ a:hover {
         $('#login')[0].reset();
       }
     });
+  });
+  
+  $(document).ready(function () {
+      $('#email').keyup(function () {
+          var email = $(this).val();
+          $.ajax({
+              url: '/user/checkEmail',
+              type: 'GET',
+              data: {email: email},
+              success: function (response) {
+                  if (response === true) {
+                      $('#emailError').text('Hii welcome back').css('color','rgb(27, 165, 27)');
+                  } else {
+                      $('#emailError').text('Email not exist').css('color','red');
+                  }
+              },
+              error: function () {
+                  $('#emailError').text('Error occurred while checking code');
+              }
+          });
+      });
   });
 </script>
 

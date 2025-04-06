@@ -21,6 +21,5 @@ public class User {
 	String email;
 	Long phone;
 	String password;
-	String cpassword;
 	
 }

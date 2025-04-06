@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Signup Page</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js" integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
   <style>
     @charset "UTF-8";
@@ -177,10 +178,30 @@
 
       
       if (isValid) {
-        alert('Signup successful!');
         $('#signup')[0].reset();
       }
     });
+  });
+  
+  $(document).ready(function () {
+      $('#email').keyup(function () {
+          var email = $(this).val();
+          $.ajax({
+              url: '/user/checkEmail',
+              type: 'GET',
+              data: {email: email},
+              success: function (response) {
+                  if (response === true) {
+                      $('#emailError').text('Email already Exist').css('color','rgb(27, 165, 27)');
+                  } else {
+                      $('#emailError').text('Email can be used').css('color','red');
+                  }
+              },
+              error: function () {
+                  $('#emailError').text('Error occurred while checking code');
+              }
+          });
+      });
   });
 </script>
 
