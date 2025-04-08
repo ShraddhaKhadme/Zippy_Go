@@ -78,7 +78,7 @@ public class UserController {
 	public String userLogin(@ModelAttribute User u, HttpSession session, Model model) {
 		String page = "";
 		String status = service.loginUser(u.getEmail(), u.getPassword(), session);
-//this will get the current name and the passoword of the user who has entered
+//this will get the current name and the password of the user who has entered
 		if (status.equals("success")) {
 
 			//the status is set in the logic of the service the value of the status is returned as the success and the failure
@@ -86,11 +86,7 @@ public class UserController {
 			model.addAttribute("umail", session.getAttribute("umail"));
 			model.addAttribute("uphone", session.getAttribute("uphone"));
 
-<<<<<<< HEAD
-			if (u.getEmail().equals("admin@gmail.com")) {
-=======
 			if (u.getEmail().equals("admin@gmail.com") ) {
->>>>>>> branch 'main' of https://github.com/ShraddhaKhadme/Zippy_Go.git
 				System.out.println("Admin login Succesfull..");
 				page = "adminHome";
 			} else {
