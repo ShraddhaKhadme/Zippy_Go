@@ -114,7 +114,7 @@ public class UserController {
 		
 	}
 	
-/*	@PostMapping("forgot")
+	/*@PostMapping("forgot")
 	public String forgotPass(User u, Model model) {
 		String page = "";
 		System.out.println(u.getEmail());
@@ -127,14 +127,14 @@ public class UserController {
 			page = "forgot";
 		}
 		return page;
-	}*/
-	
+	}
+	*/
 	
 	@GetMapping("/userpage")
 	public String userpage( User u, HttpSession session, Model model )
 	{
 		//String message="user page";
-		return "UserHome";
+		return "UserHomee";
 	}
 	/*@PostMapping("/userHome")
 	public String userpage( User u,String email, HttpSession session, Model model )
