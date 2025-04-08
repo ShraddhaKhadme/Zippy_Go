@@ -13,7 +13,10 @@ public interface UserRepo extends JpaRepository<User, Integer>{
 	User findByEmailAndPassword(String email);
 
 	//@Query("select u from User u where u.email=:email")
-	boolean existsByEmail(String email); 
+	boolean existsByEmail(String email);
+
+	//@Query("update set n)
+	//int updatePassword(String email, String password); 
 	
 	
 }

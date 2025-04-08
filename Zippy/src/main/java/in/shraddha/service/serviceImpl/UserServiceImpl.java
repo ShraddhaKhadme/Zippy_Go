@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
 		return urepo.existsByEmail(email);
 	}
 
-	/*@Override
+/*	@Override
 	public String forgotPassword(String email, String password) {
 		String status = "";
 		boolean result = urepo.existsByEmail(email);
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
 			System.out.println(status);
 		}
 		return status;
-	}*/
+	}
 	
-
+*/
 }
