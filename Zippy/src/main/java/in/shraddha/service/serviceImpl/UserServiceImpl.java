@@ -49,12 +49,12 @@ public class UserServiceImpl implements UserService {
 	public String loginUser(String email, String password, HttpSession session) {
 		System.out.println(email + "this is in imple");
 		String b;
-		if ((urepo.findByEmail(email).getEmail().equals(email))
-				&& (urepo.findByEmail(email).getPassword().equals(password))) {
+		if ((urepo.findByEmailAndPassword(email).getEmail().equals(email))
+				&& (urepo.findByEmailAndPassword(email).getPassword().equals(password))) {
 			System.out.println("login Succesfull...........");
-			session.setAttribute("umail", urepo.findByEmail(email).getEmail());
-			session.setAttribute("uname", urepo.findByEmail(email).getName());
-			session.setAttribute("uphone", urepo.findByEmail(email).getPhone());
+			session.setAttribute("umail", urepo.findByEmailAndPassword(email).getEmail());
+			session.setAttribute("uname", urepo.findByEmailAndPassword(email).getName());
+			session.setAttribute("uphone", urepo.findByEmailAndPassword(email).getPhone());
 			b = "success";
 		} else {
 			System.out.println("Login unsuccess..");

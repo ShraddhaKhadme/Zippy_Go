@@ -115,69 +115,52 @@ a:hover {
     
     <script>
   $(document).ready(function () {
-    $('#login').submit(function (e) {
-      e.preventDefault(); 
-      
-      $('.error').text('');
-      let isValid = true;
-
-      const email = $('#email').val().trim();
-      const password = $('#password').val().trim();
-
-      
-      if (!email && !password) {
-        $('#emailError').text('Email is required.');
-        $('#passwordError').text('Password is required.');
-        return; 
-      }
-
-      
-
-     
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!email) {
-        $('#emailError').text('Email is required.');
-        isValid = false;
-      } else if (!emailRegex.test(email)) {
-        $('#emailError').text('Enter a valid email address.');
-        isValid = false;
-      }
-
-      
-
-      
-      if (!password) {
-        $('#passwordError').text('Password is required.');
-        isValid = false;
-      }
-
-
-      
-      if (isValid) {
-        $('#login')[0].reset();
+    $('#login').validate({
+      rules: {
+        email: {
+          required: true,
+          email: true,
+          remote: {
+            url: "/user/checkEmail",
+            type: "GET",
+            data: {
+              email: function () {
+                return $("#email").val();
+              }
+            },
+            dataFilter: function (response) {
+              if (response === "true") {
+                return JSON.stringify(true); 
+              } else {
+                return JSON.stringify(false); 
+              }
+            }
+          }
+        },
+        password: {
+          required: true,
+          minlength: 6
+        }
+      },
+      messages: {
+        email: {
+          required: "Email is required.",
+          email: "Enter a valid email address.",
+          remote: "Email ID already exists."
+        },
+        password: {
+          required: "Password is required.",
+          minlength: "Password must be at least 6 characters."
+        }
+        
+      },
+      errorPlacement: function (error, element) {
+        error.insertAfter(element);
+      },
+      submitHandler: function (form) {
+        form.submit(); 
       }
     });
-  });
-  
-  $(document).ready(function () {
-      $('#email').keyup(function () {
-          var email = $(this).val();
-          $.ajax({
-              url: '/user/checkEmail',
-              type: 'GET',
-              data: {email: email},
-              success: function (response) {
-                  if (response === true) {
-                      $('#emailError').text('Hii welcome back').css('color','rgb(27, 165, 27)');
-                  } else {
-                      $('#emailError').text('Email not exist').css('color','red');
-                  }
-              },
-              error: function () {
-                  $('#emailError').text('Error occurred while checking code');
-              }
-          });
-      });
   });
 </script>
 

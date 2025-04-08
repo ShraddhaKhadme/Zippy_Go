@@ -4,11 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Signup Page</title>
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js" integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js" integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <style>
-    @charset "UTF-8";
     .background-video {
       position: fixed;
       top: 0;
@@ -29,7 +31,6 @@
       padding: 10px;
       border-radius: 10px;
       backdrop-filter: blur(10px);
-     
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
 
@@ -38,16 +39,16 @@
       font-size: larger;
       font-weight: bold;
       text-transform: uppercase;
-       text-align: center;
+      text-align: center;
     }
 
     .signup-container input {
       display: block;
-	  width: 80%;
-	  padding: 10px;
-	  margin: 8px auto 2px auto; /* tight spacing between input and error */
-	  border: none;
-	  border-radius: 5px;
+      width: 80%;
+      padding: 10px;
+      margin: 8px auto 2px auto;
+      border: none;
+      border-radius: 5px;
     }
 
     .signup-container button {
@@ -70,16 +71,14 @@
       text-decoration: underline;
     }
 
-    .error {
+    label.error {
       color: black;
-	  font-size: 13px;
-	  margin: 2px auto 10px auto; 
-	  text-align: left;
-	  width: 80%;
-      
-      
+      font-size: 13px;
+      margin: 2px auto 10px auto;
+      text-align: left;
+      display: block;
+      width: 80%;
     }
-   
   </style>
 </head>
 <body>
@@ -92,116 +91,95 @@
   <h2>Sign Up</h2>
   <form action="/user/userregister" method="post" id="signup">
     <input type="text" name="name" id="name" placeholder="Username" />
-    <div class="error" id="nameError"></div>
 
     <input type="email" name="email" id="email" placeholder="Email" />
-    <div class="error" id="emailError"></div>
 
     <input type="text" name="phone" id="phone" placeholder="Phone number" />
-    <div class="error" id="phoneError"></div>
 
     <input type="password" name="password" id="password" placeholder="Password" />
-    <div class="error" id="passwordError"></div>
 
     <input type="password" name="cpassword" id="confirm" placeholder="Confirm password" />
-    <div class="error" id="confirmError"></div>
 
-   <center> <button type="submit" class="mt-1">Register</button>
-    <p>Already have an account? <a href="/user/login">Please login</a></p></center>
+    <center>
+      <button type="submit" class="mt-1">Register</button>
+      <p>Already have an account? <a href="/user/login">Please login</a></p>
+    </center>
   </form>
 </div>
 
 <script>
   $(document).ready(function () {
-    $('#signup').submit(function (e) {
-      e.preventDefault(); 
-      
-      $('.error').text('');
-      let isValid = true;
-
-      const name = $('#name').val().trim();
-      const email = $('#email').val().trim();
-      const phone = $('#phone').val().trim();
-      const password = $('#password').val().trim();
-      const confirmPassword = $('#confirm').val().trim();
-
-      
-      if (!name && !email && !phone && !password && !confirmPassword) {
-        $('#nameError').text('Name is required.');
-        $('#emailError').text('Email is required.');
-        $('#phoneError').text('Phone number is required.');
-        $('#passwordError').text('Password is required.');
-        $('#confirmError').text('Please confirm your password.');
-        return; 
-      }
-
-      
-      if (!name) {
-        $('#nameError').text('Name is required.');
-        isValid = false;
-      }
-
-     
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!email) {
-        $('#emailError').text('Email is required.');
-        isValid = false;
-      } else if (!emailRegex.test(email)) {
-        $('#emailError').text('Enter a valid email address.');
-        isValid = false;
-      }
-
-      
-      const phoneRegex = /^[0-9]{10}$/;
-      if (!phone) {
-        $('#phoneError').text('Phone number is required.');
-        isValid = false;
-      } else if (!phoneRegex.test(phone)) {
-        $('#phoneError').text('Enter a valid 10-digit phone number.');
-        isValid = false;
-      }
-
-      
-      if (!password) {
-        $('#passwordError').text('Password is required.');
-        isValid = false;
-      }
-
-    
-      if (!confirmPassword) {
-        $('#confirmError').text('Please confirm your password.');
-        isValid = false;
-      } else if (password !== confirmPassword) {
-        $('#confirmError').text("Passwords don't match.");
-        isValid = false;
-      }
-
-      
-      if (isValid) {
-        $('#signup')[0].reset();
+    $('#signup').validate({
+      rules: {
+        name: {
+          required: true,
+        },
+        email: {
+          required: true,
+          email: true,
+          remote: {
+            url: "/user/checkEmail",
+            type: "GET",
+            data: {
+              email: function () {
+                return $("#email").val();
+              }
+            },
+            dataFilter: function (response) {
+              if (response === "true") {
+                return JSON.stringify(false); 
+              } else {
+                return JSON.stringify(true); 
+              }
+            }
+          }
+        },
+        phone: {
+          required: true,
+          digits: true,
+          minlength: 10,
+          maxlength: 10
+        },
+        password: {
+          required: true,
+          minlength: 6
+        },
+        cpassword: {
+          required: true,
+          equalTo: "#password"
+        }
+      },
+      messages: {
+        name: {
+          required: "Name is required."
+        },
+        email: {
+          required: "Email is required.",
+          email: "Enter a valid email address.",
+          remote: "Email ID already exists."
+        },
+        phone: {
+          required: "Phone number is required.",
+          digits: "Enter only digits.",
+          minlength: "Phone number must be 10 digits.",
+          maxlength: "Phone number must be 10 digits."
+        },
+        password: {
+          required: "Password is required.",
+          minlength: "Password must be at least 6 characters."
+        },
+        cpassword: {
+          required: "Please confirm your password.",
+          equalTo: "Passwords do not match."
+        }
+      },
+      errorPlacement: function (error, element) {
+        error.insertAfter(element);
+      },
+      submitHandler: function (form) {
+        form.submit(); 
       }
     });
-  });
-  
-  $(document).ready(function () {
-      $('#email').keyup(function () {
-          var email = $(this).val();
-          $.ajax({
-              url: '/user/checkEmail',
-              type: 'GET',
-              data: {email: email},
-              success: function (response) {
-                  if (response === true) {
-                      $('#emailError').text('Email already Exist').css('color','rgb(27, 165, 27)');
-                  } else {
-                      $('#emailError').text('Email can be used').css('color','red');
-                  }
-              },
-              error: function () {
-                  $('#emailError').text('Error occurred while checking code');
-              }
-          });
-      });
   });
 </script>
 

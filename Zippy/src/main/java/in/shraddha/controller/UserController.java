@@ -43,15 +43,7 @@ public class UserController {
 		return "login";
 	}
 	
-/*	@PostMapping("/userregister")
-	public String save(@ModelAttribute User u,Model model)
-	{
-		Integer uid=service.saveUser(u);
-		String message="user data updated";
-		model.addAttribute("message",message);
-		return "register";
-		
-	}*/
+
 	
 	@PostMapping("/userregister")
 	public String userRegister(@ModelAttribute User u, Model model) {
@@ -80,14 +72,10 @@ public class UserController {
 		return page;
 	}
 	
-	/*@PostMapping("/userlogin")
-	public String login(@Requestparam String name,String password,Model model)
-	{
-		
-	}*/
+	
 	
 	@PostMapping("/userlogin")
-	public String userLogin(User u, HttpSession session, Model model) {
+	public String userLogin(@ModelAttribute User u, HttpSession session, Model model) {
 		String page = "";
 		String status = service.loginUser(u.getEmail(), u.getPassword(), session);
 //this will get the current name and the passoword of the user who has entered
