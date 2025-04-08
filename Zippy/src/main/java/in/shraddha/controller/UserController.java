@@ -86,7 +86,11 @@ public class UserController {
 			model.addAttribute("umail", session.getAttribute("umail"));
 			model.addAttribute("uphone", session.getAttribute("uphone"));
 
+<<<<<<< HEAD
 			if (u.getEmail().equals("admin@gmail.com")) {
+=======
+			if (u.getEmail().equals("admin@gmail.com") ) {
+>>>>>>> branch 'main' of https://github.com/ShraddhaKhadme/Zippy_Go.git
 				System.out.println("Admin login Succesfull..");
 				page = "adminHome";
 			} else {
@@ -128,5 +132,21 @@ public class UserController {
 		}
 		return page;
 	}*/
+	
+	
+	@GetMapping("/userpage")
+	public String userpage( User u, HttpSession session, Model model )
+	{
+		//String message="user page";
+		return "UserHome";
+	}
+	/*@PostMapping("/userHome")
+	public String userpage( User u,String email, HttpSession session, Model model )
+	{
+		User user1=service.getOneUser(id);
+		model.addAttribute("user",user1);
+		return "UserHome";
+	}
+	*/
 
 }
