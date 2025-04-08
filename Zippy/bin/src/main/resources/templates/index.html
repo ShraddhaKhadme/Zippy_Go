@@ -8,6 +8,119 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .navbar {
+<<<<<<< HEAD
+            background-color: #343a40; 
+        }
+        .navbar a {
+            color: white;
+        }
+        .navbar a:hover {
+            color: #f8f9fa;
+        }
+        .navbar-nav {
+            font-size: 20px;
+            gap: 20px;
+        }
+        .navbar-brand img {
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+        }
+
+        .carousel {
+            margin-top: 80px; 
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" th:href="@{/zippy/}">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/017/302/638/small_2x/creative-zg-letter-with-luxury-concept-modern-zg-logo-design-for-business-and-company-identity-free-vector.jpg" 
+                     alt="ZippyGo Logo">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto me-5">
+                    <li class="nav-item"><a class="nav-link text-white" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#footer">Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link text-white btn btn-outline-success ms-2" href="/login">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/034/078/501/small_2x/shopping-cart-full-of-product-in-grocery-store-generative-ai-photo.jpg" class="d-block w-100" alt="Shopping Cart">
+            </div>
+            <div class="carousel-item">
+                <img src="https://static.vecteezy.com/system/resources/previews/050/054/373/non_2x/close-up-of-hand-holding-smartphone-in-grocery-store-free-photo.jpg" class="d-block w-100" alt="Smartphone Shopping">
+            </div>
+            <div class="carousel-item">
+                <img src="https://www.icoderzsolutions.com/blog/wp-content/uploads/2019/06/Grocery-App-Development-In-Home-Delivery_-Walmart%E2%80%99s-Next-Big-Move.jpg" class="d-block w-100" alt="Grocery App">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    
+    <div id="services" class="container mt-5 mb-5">
+        <h1 class="text-center text-warning">Our Services</h1>
+        
+        <div class="row d-flex justify-content-center gap-3">
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="https://via.placeholder.com/" class="card-img-top" alt="Service 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Service 1</h5>
+                        <p class="card-text">Quick and easy shopping experience with our top-tier services.</p>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="https://via.placeholder.com/" class="card-img-top" alt="Service 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Service 2</h5>
+                        <p class="card-text">Fast and reliable delivery with real-time tracking.</p>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="https://via.placeholder.com/" class="card-img-top" alt="Service 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Service 3</h5>
+                        <p class="card-text">24/7 customer support to assist you anytime, anywhere.</p>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+=======
             background-color: #FFB300; 
         }
         .navbar a {
@@ -326,6 +439,7 @@
     <p>&copy; 2025 ZippyGo. Handpicked with love, delivered with care.</p>
   </footer>
   </div>
+>>>>>>> branch 'main' of https://github.com/ShraddhaKhadme/Zippy_Go.git
     
     <section id="footer" class="float-start w-100">
     <footer class="text-white pt-5 pb-4" style="background-color: #131f34;">
