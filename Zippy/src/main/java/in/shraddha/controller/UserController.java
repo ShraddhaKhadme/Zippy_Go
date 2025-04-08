@@ -1,6 +1,7 @@
 package in.shraddha.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,30 +32,22 @@ public class UserController {
 		return "register";
 	}
 	
+	@GetMapping("/forgot")
+	public String forgot()
+	{
+		return "forgot";
+	}
 	@GetMapping("/login")
 	public String login()
 	{
 		return "login";
 	}
 	
-/*	@PostMapping("/userregister")
-	public String save(@ModelAttribute User u,Model model)
-	{
-		Integer uid=service.saveUser(u);
-		String message="user data updated";
-		model.addAttribute("message",message);
-		return "register";
-		
-	}*/
+
 	
-	@PostMapping("userregister")
+	@PostMapping("/userregister")
 	public String userRegister(@ModelAttribute User u, Model model) {
-		//dude each and every time the model attribute is used the register 
-		//Each registration form submission creates a new instance of RegisterEntity.
-		//This object is only populated with the details entered by the current user.
-		//No other user's data is involved because:
-	//	This is a POST request handling only one user's data at a time.--vvimp
-	//	The RegisterEntity object is not shared between users; it's specific to this request.
+		
 		boolean exist = service.checkUser(u.getEmail());
 		//using the getter method to fetch the details of the users
 		String page = "";
@@ -79,14 +72,10 @@ public class UserController {
 		return page;
 	}
 	
-	/*@PostMapping("/userlogin")
-	public String login(@Requestparam String name,String password,Model model)
-	{
-		
-	}*/
 	
-	@PostMapping("userlogin")
-	public String userLogin(User u, HttpSession session, Model model) {
+	
+	@PostMapping("/userlogin")
+	public String userLogin(@ModelAttribute User u, HttpSession session, Model model) {
 		String page = "";
 		String status = service.loginUser(u.getEmail(), u.getPassword(), session);
 //this will get the current name and the passoword of the user who has entered
@@ -97,13 +86,13 @@ public class UserController {
 			model.addAttribute("umail", session.getAttribute("umail"));
 			model.addAttribute("uphone", session.getAttribute("uphone"));
 
-			if (u.getEmail().equals("admin@gmail.com") && (u.getPassword().equals("12345678"))) {
+			if (u.getEmail().equals("admin@gmail.com") ) {
 				System.out.println("Admin login Succesfull..");
 				page = "Admin";
 			} else {
 
 				System.out.println("User login sucessful..");
-				page = "Home";
+				page = "UserHome";
 			}
 
 		}
@@ -116,6 +105,44 @@ public class UserController {
 		return page;
 	}
 
+	@GetMapping("/checkEmail")
+	public ResponseEntity<Boolean> getMethodName(@RequestParam String email) {
+		
+		boolean check=service.checkUser(email);
+		
+		return ResponseEntity.ok(check);
+		
+	}
 	
+/*	@PostMapping("forgot")
+	public String forgotPass(User u, Model model) {
+		String page = "";
+		System.out.println(u.getEmail());
+		String result = service.forgotPassword(u.getEmail(), u.getPassword());
+		if (result.equals("success")) {
+			model.addAttribute("message", "Password changed succesfully");
+			page = "login";
+		} else {
+			model.addAttribute(("message"), "No such user email");
+			page = "forgot";
+		}
+		return page;
+	}*/
+	
+	
+	@GetMapping("/userpage")
+	public String userpage( User u, HttpSession session, Model model )
+	{
+		//String message="user page";
+		return "UserHome";
+	}
+	/*@PostMapping("/userHome")
+	public String userpage( User u,String email, HttpSession session, Model model )
+	{
+		User user1=service.getOneUser(id);
+		model.addAttribute("user",user1);
+		return "UserHome";
+	}
+	*/
 
 }

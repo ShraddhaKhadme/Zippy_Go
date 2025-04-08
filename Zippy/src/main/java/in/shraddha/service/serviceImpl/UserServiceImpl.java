@@ -49,12 +49,12 @@ public class UserServiceImpl implements UserService {
 	public String loginUser(String email, String password, HttpSession session) {
 		System.out.println(email + "this is in imple");
 		String b;
-		if ((urepo.findByEmail(email).getEmail().equals(email))
-				&& (urepo.findByEmail(email).getPassword().equals(password))) {
+		if ((urepo.findByEmailAndPassword(email).getEmail().equals(email))
+				&& (urepo.findByEmailAndPassword(email).getPassword().equals(password))) {
 			System.out.println("login Succesfull...........");
-			session.setAttribute("umail", urepo.findByEmail(email).getEmail());
-			session.setAttribute("uname", urepo.findByEmail(email).getName());
-			session.setAttribute("uphone", urepo.findByEmail(email).getPhone());
+			session.setAttribute("umail", urepo.findByEmailAndPassword(email).getEmail());
+			session.setAttribute("uname", urepo.findByEmailAndPassword(email).getName());
+			session.setAttribute("uphone", urepo.findByEmailAndPassword(email).getPhone());
 			b = "success";
 		} else {
 			System.out.println("Login unsuccess..");
@@ -69,6 +69,27 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return urepo.existsByEmail(email);
 	}
+
+	/*@Override
+	public String forgotPassword(String email, String password) {
+		String status = "";
+		boolean result = urepo.existsByEmail(email);
+		if (result) {
+			int i = urepo.updatePassword(email, password);
+			if (i > 0) {
+				status = "success";
+				System.out.println(status);
+			} else {
+				status = "updatation failure";
+				System.out.println(status);
+			}
+		} else {
+			System.out.println("No such mail found");
+			status = "failure";
+			System.out.println(status);
+		}
+		return status;
+	}*/
 	
 
 }

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ZippyGo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style1.css">
+</head>
+<style>
+    
+    body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
+}
+
+.header {
+    background-color: #FFB300; 
+  color: white;
+}
+
+
+.delivery-info {
+  background-color: #e6e6fa;
+}
+
+.search-bar input {
+  border-radius: 10px;
+  width: 350px;
+  position: relative;
+left: 1000px;
+}
+
+.categories div {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.lowest-prices {
+  background: linear-gradient(to right, #bef565, #7ae187);
+  color: white;
+  border-radius: 12px;
+}
+
+
+
+.cart-info {
+  background-color: #f0f0f0;
+  font-size: 14px;
+}
+
+.bottom-nav div {
+  font-size: 14px;
+  font-weight: 500;
+}
+.background-video1 {
+  height: 65px;
+  width: 65px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid white;
+}
+
+.product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .product-card {
+      background: rgb(240, 241, 245);
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 15px;
+      width: 300px;
+      height: 350px;
+      position: relative;
+      text-align: center;
+    }
+
+    .discount-tag {
+      background:  #FFB300;
+      color: white;
+      padding: 2px 6px;
+      font-size: 12px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      border-radius: 4px;
+    }
+
+    .product-card img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin: 10px 0;
+    }
+
+    .delivery-time {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .price {
+      margin: 5px 0;
+    }
+
+    button {
+      background: rgb(243, 77, 77);
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .cart-footer {
+      background: white;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      bottom: 0;
+    }
+
+
+</style>
+<body>
+
+  <!-- Header -->
+  <div class="header d-flex justify-content-between align-items-center px-3 py-2">
+    <a class="navbar-brand d-flex align-items-center" th:href="@{/zippy/}">
+        <video autoplay loop muted playsinline class="background-video1">
+            <source src="logo.mp4" type="video/mp4">
+        </video>
+    </a>
+    
+  </div>
+
+  <!-- Delivery Info -->
+  <div class="delivery-info px-3 py-2 d-flex justify-content-between align-items-center">
+    <div>
+      <strong>Delivery In 8 Mins</strong><br>
+     
+    </div>
+    <button class="btn btn-warning btn-sm">login</button>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-bar px-3 py-2">
+    <input type="text" class="form-control" placeholder='Search for "toys"'>
+  </div>
+
+  <!-- Categories -->
+  <div class="categories d-flex justify-content-around text-center py-2">
+    <button type="button" class="btn btn-light">🧺 All</button>
+    <button type="button" class="btn btn-light"> ☕Cafe</button>
+    <button type="button" class="btn btn-light">🍎 Fruits</button>
+    <button type="button" class="btn btn-light">🥕 vegetables</button>
+    <button type="button" class="btn btn-light">🏠 Home</button>
+    
+  </div>
+
+  <!-- Lowest Prices Banner -->
+  <div class="lowest-prices text-center p-3">
+    <h5>LOWEST PRICES</h5>
+    <h5>"Hey you 👀...
+        <br>
+        Don’t just scroll past me like I’m any ordinary item.
+        <br>
+        I’m cute, useful, and 100% ready to spice up your life 💁‍♀️
+        <br>
+        Go ahead... click Add to Cart — let’s make some magic happen 💫"</h5>
+  
+  </div>
+
+
+  <div class="product-grid">
+    <div class="product-card">
+      <div class="discount-tag">52% Off</div>
+      <img src="https://3.bp.blogspot.com/-qmDHBivVW2U/Vyjksnd0vuI/AAAAAAAAF3c/9z97d9T64akIOUqCfMLM_sLcf0oiXrtygCLcB/s1600/rawcarrots.jpg" alt="Carrot Local">
+      <h3>Carrot Local</h3>
+      <p class="delivery-time">8 Mins</p>
+      <p class="price"><del>₹67</del> ₹32</p>
+      <button onclick="addToCart(32)">Add</button>
+    </div>
+
+    <div class="product-card">
+      <div class="discount-tag">30% Off</div>
+      <img src="https://organicandreal.com/cdn/shop/files/chigrinxxctnl1.jpg?v=1721384736" alt="Chilli Green">
+      <h3>Chilli Green</h3>
+      <p class="delivery-time">8 Mins</p>
+      <p class="price"><del>₹26</del> ₹18</p>
+      <button onclick="addToCart(18)">Add</button>
+    </div>
+
+    <div class="product-card">
+      <div class="discount-tag">36% Off</div>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5QV0yp-TRLGQpg60Ej2uykNcjuxDny1fddQ&s" alt="Cucumber Green">
+      <h3>Cucumber Green</h3>
+      <p class="delivery-time">8 Mins</p>
+      <p class="price"><del>₹47</del> ₹30</p>
+      <button onclick="addToCart(30)">Add</button>
+    </div>
+
+    <div class="product-card">
+      <div class="discount-tag">81% Off</div>
+      <img src="https://cbx-prod.b-cdn.net/COLOURBOX48095085.jpg?width=800&height=800&quality=70" alt="Vietnamese Cold Coffee">
+      <h3>Vietnamese Cold Coffee</h3>
+      <p class="delivery-time">8 Mins</p>
+      <p class="price"><del>₹439</del> ₹80</p>
+      <button onclick="addToCart(80)">Add</button>
+    </div>
+
+    <div class="product-card">
+      <div class="discount-tag">4% Off</div>
+      <img src="https://m.media-amazon.com/images/I/71k5yQ2PnXL.AC_UF350,350_QL50.jpg" alt="Nandini Paneer">
+      <h3>Nandini Paneer</h3>
+      <p class="delivery-time">8 Mins</p>
+      <p class="price"><del>₹100</del> ₹96</p>
+      <button onclick="addToCart(96)">Add</button>
+    </div>
+  
+
+  <div class="product-card">
+    <div class="discount-tag">4% Off</div>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHl_rzwAEyApWWfXRIEolKFxbKb0gca8zG4Q&s" alt="Potato">
+    <h3> Potato</h3>
+    <p class="delivery-time">8 Mins</p>
+    <p class="price"><del>₹50</del> ₹36</p>
+    <button onclick="addToCart(36)">Add</button>
+  </div>
+
+
+<div class="product-card">
+    <div class="discount-tag">38% Off</div>
+    <img src="https://im.pluckk.in/unsafe/1200x0/uploads/7020-grapes_sonaka.jpg" alt="Potato">
+    <h3> Grapes</h3>
+    <p class="delivery-time">8 Mins</p>
+    <p class="price"><del>₹118</del> ₹76</p>
+    <button >Add</button>
+  </div>
+
+  <div class="product-card">
+    <div class="discount-tag">39% Off</div>
+    <img src="https://www.distacart.com/cdn/shop/products/LakmeSunExpertSPF50PAFairnessUVSunscreenLotion_1280x.jpg?v=1720607270" alt="Potato">
+    <h3>  Lakme Sun Expert Sunscreen Lotion</h3>
+    <p class="delivery-time">8 Mins</p>
+    <p class="price"><del>₹269</del> ₹174</p>
+    <button >Add</button>
+  </div>
+
+
+<div class="product-card">
+    <div class="discount-tag">5% Off</div>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa9hoKjGDm5BD--RY58ffk05znXSclrz-7ag&s" alt="Potato">
+    <h3> Bingo!Chilli Sprinkled potato Chips</h3>
+    <p class="delivery-time">8 Mins</p>
+    <p class="price"><del>₹20</del> ₹16</p>
+    <button >Add</button>
+  </div>
+
+
+<div class="product-card">
+    <div class="discount-tag">4% Off</div>
+    <img src="https://www.bigbasket.com/media/uploads/p/l/251006_13-sprite-soft-drink-lime-flavoured.jpg" alt="Potato">
+    <h3> Sprite Soft Drink</h3>
+    <p class="delivery-time">8 Mins</p>
+    <p class="price"><del>₹118</del> ₹100</p>
+    <button >Add</button>
+  </div>
+
+
+
+<div class="product-card">
+    <div class="discount-tag">31% Off</div>
+    <img src="https://m.media-amazon.com/images/I/61HKOG2wECL.AC_SL1500.jpg" alt="Potato">
+    <h3> Ariel Liquid Detergent Front Load</h3>
+    <p class="delivery-time">8 Mins</p>
+    <p class="price"><del>₹879</del> ₹576</p>
+    <button >Add</button>
+  </div>
+
+
+
+<div class="product-card">
+    <div class="discount-tag">60% Off</div>
+    <img src="https://specialtyproduce.com/sppics/6745.png " alt="Potato">
+    <h3> Coriander Leaves with roots</h3>
+    <p class="delivery-time">8 Mins</p>
+    <p class="price"><del>₹33</del> ₹13</p>
+    <button >Add</button>
+  </div>
+</div>
+
+
+
+
+  <div class="cart-footer">
+   
+    <button >View Cart</button>
+  </div>
+
+
+
+  <script>
+    let cart = {
+      items: 0,
+      total: 0
+    };
+
+    function addToCart(price) {
+      cart.items++;
+      cart.total += price;
+      updateCartDisplay();
+    }
+
+    // function updateCartDisplay() {
+    //   const cartTotal = document.getElementById('cart-total');
+    //   const discountInfo = document.getElementById('discount-info');
+    //   cartTotal.textContent = ${cart.items} Item${cart.items > 1 ? 's' : ''} | ₹ ${cart.total};
+
+    //   const remaining = 129 - cart.total;
+    //   if (remaining > 0) {
+    //     discountInfo.textContent = Shop for ₹${remaining} more to unlock ₹50 EXTRA discount!;
+    //   } else {
+    //     discountInfo.textContent = You've unlocked ₹50 EXTRA discount!;
+    //   }
+    // }
+
+    // function viewCart() {
+    //   alert(Total: ₹${cart.total} with ${cart.items} item(s) in your cart.);
+    
+  </script>
+
+
+ <!--
+
+  
+  <div class="bottom-nav d-flex justify-content-around align-items-center p-2 fixed-bottom bg-light border-top">
+    <button type="button" class="btn btn-warning">Back</button>
+    <button type="button" class="btn btn-warning">Categories</button>
+    <button type="button" class="btn btn-warning">Cart</button>
+   
+  </div>
+
+ 
+  
+    <div class="container py-3">
+      <div class="row g-3">
+  
+      
+  
+  
+  
+
+<div class="col-6 col-md-4 col-lg-3" >
+    <div class="product-card p-2 shadow-sm rounded-4 bg-white position-relative">
+      <span class="badge discount-badge bg-purple">40% Off</span>
+      <img src="https://img.freepik.com/premium-vector/cartoon-tomatoes-vector_1245719-5622.jpg" class="img-fluid rounded-3 mb-2" alt="Product">
+      <div class="text-muted small mb-1"><i class="bi bi-clock"></i> 12 Mins</div>
+      <h6 class="fw-semibold">Tomato Hybrid</h6>
+      <div class="small text-muted mb-1">50g</div>
+      <div class="mb-2">
+        <span class="text-muted text-decoration-line-through">₹31</span>
+        <span class="fw-bold text-dark"> ₹17</span>
+      </div>
+      <button class="btn btn-outline-danger w-100 btn-sm fw-semibold">Add</button>
+    </div>
+  </div>
+  
+-->
+
+
+  
+
+  <script src="script.js">
+
+$(document).ready(function() {
+  // Example functionality: progress animation
+  $('.progress-bar').animate({
+    width: '75%'
+  }, 1000);
+});
+
+  </script>
+</body>
+</html>
