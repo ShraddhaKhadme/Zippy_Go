@@ -86,9 +86,9 @@ public class UserController {
 			model.addAttribute("umail", session.getAttribute("umail"));
 			model.addAttribute("uphone", session.getAttribute("uphone"));
 
-			if (u.getEmail().equals("admin@gmail.com") && (u.getPassword().equals("12345678"))) {
+			if (u.getEmail().equals("admin@gmail.com")) {
 				System.out.println("Admin login Succesfull..");
-				page = "Admin";
+				page = "adminHome";
 			} else {
 
 				System.out.println("User login sucessful..");
