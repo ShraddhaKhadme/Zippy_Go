@@ -7,10 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 import in.shraddha.entity.User;
 
 public interface UserRepo extends JpaRepository<User, Integer>{
-	User findByEmail(String email);
+	
+	
+	@Query("select u from User u where u.email=:email")
+	User findByEmailAndPassword(String email);
 
+	//@Query("select u from User u where u.email=:email")
 	boolean existsByEmail(String email); 
-	//@Modifying
-	//@Query("UPDATE USER SET Password = :password WHERE Email = :mail")
-	//int updatePassword(String email, String password);
+	
+	
 }
