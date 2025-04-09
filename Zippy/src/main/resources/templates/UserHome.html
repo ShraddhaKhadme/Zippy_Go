@@ -1,518 +1,522 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>ZippyGo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<meta charset="UTF-8">
+<title>ZippyGo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <!-- Bootstrap CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- jQuery CDN -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="style1.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+	integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- CSS file path -->
+<link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}" />
+
 </head>
-<style>
-    
-    body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f8f9fa;
-}
 
-.header {
-    background-color: #FFB300; 
-  color: white;
-  display: flex;
-}
-
-
-.delivery-info {
-  background-color: #e6e6fa;
-}
-
-.search-bar
-{
-  display: flex;
- 
-}
-.search-bar input {
-  border-radius: 10px;
-  width: 350px;
-  
-}
-
-.categories div {
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.lowest-prices {
-  background: linear-gradient(to right, #f4d54d, #FFB300);
-  color: white;
-  border-radius: 12px;
-}
-
-
-
-.cart-info {
-  background-color: #f0f0f0;
-  font-size: 14px;
-}
-
-.bottom-nav div {
-  font-size: 14px;
-  font-weight: 500;
-}
-.background-video1 {
-  height: 65px;
-  width: 65px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 1px solid white;
-}
-
-.product-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      padding: 20px;
-    }
-
-    .product-card {
-      background: rgb(240, 241, 245);
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      padding: 15px;
-      width: 300px;
-      height: 350px;
-      position: relative;
-      text-align: center;
-    }
-
-    .discount-tag {
-      background:  #FFB300;
-      color: white;
-      padding: 2px 6px;
-      font-size: 12px;
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      border-radius: 4px;
-    }
-
-    .product-card img {
-      width: 100px;
-      height: 100px;
-      object-fit: contain;
-      margin: 10px 0;
-    }
-
-    .delivery-time {
-      font-size: 12px;
-      color: #666;
-    }
-
-    .price {
-      margin: 5px 0;
-    }
-
-    button {
-      background: rgb(243, 77, 77);
-      color: white;
-      padding: 6px 12px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .cart-footer {
-      background: white;
-      padding: 15px;
-      text-align: center;
-      box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
-      position: sticky;
-      bottom: 0;
-    }
-
-    .fa-cart-shopping{
-      color: black;
-     display: flex;
-     gap: 0;
-
-    }
-
-
-
-
-</style>
 <body>
 
-  <!-- Header -->
-  <div class="header d-flex justify-content-between align-items-center px-3 py-2">
-    <a class="navbar-brand d-flex align-items-center" th:href="@{/zippy/}">
-      <video autoplay loop muted playsinline class="background-video1">
-        <source src="logo2.mp4" type="video/mp4" />
-      </video>
-    </a>
-  
-    <div class="d-flex align-items-center">
-      
-      <button class="btn btn-success btn-sm me-1">Profile</button>
-      <button class="btn btn-success btn-sm">Logout</button>
-    </div>
-  </div>
-  
-  
+	<!-- Header -->
+	<div
+		class="header d-flex justify-content-between align-items-center px-3 py-2">
+		<a class="navbar-brand d-flex align-items-center" th:href="@{/zippy/}">
+			<video autoplay loop muted playsinline class="background-video1">
+				<source src="logo2.mp4" type="video/mp4" />
+			</video>
+		</a>
 
-  <!-- Delivery Info -->
-  <div class="delivery-info px-3 py-2 d-flex justify-content-between align-items-center">
-    <div>
-      <strong>Delivery In 8 Mins</strong><br>
-     
-    </div>
-  
-  </div>
+		<div class="d-flex align-items-center">
 
-  <!-- Search Bar -->
-  <div class="search-bar px-3 py-2 d-flex justify-content-end align-items-center gap-2">
-    <input type="text" id="searchInput" class="form-control" placeholder='Search for "items"' style="width: 300px;">
-    <i class="fa-solid fa-cart-shopping me-2"></i>
-    <button class="btn btn-warning btn-sm">Orders</button>
-  </div>
-  
-  
-
-  
-
-
- 
-
-  <!-- Categories -->
-  <div class="categories d-flex justify-content-around text-center py-2">
-    <button type="button" class="btn btn-light"><i class="fa-solid fa-basket-shopping me-1"></i> All</button>
-    <button type="button" class="btn btn-light"><i class="fa-solid fa-mug-hot"></i> Cafe
-      </button>
-   
-      <button class="btn btn-light">
-        <i class="fa-solid fa-spa me-1"></i> Beauty
-      </button>
-      
-      <button class="btn btn-light">
-        <i class="fa-solid fa-carrot me-1"></i> Vegetables
-      </button>
-      
-      <button class="btn btn-light">
-        <i class="fa-solid fa-drumstick-bite me-1"></i> Meat
-      </button>
-    <button type="button" class="btn btn-light">	<i class="fa-solid fa-headphones"></i>Electornics</button>
-    <button type="button" class="btn btn-light">
-      <i class="fa-solid fa-house me-1"></i> Home
-    </button>
-    
-    
-  </div>
-
-  <!-- Lowest Prices Banner -->
-  <div class="lowest-prices text-center p-3">
-    <h5>LOWEST PRICES</h5>
-    <h5>"Hey you 👀...
-        <br>
-        Don’t just scroll past me like I’m any ordinary item.
-        <br>
-        I’m cute, useful, and 100% ready to spice up your life 💁‍♀️
-        <br>
-        Go ahead... click Add to Cart — let’s make some magic happen 💫"</h5>
-  
-  </div>
-  
-  <a href="#" class="d-flex p-2 me-2 text-decoration-none">
-  <div class="card m-2" style="width: 18rem;" th:each="ob:${list}" th:if="${ob.category=='Fruits'}">
-  <img th:src="@{${ob.img}}" class="card-img-top" alt="...">
-  <div class="card-body">
-  <h5 class="card-title">[[${ob.name}]]</h5>
-   <p>&#8377;[[${ob.price}]]</p>
-  </div>
-</div> </a>
-
-
-  <div class="product-grid">
-  
-    <div class="product-card">
-      <div class="discount-tag">52% Off</div>
-      <img src="https://wallpapercrafter.com/desktop1/616040-red-delicious-apples-macro-photography-fruit-apple.jpg">
-      <h3>Apple</h3>
-      <p class="delivery-time">8 Mins</p>
-      <p class="price"><del>₹67</del> ₹32</p>
-      <button onclick="addToCart(32)">Add</button>
-    </div>
-
-    <div class="product-card">
-      <div class="discount-tag">30% Off</div>
-      <img src="https://organicandreal.com/cdn/shop/files/chigrinxxctnl1.jpg?v=1721384736" alt="Chilli Green">
-      <h3>Chilli Green</h3>
-      <p class="delivery-time">8 Mins</p>
-      <p class="price"><del>₹26</del> ₹18</p>
-      <button onclick="addToCart(18)">Add</button>
-    </div>
-
-    <div class="product-card">
-      <div class="discount-tag">36% Off</div>
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5QV0yp-TRLGQpg60Ej2uykNcjuxDny1fddQ&s" alt="Cucumber Green">
-      <h3>Cucumber Green</h3>
-      <p class="delivery-time">8 Mins</p>
-      <p class="price"><del>₹47</del> ₹30</p>
-      <button onclick="addToCart(30)">Add</button>
-    </div>
-
-    <div class="product-card">
-      <div class="discount-tag">81% Off</div>
-      <img src="https://cbx-prod.b-cdn.net/COLOURBOX48095085.jpg?width=800&height=800&quality=70" alt="Vietnamese Cold Coffee">
-      <h3>Vietnamese Cold Coffee</h3>
-      <p class="delivery-time">8 Mins</p>
-      <p class="price"><del>₹439</del> ₹80</p>
-      <button onclick="addToCart(80)">Add</button>
-    </div>
-
-    <div class="product-card">
-      <div class="discount-tag">4% Off</div>
-      <img src="https://m.media-amazon.com/images/I/71k5yQ2PnXL.AC_UF350,350_QL50.jpg" alt="Nandini Paneer">
-      <h3>Nandini Paneer</h3>
-      <p class="delivery-time">8 Mins</p>
-      <p class="price"><del>₹100</del> ₹96</p>
-      <button onclick="addToCart(96)">Add</button>
-    </div>
-  
-
-  <div class="product-card">
-    <div class="discount-tag">4% Off</div>
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHl_rzwAEyApWWfXRIEolKFxbKb0gca8zG4Q&s" alt="Potato">
-    <h3> Potato</h3>
-    <p class="delivery-time">8 Mins</p>
-    <p class="price"><del>₹50</del> ₹36</p>
-    <button onclick="addToCart(36)">Add</button>
-  </div>
-
-
-<div class="product-card">
-    <div class="discount-tag">38% Off</div>
-    <img src="https://im.pluckk.in/unsafe/1200x0/uploads/7020-grapes_sonaka.jpg" alt="Potato">
-    <h3> Grapes</h3>
-    <p class="delivery-time">8 Mins</p>
-    <p class="price"><del>₹118</del> ₹76</p>
-    <button >Add</button>
-  </div>
-
-  <div class="product-card">
-    <div class="discount-tag">39% Off</div>
-    <img src="https://www.distacart.com/cdn/shop/products/LakmeSunExpertSPF50PAFairnessUVSunscreenLotion_1280x.jpg?v=1720607270" alt="Potato">
-    <h3>  Lakme Sun Expert Sunscreen Lotion</h3>
-    <p class="delivery-time">8 Mins</p>
-    <p class="price"><del>₹269</del> ₹174</p>
-    <button >Add</button>
-  </div>
-
-
-<div class="product-card">
-    <div class="discount-tag">5% Off</div>
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa9hoKjGDm5BD--RY58ffk05znXSclrz-7ag&s" alt="Potato">
-    <h3> Bingo!Chilli Sprinkled potato Chips</h3>
-    <p class="delivery-time">8 Mins</p>
-    <p class="price"><del>₹20</del> ₹16</p>
-    <button >Add</button>
-  </div>
-
-
-<div class="product-card">
-    <div class="discount-tag">4% Off</div>
-    <img src="https://www.bigbasket.com/media/uploads/p/l/251006_13-sprite-soft-drink-lime-flavoured.jpg" alt="Potato">
-    <h3> Sprite Soft Drink</h3>
-    <p class="delivery-time">8 Mins</p>
-    <p class="price"><del>₹118</del> ₹100</p>
-    <button >Add</button>
-  </div>
+			<button class="btn btn-success btn-sm me-1">Profile</button>
+			<button class="btn btn-success btn-sm">Logout</button>
+		</div>
+	</div>
 
 
 
-<div class="product-card">
-    <div class="discount-tag">31% Off</div>
-    <img src="https://m.media-amazon.com/images/I/61HKOG2wECL.AC_SL1500.jpg" alt="Potato">
-    <h3> Ariel Liquid Detergent Front Load</h3>
-    <p class="delivery-time">8 Mins</p>
-    <p class="price"><del>₹879</del> ₹576</p>
-    <button >Add</button>
-  </div>
+	<!-- Delivery Info -->
+	<div
+		class="delivery-info px-3 py-2 d-flex justify-content-between align-items-center">
+		<div>
+			<strong>Delivery In 8 Mins</strong><br>
+
+		</div>
+
+	</div>
+
+	<!-- Search Bar -->
+	<div
+		class="search-bar px-3 py-2 d-flex justify-content-end align-items-center gap-2">
+		<input type="text" id="searchInput" class="form-control"
+			placeholder='Search for "items"' style="width: 300px;">
+
+		<div class="position-relative d-inline-block me-2">
+			<i class="fa-solid fa-cart-shopping fs-4"></i> <span id="cart-count"
+				class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">
+				0 </span>
+		</div>
+
+		<button class="btn btn-warning btn-sm">Orders</button>
+	</div>
 
 
 
-<div class="product-card">
-    <div class="discount-tag">60% Off</div>
-    <img src="https://specialtyproduce.com/sppics/6745.png " alt="Potato">
-    <h3> Coriander Leaves with roots</h3>
-    <p class="delivery-time">8 Mins</p>
-    <p class="price"><del>₹33</del> ₹13</p>
-    <button >Add</button>
-  </div>
-</div>
+	<!-- Categories -->
+	<div class="categories d-flex justify-content-around text-center py-2">
+		<button type="button" class="btn btn-light">
+			<i class="fa-solid fa-basket-shopping me-1"></i> All
+		</button>
+		<button type="button" class="btn btn-light">
+			<i class="fa-solid fa-mug-hot"></i> Cafe
+		</button>
+
+		<button class="btn btn-light">
+			<i class="fa-solid fa-spa me-1"></i> Beauty
+		</button>
+
+		<button class="btn btn-light">
+			<i class="fa-solid fa-carrot me-1"></i> Vegetables
+		</button>
+
+		<button class="btn btn-light">
+			<i class="fa-solid fa-drumstick-bite me-1"></i> Meat
+		</button>
+		<button type="button" class="btn btn-light">
+			<i class="fa-solid fa-headphones"></i>Electornics
+		</button>
+		<button type="button" class="btn btn-light">
+			<i class="fa-solid fa-house me-1"></i> Home
+		</button>
+
+
+	</div>
+
+	<!-- Lowest Prices Banner -->
+	<div class="lowest-prices text-center p-3">
+		<h5>LOWEST PRICES</h5>
+		<h5>
+			"Hey you 👀... <br> Don’t just scroll past me like I’m any
+			ordinary item. <br> I’m cute, useful, and 100% ready to spice up
+			your life 💁‍♀️ <br> Go ahead... click Add to Cart — let’s make
+			some magic happen 💫"
+		</h5>
+
+	</div>
+
+
+	<div class="d-flex flex-wrap justify-content-start m-3">
+		<div class="card m-2" style="width: 18rem; height: 100%;"
+			th:each="ob : ${list}" th:if="${ob.category == 'Fruits'}">
+
+			<div class="position-relative">
+				<a th:href="@{'/product/' + ${ob.id}}"> <img
+					th:src="@{${ob.img}}" class="card-img-top" height="180"
+					width="100%">
+				</a> <span class="discount-tag"
+					th:text="${#numbers.formatDecimal((ob.discount / ob.price) * 100, 2, 2)} + '%' + ' Off'">
+				</span>
+			</div>
+
+			<div
+				class="card-body d-flex flex-column justify-content-between text-center">
+				<div>
+					<h5 class="card-title">[[${ob.name}]]</h5>
+					<strike class="card-text ">&#8377;[[${ob.price}]]</strike> <strong
+						class="card-text fs-5"
+						th:text="'&#8377;' + ${#numbers.formatDecimal(ob.price - ob.discount, 2, 2)} + '/kg'">
+					</strong>
+
+				</div>
+
+				<div class="mt-3 " th:attr="id='button-container-' + ${ob.id}">
+					<button class="btn btn-primary"
+						th:onclick="showCounter([[${ob.id}]])">Add</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Toast Container - Top Center -->
+	<div class="position-fixed top-0 start-50 translate-middle-x p-3"
+		style="z-index: 1055;">
+		<div id="maxQtyToast"
+			class="toast align-items-center text-bg-primary border-0"
+			role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="d-flex">
+				<div class="toast-body">Maximum quantity reached (10 per
+					item).</div>
+				<button type="button" class="btn-close btn-close-white me-2 m-auto"
+					data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+		</div>
+	</div>
 
 
 
 
-  
-<section id="footer" class="float-start w-100">
-  <footer class="text-white pt-5 pb-4" style="background-color: #FFB300;">
-      <div class="container text-center text-md-start">
-          <div class="row">
-              
-              <!-- Company Info -->
-              <div class="col-md-3">
-                  <h5 class="text-uppercase mb-4 font-weight-bold" style="color: #8b6508;">ZippyGo</h5>
-                  <p>Expertly managing events with precision, creativity, and a seamless experience from concept to execution.</p>
-              </div>
-              
-              <!-- Links -->
-              <div class="col-md-3">
-                  <h5 class="text-uppercase mb-4 font-weight-bold" style="color: #8b6508;">Products</h5>
-                  <p><a href="#" class="text-decoration-none text-white">Fruits & Vegitables</a></p>
-                  <p><a href="#" class="text-decoration-none text-white">Home Appliences</a></p>
-                  <p><a href="#" class="text-decoration-none text-white">Electronics</a></p>
-              </div>
-              
-              <!-- Useful Links -->
-              <div class="col-md-3">
-                  <h5 class="text-uppercase mb-4 font-weight-bold" style="color: #8b6508;">Useful Links</h5>
-                  <p><a href="#" class="text-decoration-none text-white">Your Account</a></p>
-                  <p><a href="#services" class="text-decoration-none text-white">Services</a></p>
-                  <p><a href="#" class="text-decoration-none text-white">Shipping Rates</a></p>
-                  <p><a href="#" class="text-decoration-none text-white">Help</a></p>
-              </div>
-              
-              <!-- Contact -->
-              <div class="col-md-2">
-                  <h5 class="text-uppercase mb-4 font-weight-bold" style="color: #8b6508;">Contact</h5>
-                  <p><i class="fas fa-home me-2"></i> Vijaynagar, Bangalore</p>
-                   <p><i class="fas fa-envelope me-2"></i><a href="mailto:zippygo@gmail.com" class="text-white text-decoration-none">  zippygo.com</a></p>
-                  <p><i class="fas fa-phone me-2"></i> +91-98861892681</p>
-                  <p><i class="fas fa-print me-2"></i> +91-98861892682</p>
-              </div>
-          </div>
-
-          <hr class="my-3">
-
-          <!-- Social Media Links -->
-          <div class="row align-items-center text-center">
-              <div class="col-12">
-                  <div class="d-flex justify-content-center gap-3">
-                      <a href="https://www.facebook.com" target="_blank" class="btn btn-outline-danger text-white" role="button">
-                          <i class="fab fa-facebook-f"></i>
-                      </a>
-                      <a href="https://www.twitter.com" target="_blank" class="btn btn-outline-danger text-white" role="button">
-                          <i class="fab fa-twitter"></i>
-                      </a>
-                      <a href="https://www.google.com" target="_blank" class="btn btn-outline-danger text-white" role="button">
-                          <i class="fab fa-google"></i>
-                      </a>
-                      <a href="https://www.instagram.com" target="_blank" class="btn btn-outline-danger text-white" role="button">
-                          <i class="fab fa-instagram"></i>
-                      </a>
-                  </div>
-              </div>
-          </div>
-
-          <hr class="my-3">
-
-          <!-- Copyright Content Centered -->
-          <div class="row text-center">
-              <div class="col-12">
-                  <p>&copy; 2024 Copyright: <a href="#" class="text-white text-decoration-none"><strong>zippygo.com</strong></a></p>
-              </div>
-          </div>
-      </div>
-  </footer>
-</section>
 
 
 
-  <script>
-    let cart = {
-      items: 0,
-      total: 0
-    };
 
-    function addToCart(price) {
-      cart.items++;
-      cart.total += price;
-      updateCartDisplay();
+	<div class="product-grid">
+
+		<div class="product-card">
+			<div class="discount-tag">52% Off</div>
+			<img
+				src="https://wallpapercrafter.com/desktop1/616040-red-delicious-apples-macro-photography-fruit-apple.jpg">
+			<h3>Apple</h3>
+			<p class="delivery-time">8 Mins</p>
+			<p class="price">
+				<del>₹67</del>
+				₹32
+			</p>
+			<button onclick="addToCart(32)">Add</button>
+		</div>
+
+		<div class="product-card">
+			<div class="discount-tag">30% Off</div>
+			<img
+				src="https://organicandreal.com/cdn/shop/files/chigrinxxctnl1.jpg?v=1721384736"
+				alt="Chilli Green">
+			<h3>Chilli Green</h3>
+			<p class="delivery-time">8 Mins</p>
+			<p class="price">
+				<del>₹26</del>
+				₹18
+			</p>
+			<button onclick="addToCart(18)">Add</button>
+		</div>
+
+		<div class="product-card">
+			<div class="discount-tag">36% Off</div>
+			<img
+				src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5QV0yp-TRLGQpg60Ej2uykNcjuxDny1fddQ&s"
+				alt="Cucumber Green">
+			<h3>Cucumber Green</h3>
+			<p class="delivery-time">8 Mins</p>
+			<p class="price">
+				<del>₹47</del>
+				₹30
+			</p>
+			<button onclick="addToCart(30)">Add</button>
+		</div>
+
+		<div class="product-card">
+			<div class="discount-tag">81% Off</div>
+			<img
+				src="https://cbx-prod.b-cdn.net/COLOURBOX48095085.jpg?width=800&height=800&quality=70"
+				alt="Vietnamese Cold Coffee">
+			<h3>Vietnamese Cold Coffee</h3>
+			<p class="delivery-time">8 Mins</p>
+			<p class="price">
+				<del>₹439</del>
+				₹80
+			</p>
+			<button onclick="addToCart(80)">Add</button>
+		</div>
+
+		<div class="product-card">
+			<div class="discount-tag">4% Off</div>
+			<img
+				src="https://m.media-amazon.com/images/I/71k5yQ2PnXL.AC_UF350,350_QL50.jpg"
+				alt="Nandini Paneer">
+			<h3>Nandini Paneer</h3>
+			<p class="delivery-time">8 Mins</p>
+			<p class="price">
+				<del>₹100</del>
+				₹96
+			</p>
+			<button onclick="addToCart(96)">Add</button>
+		</div>
+
+
+		<div class="product-card">
+			<div class="discount-tag">4% Off</div>
+			<img
+				src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHl_rzwAEyApWWfXRIEolKFxbKb0gca8zG4Q&s"
+				alt="Potato">
+			<h3>Potato</h3>
+			<p class="delivery-time">8 Mins</p>
+			<p class="price">
+				<del>₹50</del>
+				₹36
+			</p>
+			<button onclick="addToCart(36)">Add</button>
+		</div>
+
+
+		<div class="product-card">
+			<div class="discount-tag">38% Off</div>
+			<img
+				src="https://im.pluckk.in/unsafe/1200x0/uploads/7020-grapes_sonaka.jpg"
+				alt="Potato">
+			<h3>Grapes</h3>
+			<p class="delivery-time">8 Mins</p>
+			<p class="price">
+				<del>₹118</del>
+				₹76
+			</p>
+			<button>Add</button>
+		</div>
+
+		<div class="product-card">
+			<div class="discount-tag">39% Off</div>
+			<img
+				src="https://www.distacart.com/cdn/shop/products/LakmeSunExpertSPF50PAFairnessUVSunscreenLotion_1280x.jpg?v=1720607270"
+				alt="Potato">
+			<h3>Lakme Sun Expert Sunscreen Lotion</h3>
+			<p class="delivery-time">8 Mins</p>
+			<p class="price">
+				<del>₹269</del>
+				₹174
+			</p>
+			<button>Add</button>
+		</div>
+
+
+		<div class="product-card">
+			<div class="discount-tag">5% Off</div>
+			<img
+				src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa9hoKjGDm5BD--RY58ffk05znXSclrz-7ag&s"
+				alt="Potato">
+			<h3>Bingo!Chilli Sprinkled potato Chips</h3>
+			<p class="delivery-time">8 Mins</p>
+			<p class="price">
+				<del>₹20</del>
+				₹16
+			</p>
+			<button>Add</button>
+		</div>
+
+
+		<div class="product-card">
+			<div class="discount-tag">4% Off</div>
+			<img
+				src="https://www.bigbasket.com/media/uploads/p/l/251006_13-sprite-soft-drink-lime-flavoured.jpg"
+				alt="Potato">
+			<h3>Sprite Soft Drink</h3>
+			<p class="delivery-time">8 Mins</p>
+			<p class="price">
+				<del>₹118</del>
+				₹100
+			</p>
+			<button>Add</button>
+		</div>
+
+
+
+		<div class="product-card">
+			<div class="discount-tag">31% Off</div>
+			<img
+				src="https://m.media-amazon.com/images/I/61HKOG2wECL.AC_SL1500.jpg"
+				alt="Potato">
+			<h3>Ariel Liquid Detergent Front Load</h3>
+			<p class="delivery-time">8 Mins</p>
+			<p class="price">
+				<del>₹879</del>
+				₹576
+			</p>
+			<button>Add</button>
+		</div>
+
+
+
+		<div class="product-card">
+			<div class="discount-tag">60% Off</div>
+			<img src="https://specialtyproduce.com/sppics/6745.png " alt="Potato">
+			<h3>Coriander Leaves with roots</h3>
+			<p class="delivery-time">8 Mins</p>
+			<p class="price">
+				<del>₹33</del>
+				₹13
+			</p>
+			<button>Add</button>
+		</div>
+	</div>
+
+
+
+
+	<section id="footer" class="float-start w-100">
+		<footer class="text-white pt-5 pb-4"
+			style="background-color: #FFB300;">
+			<div class="container text-center text-md-start">
+				<div class="row">
+
+					<!-- Company Info -->
+					<div class="col-md-3">
+						<h5 class="text-uppercase mb-4 font-weight-bold"
+							style="color: #8b6508;">ZippyGo</h5>
+						<p>Expertly managing events with precision, creativity, and a
+							seamless experience from concept to execution.</p>
+					</div>
+
+					<!-- Links -->
+					<div class="col-md-3">
+						<h5 class="text-uppercase mb-4 font-weight-bold"
+							style="color: #8b6508;">Products</h5>
+						<p>
+							<a href="#" class="text-decoration-none text-white">Fruits &
+								Vegitables</a>
+						</p>
+						<p>
+							<a href="#" class="text-decoration-none text-white">Home
+								Appliences</a>
+						</p>
+						<p>
+							<a href="#" class="text-decoration-none text-white">Electronics</a>
+						</p>
+					</div>
+
+					<!-- Useful Links -->
+					<div class="col-md-3">
+						<h5 class="text-uppercase mb-4 font-weight-bold"
+							style="color: #8b6508;">Useful Links</h5>
+						<p>
+							<a href="#" class="text-decoration-none text-white">Your
+								Account</a>
+						</p>
+						<p>
+							<a href="#services" class="text-decoration-none text-white">Services</a>
+						</p>
+						<p>
+							<a href="#" class="text-decoration-none text-white">Shipping
+								Rates</a>
+						</p>
+						<p>
+							<a href="#" class="text-decoration-none text-white">Help</a>
+						</p>
+					</div>
+
+					<!-- Contact -->
+					<div class="col-md-2">
+						<h5 class="text-uppercase mb-4 font-weight-bold"
+							style="color: #8b6508;">Contact</h5>
+						<p>
+							<i class="fas fa-home me-2"></i> Vijaynagar, Bangalore
+						</p>
+						<p>
+							<i class="fas fa-envelope me-2"></i><a
+								href="mailto:zippygo@gmail.com"
+								class="text-white text-decoration-none"> zippygo.com</a>
+						</p>
+						<p>
+							<i class="fas fa-phone me-2"></i> +91-98861892681
+						</p>
+						<p>
+							<i class="fas fa-print me-2"></i> +91-98861892682
+						</p>
+					</div>
+				</div>
+
+				<hr class="my-3">
+
+				<!-- Social Media Links -->
+				<div class="row align-items-center text-center">
+					<div class="col-12">
+						<div class="d-flex justify-content-center gap-3">
+							<a href="https://www.facebook.com" target="_blank"
+								class="btn btn-outline-danger text-white" role="button"> <i
+								class="fab fa-facebook-f"></i>
+							</a> <a href="https://www.twitter.com" target="_blank"
+								class="btn btn-outline-danger text-white" role="button"> <i
+								class="fab fa-twitter"></i>
+							</a> <a href="https://www.google.com" target="_blank"
+								class="btn btn-outline-danger text-white" role="button"> <i
+								class="fab fa-google"></i>
+							</a> <a href="https://www.instagram.com" target="_blank"
+								class="btn btn-outline-danger text-white" role="button"> <i
+								class="fab fa-instagram"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<hr class="my-3">
+
+				<!-- Copyright Content Centered -->
+				<div class="row text-center">
+					<div class="col-12">
+						<p>
+							&copy; 2024 Copyright: <a href="#"
+								class="text-white text-decoration-none"><strong>zippygo.com</strong></a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</section>
+
+	<script>
+  const itemQuantities = {};
+  let totalCartCount = 0;
+  const MAX_QUANTITY = 10;
+
+  function updateCartCountDisplay() {
+    document.getElementById("cart-count").innerText = totalCartCount;
+  }
+
+  function showCounter(productId) {
+    if (!itemQuantities[productId]) {
+      itemQuantities[productId] = 1;
+      totalCartCount++;
+      updateCartCountDisplay();
     }
 
-    // function updateCartDisplay() {
-    //   const cartTotal = document.getElementById('cart-total');
-    //   const discountInfo = document.getElementById('discount-info');
-    //   cartTotal.textContent = ${cart.items} Item${cart.items > 1 ? 's' : ''} | ₹ ${cart.total};
-
-    //   const remaining = 129 - cart.total;
-    //   if (remaining > 0) {
-    //     discountInfo.textContent = Shop for ₹${remaining} more to unlock ₹50 EXTRA discount!;
-    //   } else {
-    //     discountInfo.textContent = You've unlocked ₹50 EXTRA discount!;
-    //   }
-    // }
-
-    // function viewCart() {
-    //   alert(Total: ₹${cart.total} with ${cart.items} item(s) in your cart.);
-    
-  </script>
-
-
- <!--
-
-  
-  <div class="bottom-nav d-flex justify-content-around align-items-center p-2 fixed-bottom bg-light border-top">
-    <button type="button" class="btn btn-warning">Back</button>
-    <button type="button" class="btn btn-warning">Categories</button>
-    <button type="button" class="btn btn-warning">Cart</button>
-   
-  </div>
-
- 
-  
-    <div class="container py-3">
-      <div class="row g-3">
-  
-      
-  
-  
-  
-
-<div class="col-6 col-md-4 col-lg-3" >
-    <div class="product-card p-2 shadow-sm rounded-4 bg-white position-relative">
-      <span class="badge discount-badge bg-purple">40% Off</span>
-      <img src="https://img.freepik.com/premium-vector/cartoon-tomatoes-vector_1245719-5622.jpg" class="img-fluid rounded-3 mb-2" alt="Product">
-      <div class="text-muted small mb-1"><i class="bi bi-clock"></i> 12 Mins</div>
-      <h6 class="fw-semibold">Tomato Hybrid</h6>
-      <div class="small text-muted mb-1">50g</div>
-      <div class="mb-2">
-        <span class="text-muted text-decoration-line-through">₹31</span>
-        <span class="fw-bold text-dark"> ₹17</span>
+    const container = document.getElementById(`button-container-${productId}`);
+    container.innerHTML = `
+      <div class="d-flex justify-content-center align-items-center">
+        <button class="btn btn-warning btn-sm me-2" onclick="decrement(${productId})">-</button>
+        <span id="quantity-${productId}" class="mx-2">${itemQuantities[productId]}</span>
+        <button class="btn btn-primary btn-sm ms-2" onclick="increment(${productId})">+</button>
       </div>
-      <button class="btn btn-outline-danger w-100 btn-sm fw-semibold">Add</button>
-    </div>
-  </div>
+    `;
+  }
+
+  function increment(productId) {
+    if (itemQuantities[productId] < MAX_QUANTITY) {
+      itemQuantities[productId]++;
+      totalCartCount++;
+      document.getElementById(`quantity-${productId}`).innerText = itemQuantities[productId];
+      updateCartCountDisplay();
+    } else {
+      showMaxQtyToast();
+    }
+  }
+
+  function decrement(productId) {
+    if (itemQuantities[productId] > 0) {
+      itemQuantities[productId]--;
+      totalCartCount--;
+      updateCartCountDisplay();
+
+      if (itemQuantities[productId] === 0) {
+        const container = document.getElementById(`button-container-${productId}`);
+        container.innerHTML = `
+          <button class="btn btn-primary" onclick="showCounter(${productId})">Add</button>
+        `;
+        delete itemQuantities[productId];
+        return;
+      }
+
+      document.getElementById(`quantity-${productId}`).innerText = itemQuantities[productId];
+    }
+  }
+
+  function showMaxQtyToast() {
+    const toastEl = document.getElementById('maxQtyToast');
+    const toast = new bootstrap.Toast(toastEl);
+    toast.show();
+  }
   
--->
 
+</script>
 
-  
-
-
-
-
-
-
-
-   
 
 
 
