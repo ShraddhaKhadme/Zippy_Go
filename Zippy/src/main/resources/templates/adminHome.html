@@ -71,7 +71,7 @@
 .header {
   background: linear-gradient(to right, #bef565, #7ae187);
   color: white;
-  height: 100px;
+  height: 75px;
 }
 
 
@@ -81,6 +81,11 @@
 .btn-danger{
     margin-right: 30px;
 }
+.child{
+  display: flex;
+  padding-right: 50px;
+  font-family:'Times New Roman', Times, serif;
+}
 
 
 
@@ -88,22 +93,38 @@
 <body>
 
   <!-- Header -->
-  <div class="header d-flex justify-content-between align-items-center px-3 py-2">
-    <a class="navbar-brand d-flex align-items-center" th:href="@{/zippy/}">
-        <video autoplay loop muted playsinline class="background-video1">
-            <source src="logo.mp4" type="video/mp4">
-        </video>
-    </a>  
+  <div class="header d-flex justify-content-between align-items-center px-3 py-2 ">
+    <div class="child">
+      <!-- logo -->
+
+    </div>
+    <div class="child"><h3>Welcome, Admin</h3>
+
+    </div>  
   </div>
 
   <div class="delivery-info px-3 py-2 d-flex justify-content-between align-items-center">
+    <a href="#">
     <button type="button" class="btn btn-light" autofocus >HOME</button>
+    </a>
+    <a href="#">
     <button type="button" class="btn btn-light">ALL USERS</button>
+    </a>
+    <a href="#">
     <button type="button" class="btn btn-light">ADD CATEGORY</button>
+    </a>
+    <a href="#">
     <button type="button" class="btn btn-light">ADD PRODUCTS</button>
+    </a>
+    <a href="#">
     <button type="button" class="btn btn-light">ORDERS</button>
+    </a>
+    <a href="#">
     <button type="button" class="btn btn-light">REVIEWS</button>
+    </a>
+    <a href="#">
     <button type="button" class="btn btn-danger">LOGOUT</button>
+    </a>
   </div>
 
 
