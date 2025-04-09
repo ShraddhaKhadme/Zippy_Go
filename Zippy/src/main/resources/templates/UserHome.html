@@ -227,9 +227,19 @@
         Go ahead... click Add to Cart — let’s make some magic happen 💫"</h5>
   
   </div>
+  
+  <a href="#" class="d-flex p-2 me-2 text-decoration-none">
+  <div class="card m-2" style="width: 18rem;" th:each="ob:${list}" th:if="${ob.category=='Fruits'}">
+  <img th:src="@{${ob.img}}" class="card-img-top" alt="...">
+  <div class="card-body">
+  <h5 class="card-title">[[${ob.name}]]</h5>
+   <p>&#8377;[[${ob.price}]]</p>
+  </div>
+</div> </a>
 
-<
+
   <div class="product-grid">
+  
     <div class="product-card">
       <div class="discount-tag">52% Off</div>
       <img src="https://wallpapercrafter.com/desktop1/616040-red-delicious-apples-macro-photography-fruit-apple.jpg">
