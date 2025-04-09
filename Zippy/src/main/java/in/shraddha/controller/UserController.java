@@ -78,7 +78,7 @@ public class UserController {
 	public String userLogin(@ModelAttribute User u, HttpSession session, Model model) {
 		String page = "";
 		String status = service.loginUser(u.getEmail(), u.getPassword(), session);
-//this will get the current name and the passoword of the user who has entered
+//this will get the current name and the password of the user who has entered
 		if (status.equals("success")) {
 
 			//the status is set in the logic of the service the value of the status is returned as the success and the failure
@@ -88,7 +88,7 @@ public class UserController {
 
 			if (u.getEmail().equals("admin@gmail.com") ) {
 				System.out.println("Admin login Succesfull..");
-				page = "Admin";
+				page = "adminHome";
 			} else {
 
 				System.out.println("User login sucessful..");

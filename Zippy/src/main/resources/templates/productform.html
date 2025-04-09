@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Product</title> <!-- ✅ Updated title -->
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+  
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .background-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+  }
+
+  .signup-container {
+    padding: 30px;
+    margin: 5% auto;
+    width: 90%;
+    max-width: 550px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    background: rgba(255,255,255,0.95);
+  }
+
+  h2 {
+    color: black;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin-top: 17px;
+  }
+
+  input, select, textarea {
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #b29e9e;
+    font-size: 16px;
+    width: 80%;
+    box-sizing: border-box;
+  }
+
+  button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    align-self: center;
+    width: 50%;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .h2 {
+    position: relative;
+    left: 0;
+    text-align: center;
+  }
+.category{
+    position: relative;
+    left: 30px;
+}
+
+.description{
+    position: relative;
+    left: 30px;
+}
+
+.label{
+    display: flex;
+    justify-content: start;
+
+}
+  </style>
+</head>
+<body>
+
+  <!-- Video Background -->
+  <video autoplay loop muted playsinline class="background-video">
+    <source src="productform.mp4" type="video/mp4">
+  </video>
+
+  <div class="signup-container">
+   
+    <form id="productForm">
+        <h2 class="h2" style="color: black;">Add Product</h2>
+
+      <label class="label"  for="category">Category:</label>
+      <select id="category" class="category" name="category" required>
+        <option value="">-- Select Category --</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Fashion">Fashion</option>
+        <option value="Books">Books</option>
+        <option value="Home">Home</option>
+      </select>
+
+      <label  class="label"  for="productName">Product Name:</label>
+      <input type="text" class="input" id="productName" name="productName" placeholder="Enter product name" required />
+
+      <label class="label"  for="imagePath">Image Path:</label>
+      <input type="text" class="input" id="imagePath" name="imagePath" placeholder="Enter image path or URL" />
+
+      <label class="label"  for="price">Price (₹):</label>
+      <input type="number" class="input" id="price" name="price" placeholder="Enter price" required />
+
+      <label class="label"  for="discount">Discount (%):</label>
+      <input type="number" class="input" id="discount" name="discount" placeholder="Enter discount %" />
+
+      <label class="label"  for="description">Description:</label>
+      <textarea id="description" class="description" name="description" placeholder="Enter product description" rows="3" required></textarea>
+
+      <button class="btn" type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('productForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const data = {
+        category: document.getElementById('category').value,
+        productName: document.getElementById('productName').value,
+        description: document.getElementById('description').value,
+        price: document.getElementById('price').value,
+        discount: document.getElementById('discount').value,
+        imagePath: document.getElementById('imagePath').value,
+      };
+
+      console.log('Category Submitted:', data);
+      alert('Category added successfully!');
+
+      this.reset();
+    });
+  </script>
+
+</body>
+</html>
