@@ -19,4 +19,5 @@ public class Category {
 	private Integer id;
 	private String name;
 	private String img;
+	private String subcategory;
 }

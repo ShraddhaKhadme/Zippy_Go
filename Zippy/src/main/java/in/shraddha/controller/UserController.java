@@ -144,5 +144,13 @@ public class UserController {
 		return "UserHome";
 	}
 	*/
+	
+	
+//	Admin- Add category
+	@PostMapping("/")
+	public String adminAddCategory() {
+		return "addcategory";
+		
+	}
 
 }

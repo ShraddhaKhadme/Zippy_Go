@@ -2,6 +2,7 @@ package in.shraddha.service;
 
 import java.util.List;
 
+import in.shraddha.entity.Category;
 import in.shraddha.entity.User;
 import jakarta.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ public interface UserService {
 	void update(User u);
 	boolean checkUser(String email);
 	String loginUser(String email, String password, HttpSession session);
+	
 	
 //	String forgotPassword(String email, String password);
 }
