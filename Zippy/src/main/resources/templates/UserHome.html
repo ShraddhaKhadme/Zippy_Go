@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <title>ZippyGo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Bootstrap CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- jQuery CDN -->
@@ -21,6 +24,7 @@
 .header {
     background-color: #FFB300; 
   color: white;
+  display: flex;
 }
 
 
@@ -28,11 +32,15 @@
   background-color: #e6e6fa;
 }
 
+.search-bar
+{
+  display: flex;
+ 
+}
 .search-bar input {
   border-radius: 10px;
   width: 350px;
-  position: relative;
-left: 1000px;
+  
 }
 
 .categories div {
@@ -41,7 +49,7 @@ left: 1000px;
 }
 
 .lowest-prices {
-  background: linear-gradient(to right, #bef565, #7ae187);
+  background: linear-gradient(to right, #f4d54d, #FFB300);
   color: white;
   border-radius: 12px;
 }
@@ -129,6 +137,15 @@ left: 1000px;
       bottom: 0;
     }
 
+    .fa-cart-shopping{
+      color: black;
+     display: flex;
+     gap: 0;
+
+    }
+
+
+
 
 </style>
 <body>
@@ -136,12 +153,19 @@ left: 1000px;
   <!-- Header -->
   <div class="header d-flex justify-content-between align-items-center px-3 py-2">
     <a class="navbar-brand d-flex align-items-center" th:href="@{/zippy/}">
-        <video autoplay loop muted playsinline class="background-video1">
-            <source src="logo.mp4" type="video/mp4">
-        </video>
+      <video autoplay loop muted playsinline class="background-video1">
+        <source src="logo2.mp4" type="video/mp4" />
+      </video>
     </a>
-    
+  
+    <div class="d-flex align-items-center">
+      
+      <button class="btn btn-success btn-sm me-1">Profile</button>
+      <button class="btn btn-success btn-sm">Logout</button>
+    </div>
   </div>
+  
+  
 
   <!-- Delivery Info -->
   <div class="delivery-info px-3 py-2 d-flex justify-content-between align-items-center">
@@ -149,21 +173,45 @@ left: 1000px;
       <strong>Delivery In 8 Mins</strong><br>
      
     </div>
-    <button class="btn btn-warning btn-sm">login</button>
+  
   </div>
 
   <!-- Search Bar -->
-  <div class="search-bar px-3 py-2">
-    <input type="text" class="form-control" placeholder='Search for "toys"'>
+  <div class="search-bar px-3 py-2 d-flex justify-content-end align-items-center gap-2">
+    <input type="text" id="searchInput" class="form-control" placeholder='Search for "items"' style="width: 300px;">
+    <i class="fa-solid fa-cart-shopping me-2"></i>
+    <button class="btn btn-warning btn-sm">Orders</button>
   </div>
+  
+  
+
+  
+
+
+ 
 
   <!-- Categories -->
   <div class="categories d-flex justify-content-around text-center py-2">
-    <button type="button" class="btn btn-light">🧺 All</button>
-    <button type="button" class="btn btn-light"> ☕Cafe</button>
-    <button type="button" class="btn btn-light">🍎 Fruits</button>
-    <button type="button" class="btn btn-light">🥕 vegetables</button>
-    <button type="button" class="btn btn-light">🏠 Home</button>
+    <button type="button" class="btn btn-light"><i class="fa-solid fa-basket-shopping me-1"></i> All</button>
+    <button type="button" class="btn btn-light"><i class="fa-solid fa-mug-hot"></i> Cafe
+      </button>
+   
+      <button class="btn btn-light">
+        <i class="fa-solid fa-spa me-1"></i> Beauty
+      </button>
+      
+      <button class="btn btn-light">
+        <i class="fa-solid fa-carrot me-1"></i> Vegetables
+      </button>
+      
+      <button class="btn btn-light">
+        <i class="fa-solid fa-drumstick-bite me-1"></i> Meat
+      </button>
+    <button type="button" class="btn btn-light">	<i class="fa-solid fa-headphones"></i>Electornics</button>
+    <button type="button" class="btn btn-light">
+      <i class="fa-solid fa-house me-1"></i> Home
+    </button>
+    
     
   </div>
 
@@ -180,12 +228,12 @@ left: 1000px;
   
   </div>
 
-
+<
   <div class="product-grid">
     <div class="product-card">
       <div class="discount-tag">52% Off</div>
-      <img src="https://3.bp.blogspot.com/-qmDHBivVW2U/Vyjksnd0vuI/AAAAAAAAF3c/9z97d9T64akIOUqCfMLM_sLcf0oiXrtygCLcB/s1600/rawcarrots.jpg" alt="Carrot Local">
-      <h3>Carrot Local</h3>
+      <img src="https://wallpapercrafter.com/desktop1/616040-red-delicious-apples-macro-photography-fruit-apple.jpg">
+      <h3>Apple</h3>
       <p class="delivery-time">8 Mins</p>
       <p class="price"><del>₹67</del> ₹32</p>
       <button onclick="addToCart(32)">Add</button>
@@ -302,10 +350,78 @@ left: 1000px;
 
 
 
-  <div class="cart-footer">
-   
-    <button >View Cart</button>
-  </div>
+  
+<section id="footer" class="float-start w-100">
+  <footer class="text-white pt-5 pb-4" style="background-color: #FFB300;">
+      <div class="container text-center text-md-start">
+          <div class="row">
+              
+              <!-- Company Info -->
+              <div class="col-md-3">
+                  <h5 class="text-uppercase mb-4 font-weight-bold" style="color: #8b6508;">ZippyGo</h5>
+                  <p>Expertly managing events with precision, creativity, and a seamless experience from concept to execution.</p>
+              </div>
+              
+              <!-- Links -->
+              <div class="col-md-3">
+                  <h5 class="text-uppercase mb-4 font-weight-bold" style="color: #8b6508;">Products</h5>
+                  <p><a href="#" class="text-decoration-none text-white">Fruits & Vegitables</a></p>
+                  <p><a href="#" class="text-decoration-none text-white">Home Appliences</a></p>
+                  <p><a href="#" class="text-decoration-none text-white">Electronics</a></p>
+              </div>
+              
+              <!-- Useful Links -->
+              <div class="col-md-3">
+                  <h5 class="text-uppercase mb-4 font-weight-bold" style="color: #8b6508;">Useful Links</h5>
+                  <p><a href="#" class="text-decoration-none text-white">Your Account</a></p>
+                  <p><a href="#services" class="text-decoration-none text-white">Services</a></p>
+                  <p><a href="#" class="text-decoration-none text-white">Shipping Rates</a></p>
+                  <p><a href="#" class="text-decoration-none text-white">Help</a></p>
+              </div>
+              
+              <!-- Contact -->
+              <div class="col-md-2">
+                  <h5 class="text-uppercase mb-4 font-weight-bold" style="color: #8b6508;">Contact</h5>
+                  <p><i class="fas fa-home me-2"></i> Vijaynagar, Bangalore</p>
+                   <p><i class="fas fa-envelope me-2"></i><a href="mailto:zippygo@gmail.com" class="text-white text-decoration-none">  zippygo.com</a></p>
+                  <p><i class="fas fa-phone me-2"></i> +91-98861892681</p>
+                  <p><i class="fas fa-print me-2"></i> +91-98861892682</p>
+              </div>
+          </div>
+
+          <hr class="my-3">
+
+          <!-- Social Media Links -->
+          <div class="row align-items-center text-center">
+              <div class="col-12">
+                  <div class="d-flex justify-content-center gap-3">
+                      <a href="https://www.facebook.com" target="_blank" class="btn btn-outline-danger text-white" role="button">
+                          <i class="fab fa-facebook-f"></i>
+                      </a>
+                      <a href="https://www.twitter.com" target="_blank" class="btn btn-outline-danger text-white" role="button">
+                          <i class="fab fa-twitter"></i>
+                      </a>
+                      <a href="https://www.google.com" target="_blank" class="btn btn-outline-danger text-white" role="button">
+                          <i class="fab fa-google"></i>
+                      </a>
+                      <a href="https://www.instagram.com" target="_blank" class="btn btn-outline-danger text-white" role="button">
+                          <i class="fab fa-instagram"></i>
+                      </a>
+                  </div>
+              </div>
+          </div>
+
+          <hr class="my-3">
+
+          <!-- Copyright Content Centered -->
+          <div class="row text-center">
+              <div class="col-12">
+                  <p>&copy; 2024 Copyright: <a href="#" class="text-white text-decoration-none"><strong>zippygo.com</strong></a></p>
+              </div>
+          </div>
+      </div>
+  </footer>
+</section>
 
 
 
@@ -380,15 +496,15 @@ left: 1000px;
 
   
 
-  <script src="script.js">
 
-$(document).ready(function() {
-  // Example functionality: progress animation
-  $('.progress-bar').animate({
-    width: '75%'
-  }, 1000);
-});
 
-  </script>
+
+
+
+
+   
+
+
+
 </body>
 </html>
