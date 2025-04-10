@@ -21,7 +21,6 @@ public class Product {
 	private Integer id;
 	private String pname;
 	private String pimg;
-	private String pcategory;
 	private String psubCategory;
 	private Double pprice;
 	private String pdescription;

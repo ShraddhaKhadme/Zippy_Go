@@ -118,53 +118,53 @@
 
   <div class="signup-container">
    
-    <form id="productForm" th:action="@{/product/form}" method="post">
-        <h2 class="h2" style="color: black;">Add Product</h2>
+  <form th:action="@{/product/form}" method="post" th:object="${product}">
+  <h2>Add Product</h2>
+  
+  <div th:if="${message!=null}" style="text-align: center; color: green;">
+  <p th:text="${message}"></p>
+</div>
+  
 
-      <label class="label"  for="category">Category:</label>
-      
-      <select id="category" class="category" name="pcategory" required>
-        <option value="" selected="selected" disabled="disabled">-- Select Category --</option>
-        <option th:each="ob:${list}" th:value="${ob.id}" th:text="${ob.name}"></option>
-       
-      </select>
-      
-      <label class="label"  for="category">Sub-Category:</label>
-      
-      <select id="category" class="category" name="psubCategory" required>
-        <option value="" selected="selected" disabled="disabled">-- Select Category --</option>
-        <option th:each="ob:${list}" th:value="${ob.id}" th:text="${ob.subcategory}"></option>
-       
-      </select>
-
-      <label  class="label"  for="productName">Product Name:</label>
-      <input type="text" class="input" id="productName" name="pname" placeholder="Enter product name" required />
-
-      <label class="label"  for="imagePath">Image Path:</label>
-      <input type="text" class="input" id="imagePath" name="pimg" placeholder="Enter image path or URL" />
-
-      <label class="label"  for="price">Price (₹):</label>
-      <input type="number" class="input" id="price" name="pprice" placeholder="Enter price" required />
+  <label for="category">Category:</label>
+  <select name="category.id" required>
+  <option value="">-- Select Category --</option>
+  <option th:each="cat : ${list}" 
+          th:value="${cat.id}" 
+          th:text="${cat.name}">
+  </option>
+</select>
 
 
-	 <label  class="label"  for="productCategory">Product category:</label>
-      <input type="text" class="input" id="pcategory" name="pcategory" placeholder="Enter product name" required />
-	
-	
-	
-      <label class="label"  for="discount">Discount (%):</label>
-      <input type="number" class="input" id="discount" name="pdiscount" placeholder="Enter discount %" />
+  <label for="subcategory">Sub-Category:</label>
+  <select id="subcategory" name="psubCategory" required>
+    <option value="" disabled selected>-- Select Sub-Category --</option>
+    <option th:each="ob : ${list}" th:value="${ob.subcategory}" th:text="${ob.subcategory}"></option>
+  </select>
 
-      <label class="label"  for="description">Description:</label>
-      <textarea id="description" class="description" name="pdescription" placeholder="Enter product description" rows="3" required></textarea>
+  <label for="productName">Product Name:</label>
+  <input type="text" id="productName" name="pname" required />
 
-      <button class="btn" type="submit">Submit</button>
-    </form>
+  <label for="imagePath">Image Path:</label>
+  <input type="text" id="imagePath" name="pimg" />
+
+  <label for="price">Price:</label>
+  <input type="number" id="price" name="pprice" required />
+
+  <label for="discount">Discount (%):</label>
+  <input type="number" id="discount" name="pdiscount" />
+
+  <label for="description">Description:</label>
+  <textarea id="description" name="pdescription" rows="3" required></textarea>
+
+  <button type="submit">Submit</button>
+</form>
+
   </div>
 
   <script>
     document.getElementById('productForm').addEventListener('submit', function(event) {
-      event.preventDefault();
+      
 
       const data = {
         category: document.getElementById('category').value,
