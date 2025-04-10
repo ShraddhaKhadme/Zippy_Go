@@ -83,12 +83,16 @@ a:hover {
 
     <div class="signup-container">
         <h2>Add Category</h2>
-        <form>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Enter your name"><br><br>
-          
+        <p><span style="color: red;">[[${msg}]]</span></p>
+        <form th:action="@{/Category/addCategory}" method="post" >
+            <label for="name">Category:</label>
+            <input type="text" id="name" name="name" placeholder="Enter category name"><br><br>
+            
             <label for="imagePath">Image Path:</label>
-            <input type="text" id="imagePath" name="imagePath" placeholder="Enter image path or URL"><br><br>
+            <input type="text" id="imagePath" name="img" placeholder="Enter image path or URL"><br><br>
+            
+            <label for="name">Sub-Category:</label>
+            <input type="text" id="name" name="subcategory" placeholder="Enter sub category"><br><br>
           
             <button type="submit">Submit</button>
           </form>

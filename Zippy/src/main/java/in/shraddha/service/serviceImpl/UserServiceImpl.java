@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import in.shraddha.entity.Product;
 import in.shraddha.entity.User;
+import in.shraddha.repository.ProductRepo;
 import in.shraddha.repository.UserRepo;
 import in.shraddha.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -15,6 +17,10 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepo urepo;
+	
+	@Autowired
+	private ProductRepo prepo;
+	
 	@Override
 	public Integer saveUser(User u) {
 		// TODO Auto-generated method stub
@@ -68,6 +74,12 @@ public class UserServiceImpl implements UserService {
 	public boolean checkUser(String email) {
 		// TODO Auto-generated method stub
 		return urepo.existsByEmail(email);
+	}
+
+	@Override
+	public List<Product> getAllProducts() {
+		// TODO Auto-generated method stub
+		return prepo.findAll();
 	}
 
 /*	@Override
