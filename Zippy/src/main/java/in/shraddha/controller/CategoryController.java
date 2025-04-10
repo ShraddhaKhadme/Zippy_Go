@@ -46,16 +46,6 @@ public class CategoryController {
 		
 	}
 	
-	@GetMapping("/allCategory")
-	public String getAll(Model model)
-	{
-		List<Category> clist=cservice.allCategory();
-		model.addAttribute("list", clist);
-		
-		return "productForm";
-	}
-	
-	
 	
 
 }
