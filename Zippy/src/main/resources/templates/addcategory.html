@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-   <!-- <link rel="stylesheet" href="styles.css">-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js" integrity="sha512-WMEKGZ7L5LWgaPeJtw9MBM4i5w5OSBlSjTjCtSnvFJGSVD26gE5+Td12qN5pvWXhuWaWcVwF++F7aqu9cvqP0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
-        /* Fullscreen Video Background */
 .background-video {
     position: fixed;
     top: 0;
@@ -91,21 +91,73 @@ font-weight: bold;
 
             
         <p><span style="color: red;">[[${msg}]]</span></p>
-        <form th:action="@{/Category/saveCategory}" method="post" >
+        <form th:action="@{/Category/saveCategory}" method="post" id="category">
             <label for="name">CATEGORY:</label>
             <input type="text" id="name" name="name" placeholder="Enter category name" required><br><br>
             
             <label for="imagePath">IMAGE PATH:</label>
-            <input type="text" id="imagePath" name="img" placeholder="Enter image path or URL" required><br><br>
+            <input type="text" id="img" name="img" placeholder="Enter image path or URL" required><br><br>
             
             <label for="name">SUB-CATEGORY:</label>
-            <input type="text" id="name" name="subcategory" placeholder="Enter sub category" required><br><br>
+            <input type="text" id="subcategory" name="subcategory" placeholder="Enter sub category" required><br><br>
 
           
             <button type="submit">Submit</button>
           </form>
           
     </div>
+    <script>
+  $(document).ready(function () {
+    $('#category').validate({
+      rules: {
+        name: {
+          required: true,
+          remote: {
+            url: "/Category/checkCategory",
+            type: "GET",
+            data: {
+              name: function () {
+                return $("#name").val();
+              }
+            },
+            dataFilter: function (response) {
+              if (response === "true") {
+                return JSON.stringify(false); // Category exists
+              } else {
+                return JSON.stringify(true); // Valid
+              }
+            }
+          }
+        },
+        img: {
+          required: true
+        },
+        subcategory: {
+          required: true
+        }
+      },
+      messages: {
+        name: {
+          required: "Category name is required.",
+          remote: "Category already exists."
+        },
+        img: {
+          required: "Image path is required."
+        },
+        subcategory: {
+          required: "Sub-category is required."
+        }
+      },
+      errorPlacement: function (error, element) {
+        error.insertAfter(element);
+      },
+      submitHandler: function (form) {
+        form.submit();
+      }
+    });
+  });
+</script>
+
 
 </body>
 </html>

@@ -24,6 +24,11 @@ public class AddCategoryImpl implements AddCategory{
 
 		return crepo.findAll();
 	}
+	@Override
+	public boolean checkCategory(String category) {
+		// TODO Auto-generated method stub
+		return crepo.existsByName(category);
+	}
 
 	
 }

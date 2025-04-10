@@ -7,4 +7,5 @@ import jakarta.transaction.Transactional;
 
 public interface CategoryRepo extends JpaRepository<Category, Integer>{
 
+	public boolean existsByName(String category);
 }

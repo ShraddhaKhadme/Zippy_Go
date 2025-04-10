@@ -3,6 +3,7 @@ package in.shraddha.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 import in.shraddha.entity.Category;
 import in.shraddha.service.AddCategory;
@@ -44,6 +45,14 @@ public class CategoryController {
 		return "addcategory";
 		
 		
+	}
+	
+	@GetMapping("/checkCategory")
+	public ResponseEntity<Boolean> checkCategory(@RequestParam String category)
+	{
+		boolean check =cservice.checkCategory(category);
+		
+		return ResponseEntity.ok(check);
 	}
 	
 	

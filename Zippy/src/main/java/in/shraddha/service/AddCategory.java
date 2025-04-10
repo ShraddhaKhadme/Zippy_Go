@@ -8,4 +8,7 @@ public interface AddCategory {
 	public Integer saveCategory(Category category);
 
 	public List<Category> allCategory();
+	
+	public boolean checkCategory(String category);
+	
 }
