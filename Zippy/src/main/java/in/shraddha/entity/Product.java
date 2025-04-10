@@ -17,10 +17,10 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String name;
-	private String img;
-	private String category;
-	private Double price;
-	private String description;
-	private Double discount;
+	private String pname;
+	private String pimg;
+	private String pcategory;
+	private Double pprice;
+	private String pdescription;
+	private Double pdiscount;
 }
