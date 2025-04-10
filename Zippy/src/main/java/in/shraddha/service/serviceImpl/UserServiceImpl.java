@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import in.shraddha.entity.Product;
 import in.shraddha.entity.User;
 import in.shraddha.repository.ProductRepo;
+//import in.shraddha.repository.ProductRepo;
 import in.shraddha.repository.UserRepo;
 import in.shraddha.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -75,6 +76,8 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return urepo.existsByEmail(email);
 	}
+
+	
 
 	@Override
 	public List<Product> getAllProducts() {

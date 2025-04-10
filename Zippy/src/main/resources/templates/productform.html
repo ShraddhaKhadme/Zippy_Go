@@ -98,6 +98,15 @@
     justify-content: start;
 
 }
+.category{
+    position: relative;
+    left: 30px;
+}
+
+.description{
+    position: relative;
+    left: 30px;
+}
   </style>
 </head>
 <body>
@@ -109,7 +118,7 @@
 
   <div class="signup-container">
    
-    <form id="productForm">
+    <form id="productForm" th:action="@{/product/form}" method="post">
         <h2 class="h2" style="color: black;">Add Product</h2>
 
       <label class="label"  for="category">Category:</label>
@@ -139,7 +148,7 @@
 
 
 	 <label  class="label"  for="productCategory">Product category:</label>
-      <input type="text" class="input" id="productName" name="pcategory" placeholder="Enter product name" required />
+      <input type="text" class="input" id="pcategory" name="pcategory" placeholder="Enter product name" required />
 	
 	
 	
