@@ -14,7 +14,136 @@
 
 <!-- CSS file path -->
 <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}" />
+<style>
+ body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
+}
 
+.header {
+    background-color: #FFB300; 
+  color: white;
+  display: flex;
+}
+
+
+.delivery-info {
+  background-color: #e6e6fa;
+}
+
+.search-bar
+{
+  display: flex;
+ 
+}
+.search-bar input {
+  border-radius: 10px;
+  width: 350px;
+  
+}
+
+.categories div {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.lowest-prices {
+  background: linear-gradient(to right, #f4d54d, #FFB300);
+  color: white;
+  border-radius: 12px;
+}
+
+
+
+.cart-info {
+  background-color: #f0f0f0;
+  font-size: 14px;
+}
+
+.bottom-nav div {
+  font-size: 14px;
+  font-weight: 500;
+}
+.background-video1 {
+  height: 65px;
+  width: 65px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid white;
+}
+
+.product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .product-card {
+      background: rgb(240, 241, 245);
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 15px;
+      width: 300px;
+      height: 350px;
+      position: relative;
+      text-align: center;
+    }
+
+    .discount-tag {
+      background:  #FFB300;
+      color: white;
+      padding: 2px 6px;
+      font-size: 12px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      border-radius: 4px;
+    }
+
+    .product-card img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin: 10px 0;
+    }
+
+    .delivery-time {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .price {
+      margin: 5px 0;
+    }
+
+    button {
+      background: rgb(243, 77, 77);
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .cart-footer {
+      background: white;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      bottom: 0;
+    }
+
+    .fa-cart-shopping{
+      color: black;
+     display: flex;
+     gap: 0;
+
+    }
+
+</style>
 </head>
 
 <body>
@@ -434,15 +563,7 @@
 
 				<hr class="my-3">
 
-				<!-- Copyright Content Centered -->
-				<div class="row text-center">
-					<div class="col-12">
-						<p>
-							&copy; 2024 Copyright: <a href="#"
-								class="text-white text-decoration-none"><strong>zippygo.com</strong></a>
-						</p>
-					</div>
-				</div>
+				
 			</div>
 		</footer>
 	</section>
