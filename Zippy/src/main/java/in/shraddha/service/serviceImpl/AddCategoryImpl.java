@@ -1,5 +1,7 @@
 package in.shraddha.service.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +19,11 @@ public class AddCategoryImpl implements AddCategory{
 		// TODO Auto-generated method stub
 		return crepo.save(category).getId();
 	}
+	@Override
+	public List<Category> allCategory() {
 
+		return crepo.findAll();
+	}
+
+	
 }
