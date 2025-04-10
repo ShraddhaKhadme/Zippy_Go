@@ -69,6 +69,10 @@ a {
 a:hover {
     text-decoration: underline;
 }
+label{
+font-weight: bold;
+
+}
 
 
     </style>
@@ -77,22 +81,26 @@ a:hover {
 
     <!-- Video Background -->
     <video autoplay loop muted playsinline class="background-video">
-        <source src="addcategory.mp4" type="video/mp4">
+        <source src="/video/addcategory1.mp4" type="video/mp4">
        
     </video>
 
     <div class="signup-container">
         <h2>Add Category</h2>
+
+        <form>
+            
         <p><span style="color: red;">[[${msg}]]</span></p>
         <form th:action="@{/Category/addCategory}" method="post" >
-            <label for="name">Category:</label>
-            <input type="text" id="name" name="name" placeholder="Enter category name"><br><br>
+            <label for="name">CATEGORY:</label>
+            <input type="text" id="name" name="name" placeholder="Enter category name" required><br><br>
             
-            <label for="imagePath">Image Path:</label>
-            <input type="text" id="imagePath" name="img" placeholder="Enter image path or URL"><br><br>
+            <label for="imagePath">IMAGE PATH:</label>
+            <input type="text" id="imagePath" name="img" placeholder="Enter image path or URL" required><br><br>
             
-            <label for="name">Sub-Category:</label>
-            <input type="text" id="name" name="subcategory" placeholder="Enter sub category"><br><br>
+            <label for="name">SUB-CATEGORY:</label>
+            <input type="text" id="name" name="subcategory" placeholder="Enter sub category" required><br><br>
+
           
             <button type="submit">Submit</button>
           </form>
