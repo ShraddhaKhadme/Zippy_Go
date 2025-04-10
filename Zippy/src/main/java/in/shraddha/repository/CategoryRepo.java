@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import in.shraddha.entity.Category;
 import jakarta.transaction.Transactional;
 
-@Transactional
 public interface CategoryRepo extends JpaRepository<Category, Integer>{
 
 }
