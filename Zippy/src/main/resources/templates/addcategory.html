@@ -69,6 +69,10 @@ a {
 a:hover {
     text-decoration: underline;
 }
+label{
+font-weight: bold;
+
+}
 
 
     </style>
@@ -85,13 +89,13 @@ a:hover {
         <h2>Add Category</h2>
         <p><span style="color: red;">[[${msg}]]</span></p>
         <form th:action="@{/Category/addCategory}" method="post" >
-            <label for="name">Category:</label>
+            <label for="name">CATEGORY:</label>
             <input type="text" id="name" name="name" placeholder="Enter category name"><br><br>
             
-            <label for="imagePath">Image Path:</label>
+            <label for="imagePath">IMAGE PATH:</label>
             <input type="text" id="imagePath" name="img" placeholder="Enter image path or URL"><br><br>
             
-            <label for="name">Sub-Category:</label>
+            <label for="name">SUB-CATEGORY:</label>
             <input type="text" id="name" name="subcategory" placeholder="Enter sub category"><br><br>
           
             <button type="submit">Submit</button>
