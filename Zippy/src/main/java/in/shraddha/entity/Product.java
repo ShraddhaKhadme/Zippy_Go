@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +22,12 @@ public class Product {
 	private String pname;
 	private String pimg;
 	private String pcategory;
+	private String psubCategory;
 	private Double pprice;
 	private String pdescription;
 	private Double pdiscount;
+	
+	@ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }

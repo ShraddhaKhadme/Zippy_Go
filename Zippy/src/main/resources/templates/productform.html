@@ -113,12 +113,19 @@
         <h2 class="h2" style="color: black;">Add Product</h2>
 
       <label class="label"  for="category">Category:</label>
-      <select id="category" class="category" name="category" required>
-        <option value="">-- Select Category --</option>
-        <option value="Electronics">Electronics</option>
-        <option value="Fashion">Fashion</option>
-        <option value="Books">Books</option>
-        <option value="Home">Home</option>
+      
+      <select id="category" class="category" name="pcategory" required>
+        <option value="" selected="selected" disabled="disabled">-- Select Category --</option>
+        <option th:each="ob:${list}" th:value="${ob.id}" th:text="${ob.name}"></option>
+       
+      </select>
+      
+      <label class="label"  for="category">Sub-Category:</label>
+      
+      <select id="category" class="category" name="psubCategory" required>
+        <option value="" selected="selected" disabled="disabled">-- Select Category --</option>
+        <option th:each="ob:${list}" th:value="${ob.id}" th:text="${ob.subcategory}"></option>
+       
       </select>
 
       <label  class="label"  for="productName">Product Name:</label>

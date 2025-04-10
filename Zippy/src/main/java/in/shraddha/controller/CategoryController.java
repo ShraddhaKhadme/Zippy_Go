@@ -1,5 +1,7 @@
 package in.shraddha.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -18,7 +20,7 @@ import in.shraddha.service.AddCategory;
 public class CategoryController {
 	
 	@Autowired
-	private AddCategory service;
+	private AddCategory cservice;
 	
 	
 	@GetMapping("/addCategory")
@@ -28,8 +30,8 @@ public class CategoryController {
 	
 	@PostMapping("/saveCategory")
 	public String saveCategory(@ModelAttribute Category category,Model model) {
+		Integer cid=cservice.saveCategory(category);
 		System.out.println(category.getName());
-		Integer cid=service.saveCategory(category);
 		if(cid>0) {
 			model.addAttribute("msg","Category added successfully");
 			System.out.println("Category added successfully : " + category.getName());
@@ -43,7 +45,6 @@ public class CategoryController {
 		
 		
 	}
-	
 	
 	
 
