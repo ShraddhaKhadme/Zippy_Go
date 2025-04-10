@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import in.shraddha.entity.Product;
 import in.shraddha.entity.User;
+import in.shraddha.repository.ProductRepo;
 //import in.shraddha.repository.ProductRepo;
 import in.shraddha.repository.UserRepo;
 import in.shraddha.service.UserService;
