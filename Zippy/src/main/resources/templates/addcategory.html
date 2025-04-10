@@ -88,10 +88,9 @@ font-weight: bold;
     <div class="signup-container">
         <h2>Add Category</h2>
 
-        <form>
             
         <p><span style="color: red;">[[${msg}]]</span></p>
-        <form th:action="@{/Category/addCategory}" method="post" >
+        <form th:action="@{/Category/saveCategory}" method="post" >
             <label for="name">CATEGORY:</label>
             <input type="text" id="name" name="name" placeholder="Enter category name" required><br><br>
             

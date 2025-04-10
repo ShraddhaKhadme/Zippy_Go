@@ -28,9 +28,10 @@ public class CategoryController {
 		return "addcategory";
 	}
 	
-	@PostMapping("/addCategory")
+	@PostMapping("/saveCategory")
 	public String saveCategory(@ModelAttribute Category category,Model model) {
 		Integer cid=cservice.saveCategory(category);
+		System.out.println(category.getName());
 		if(cid>0) {
 			model.addAttribute("msg","Category added successfully");
 			System.out.println("Category added successfully : " + category.getName());
