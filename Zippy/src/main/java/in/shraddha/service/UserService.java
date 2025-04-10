@@ -1,8 +1,11 @@
 package in.shraddha.service;
 
+
+
 import java.util.List;
 
 import in.shraddha.entity.Category;
+import in.shraddha.entity.Product;
 import in.shraddha.entity.User;
 import jakarta.servlet.http.HttpSession;
 
@@ -18,4 +21,5 @@ public interface UserService {
 	
 	
 //	String forgotPassword(String email, String password);
+	public List<Product> getAllProducts();
 }
