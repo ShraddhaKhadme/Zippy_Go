@@ -10,6 +10,10 @@
         .navbar {
             background-color: #FFB300; 
         }
+        .navbar-nav {
+  flex-wrap: wrap;
+}
+        
         .navbar a {
             color: white;
         }
@@ -31,6 +35,11 @@
         .carousel {
             margin-top: 80px; 
         }
+        .carousel-item img {
+  object-fit: cover;
+  min-height: 300px;
+  max-height: 500px;
+}
         
         /* Reduce navbar height */
 .navbar {
@@ -196,12 +205,28 @@
 font-size:small;
 text-align: justify;
 }
-    @media (max-width: 768px) {
-      .about-text,
-      .mission-vision {
-        flex-direction: column;
-      }
-        }
+    @media (max-width: 576px) {
+  .head h1 {
+    font-size: 2rem;
+  }
+
+  .head p, .card h4, .card p {
+    font-size: 0.9rem;
+  }
+
+  .navbar-nav {
+    font-size: 16px;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+}
+    
     </style>
 </head>
 <body>
@@ -258,7 +283,7 @@ text-align: justify;
         <h1 class="text-center text-warning">Our Services</h1>
         
         <div class="row d-flex justify-content-center gap-3">
-            <div class="col-md-3">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                 <div class="card">
                     <img src="https://deerdesigner.com/wp-content/uploads/2024/05/Article-34-ecommerce-design-01.png.webp" class="card-img-top" alt="Service 1">
                     <div class="card-body">

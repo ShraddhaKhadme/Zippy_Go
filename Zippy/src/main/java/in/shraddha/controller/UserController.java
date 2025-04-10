@@ -1,6 +1,7 @@
 package in.shraddha.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -95,6 +96,7 @@ public class UserController {
 			} else {
 				
 				List<Product> plist=service.getAllProducts();
+				//List<Product> plist=service.getAllProducts().stream().limit(5).collect(Collectors.toList());
 				model.addAttribute("list", plist);
 
 				System.out.println("User login sucessful..");
@@ -110,6 +112,14 @@ public class UserController {
 		}
 		return page;
 	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		System.out.println("Logged out...");
+		return "login";
+	}
+	
 
 	@GetMapping("/checkEmail")
 	public ResponseEntity<Boolean> getMethodName(@RequestParam String email) {
