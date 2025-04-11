@@ -114,9 +114,10 @@ public class UserController {
 	}
 	
 	@GetMapping("/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, Model model) {
 		session.invalidate();
 		System.out.println("Logged out...");
+		model.addAttribute("message", "Successfully Loged Out..!!");
 		return "login";
 	}
 	
