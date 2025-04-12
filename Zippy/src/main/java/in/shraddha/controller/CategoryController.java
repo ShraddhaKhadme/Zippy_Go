@@ -26,7 +26,7 @@ public class CategoryController {
 	
 	@GetMapping("/addCategory")
 	public String addCategory() {
-		return "addcategory";
+		return "category";
 	}
 	
 	@PostMapping("/saveCategory")
