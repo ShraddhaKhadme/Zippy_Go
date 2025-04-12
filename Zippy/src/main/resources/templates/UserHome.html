@@ -20,7 +20,7 @@
 	<header >
 	<div
 		class="header d-flex justify-content-between align-items-center px-3 py-2">
-		<a class="navbar-brand d-flex align-items-center" th:href="@{/zippy/}">
+		<a class="navbar-brand d-flex align-items-center" href="#">
 			<video autoplay loop muted playsinline class="background-video1">
 				<source src="/video/logofinal.mp4" type="video/mp4" />
 
@@ -108,11 +108,12 @@
 	</div>
 
 
+<h2 class="m-3 bg-primary p-2 text-white rounded">Top rated Mobiles</h2>
 <div class="d-flex overflow-auto px-3 py-4 gap-3 m-2" style="scroll-snap-type: x mandatory;">
 
   <!-- Each product card -->
   <div class="card flex-shrink-0" style="width: 15rem; scroll-snap-align: start;"
-       th:each="ob : ${list}" th:if="${ob.category.name == 'Fruits'}">
+       th:each="ob : ${list}" th:if="${ob.category.name == 'Electronics'}">
 
     <div class="position-relative">
       <a th:href="@{'/product/' + ${ob.id}}">
@@ -128,7 +129,7 @@
         <h5 class="card-title">[[${ob.pname}]]</h5>
         <strike class="card-text">&#8377;[[${ob.pprice}]]</strike>
         <strong class="card-text fs-5"
-                th:text="'&#8377;' + ${#numbers.formatDecimal(ob.pprice - ob.pdiscount, 2, 2)} + '/kg'">
+                th:text="'&#8377;' + ${#numbers.formatDecimal(ob.pprice - ob.pdiscount, 2, 2)}">
         </strong>
       </div>
       <div class="mt-3" th:attr="id='button-container-' + ${ob.id}">

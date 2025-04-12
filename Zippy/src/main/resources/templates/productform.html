@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="styles.css" />
   <style>
   
+  
+  
   body, html {
     margin: 0;
     padding: 0;
@@ -32,11 +34,7 @@
   background: rgba(255,255,255,0.95);
   position: relative;
   right: 300px; 
-  
 }
-
-
-  
 
   h2 {
     color: black;
@@ -89,31 +87,22 @@
     left: 0;
     text-align: center;
   }
-.category{
+
+  .category {
     position: relative;
     left: 30px;
-}
+  }
 
-.description{
+  .description {
     position: relative;
     left: 30px;
-}
+  }
 
-.label{
+  .label {
     display: flex;
     justify-content: start;
-
-}
-.category{
-    position: relative;
-    left: 30px;
-}
-
-.description{
-    position: relative;
-    left: 30px;
-}
-  </style>
+  }
+</style>
 </head>
 <body>
 
@@ -124,73 +113,135 @@
 
   <div class="signup-container">
    
-  <form th:action="@{/product/form}" method="post" th:object="${product}">
-  <h2>Add Product</h2>
+    <form th:action="@{/product/form}" method="post" th:object="${product}">
+      <h2>Add Product</h2>
   
-  <div th:if="${message!=null}" style="text-align: center; color: green;">
-  <p th:text="${message}"></p>
-</div>
+      <div th:if="${message != null}" style="text-align: center; color: green;">
+        <p th:text="${message}"></p>
+      </div>
   
+      <label for="category">Category:</label>
+      <select id="category" name="category.id" onchange="updateSubcategories()" >
+        <option value="">-- Select Category --</option>
+        <option th:each="cat : ${categories}" 
+                th:value="${cat.id}" 
+                th:text="${cat.name}">
+        </option>
+      </select>
 
-  <label for="category">Category:</label>
-  <select name="category.id" required>
-  <option value="">-- Select Category --</option>
-  <option th:each="cat : ${categories}" 
-          th:value="${cat.id}" 
-          th:text="${cat.name}">
-  </option>
-</select>
+     
+      <label for="subcategory">Sub-Category:</label>
+      <select id="subcategory" name="psubCategory.id" >
+        <option value="">-- Select Sub-Category --</option>
+       <!-- go to fragments.html file then display the sub categories based on selected category -->
+      </select>
 
+      <label for="productName">Product Name:</label>
+      <input type="text" id="productName" name="pname"  />
 
-  <label for="subcategory">Sub-Category:</label>
-  <select id="subcategory" name="psubCategory" required>
-    <option value="" disabled selected>-- Select Sub-Category --</option>
-    <option th:each="ob : ${categories}" th:value="${ob.subcategory}" th:text="${ob.subcategory}"></option>
-  </select>
+      <label for="imagePath">Image Path 1:</label>
+      <input type="text" id="imagePath" name="pimg" />
 
-  <label for="productName">Product Name:</label>
-  <input type="text" id="productName" name="pname" required />
+      <label for="imagePath">Image Path 2:</label>
+      <input type="text" id="imagePath" name="pimg2" />
 
-  <label for="imagePath">Image Path 1:</label>
-  <input type="text" id="imagePath" name="pimg" />
-  
-  <label for="imagePath">Image Path 2:</label>
-  <input type="text" id="imagePath" name="pimg2" />
-  
-  <label for="imagePath">Image Path 3:</label>
-  <input type="text" id="imagePath" name="pimg2" />
+      <label for="imagePath">Image Path 3:</label>
+      <input type="text" id="imagePath" name="pimg3" />
 
-  <label for="price">Price:</label>
-  <input type="number" id="price" name="pprice" required />
+      <label for="price">Price:</label>
+      <input type="number" id="price" name="pprice"  />
 
-  <label for="discount">Discount (%):</label>
-  <input type="number" id="discount" name="pdiscount" />
+      <label for="discount">Discount (%):</label>
+      <input type="number" id="discount" name="pdiscount" />
 
-  <label for="description">Description:</label>
-  <textarea id="description" name="pdescription" rows="3" required></textarea>
+      <label for="description">Description:</label>
+      <textarea id="description" name="pdescription" rows="3" ></textarea>
 
-  <button type="submit">Submit</button>
-</form>
+      <button type="submit">Submit</button>
+    </form>
 
   </div>
 
+  <!-- Optional JavaScript: Add a function to update subcategories dynamically -->
   <script>
-    document.getElementById('productForm').addEventListener('submit', function(event) {
-      
+    function updateSubcategories() {
+      const categorySelect = document.getElementById('category');
+      const subcategorySelect = document.getElementById('subcategory');
+      const selectedCategoryId = categorySelect.value;
 
-      const data = {
-        category: document.getElementById('category').value,
-        productName: document.getElementById('productName').value,
-        description: document.getElementById('description').value,
-        price: document.getElementById('price').value,
-        discount: document.getElementById('discount').value,
-        imagePath: document.getElementById('imagePath').value,
-      };
+      // Fetch subcategories based on the selected category
+      fetch(`/product/getSubcategories?categoryId=${selectedCategoryId}`)
+        .then(response => response.text())
+        .then(data => {
+          subcategorySelect.innerHTML = data;
+        });
+    }
+    
+    
+  </script>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.5/jquery.validate.min.js"></script>
 
-      console.log('Category Submitted:', data);
-      alert('Category added successfully!');
-
-      this.reset();
+  <!-- Validation Rules -->
+  <script>
+    $(document).ready(function () {
+      $("#productForm").validate({
+        rules: {
+          "category.id": { required: true },
+          "psubCategory.id": { required: true },
+          pname: { required: true, minlength: 3 },
+          pimg: { required: true, url: true },
+          pimg2: { required: true, url: true },
+          pimg3: { required: true, url: true },
+          pprice: { required: true, number: true, min: 0 },
+          pdiscount: { number: true, min: 0, max: 100 },
+          pdescription: { required: true, minlength: 10 }
+        },
+        messages: {
+          "category.id": "Please select a category",
+          "psubCategory.id": "Please select a subcategory",
+          pname: {
+            required: "Enter product name",
+            minlength: "At least 3 characters"
+          },
+          pimg: {
+            required: "Enter image path",
+            url: "Enter a valid URL"
+          },
+          pimg2: {
+            required: "Enter second image path",
+            url: "Enter a valid URL"
+          },
+          pimg3: {
+            required: "Enter third image path",
+            url: "Enter a valid URL"
+          },
+          pprice: {
+            required: "Enter price",
+            number: "Only numbers allowed",
+            min: "Must be 0 or more"
+          },
+          pdiscount: {
+            number: "Only numbers allowed",
+            min: "Cannot be less than 0",
+            max: "Cannot be more than 100"
+          },
+          pdescription: {
+            required: "Enter product description",
+            minlength: "At least 10 characters"
+          }
+        },
+        errorPlacement: function(error, element) {
+          error.insertAfter(element);
+        },
+        highlight: function(element) {
+          $(element).css("border-color", "#dc3545");
+        },
+        unhighlight: function(element) {
+          $(element).css("border-color", "#28a745");
+        }
+      });
     });
   </script>
 

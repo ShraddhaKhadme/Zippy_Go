@@ -9,6 +9,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -22,6 +23,7 @@ public class SubCategory {
 
     private String name;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

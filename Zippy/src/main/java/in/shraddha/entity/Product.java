@@ -23,7 +23,6 @@ public class Product {
 	private String pimg;
 	private String pimg2;
 	private String pimg3;
-	private String psubCategory;
 	private Double pprice;
 	private String pdescription;
 	private Double pdiscount;
@@ -31,4 +30,8 @@ public class Product {
 	@ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+	
+//	@ManyToOne
+//	@JoinColumn(name = "subcategory_id")
+//	private SubCategory psubCategory;
 }

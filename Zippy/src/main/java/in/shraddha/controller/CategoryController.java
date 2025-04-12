@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import in.shraddha.entity.Category;
 import in.shraddha.entity.CategoryForm;
@@ -24,28 +25,32 @@ public class CategoryController {
 	@Autowired
     private AddCategory categoryService;
 
-    @GetMapping("/add-category")
-    public String showCategoryForm(Model model) {
+    @GetMapping("/addcategory")
+    public String showCategoryForm(@RequestParam(required = false) String message, Model model) {
+    	
+    	if(message!=null)
+    		model.addAttribute("message", message);
+    	
         model.addAttribute("categoryForm", new CategoryForm());
         return "addcategory";
     }
 
-    @PostMapping("/add-category")
-    public String addCategory(@ModelAttribute CategoryForm categoryForm) {
-        categoryService.addCategoryWithSubcategory(
-            categoryForm.getCategoryName(),
-            categoryForm.getImage(),
-            categoryForm.getSubcategoryName()
-        );
-        return "redirect:/add-category?success";
+    @PostMapping("/addcategory")
+    public String addCategory(@ModelAttribute CategoryForm categoryForm, RedirectAttributes model) {
+        try {
+            categoryService.addCategory(
+                categoryForm.getCategoryName(),
+                categoryForm.getImage(),
+                categoryForm.getSubcategoryName()
+            );
+            model.addAttribute("message", "Category added successfully!");
+            System.out.println("Category added successfully...");
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("message", "Failed to add category. Please try again.");
+        }
+        return "redirect:/Category/add-category";
     }
-
-    @GetMapping("/add-product")
-    public String showProductForm(Model model) {
-        model.addAttribute("categories", categoryService.getAllCategories());
-        return "productform";
-    }
-	
 	
 
 }

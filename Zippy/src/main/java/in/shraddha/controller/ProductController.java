@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import in.shraddha.entity.Category;
 import in.shraddha.entity.Product;
+import in.shraddha.entity.SubCategory;
 import in.shraddha.service.AddCategory;
 import in.shraddha.service.ProductService;
+import in.shraddha.service.SubCategoryService;
 
 @Controller
 @RequestMapping("/product")
@@ -25,11 +28,14 @@ public class ProductController {
     @Autowired
     private AddCategory cservice;
 
-    @GetMapping("/")
+    @Autowired
+    private SubCategoryService subCategoryService;
+
+    @GetMapping("/form")
     public String loadPage(Model model) {
-        List<Category> list = cservice.getAllCategories();
-        model.addAttribute("product", new Product()); 
-        model.addAttribute("list", list);              
+        List<Category> categories = cservice.getAllCategories();
+        model.addAttribute("categories", categories);
+        model.addAttribute("product", new Product());           
         return "productform";
     }
 
@@ -45,9 +51,17 @@ public class ProductController {
         }
 
         model.addAttribute("product", new Product());
-        model.addAttribute("list", cservice.getAllCategories());
+        model.addAttribute("categories", cservice.getAllCategories());
         model.addAttribute("message", message);
 
         return "productform";
+    }
+
+    // This will fetch subcategories dynamically based on the selected category
+    @GetMapping("/getSubcategories")
+    public String getSubcategories(@RequestParam("categoryId") Integer categoryId, Model model) {
+        List<SubCategory> subcategories = subCategoryService.getSubcategoriesByCategoryId(categoryId);
+        model.addAttribute("subcategories", subcategories);
+        return "fragments :: subcategoryOptions";  // This is for Thymeleaf fragment.html class
     }
 }

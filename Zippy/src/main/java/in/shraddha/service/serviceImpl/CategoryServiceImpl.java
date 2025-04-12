@@ -19,7 +19,11 @@ public class CategoryServiceImpl implements AddCategory {
     @Autowired
     private SubCategoryRepo subcategoryRepo;
 
-    public void addCategoryWithSubcategory(String categoryName, String image, String subcategoryName) {
+    public void addCategory(String categoryName, String image, String subcategoryName) {
+        System.out.println("Inside addCategoryWithSubcategory");
+        System.out.println("categoryName = " + categoryName);
+        System.out.println("subcategoryName = " + subcategoryName);
+
         Category category = categoryRepo.findByName(categoryName)
                 .orElseGet(() -> {
                     Category newCat = new Category();
@@ -34,7 +38,10 @@ public class CategoryServiceImpl implements AddCategory {
         subcategoryRepo.save(subcategory);
     }
 
+
+    
     public List<Category> getAllCategories() {
-        return categoryRepo.findAll();
+        return categoryRepo.findAllWithSubcategories();
     }
+
 }
