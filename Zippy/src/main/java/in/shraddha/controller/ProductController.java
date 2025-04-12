@@ -27,7 +27,7 @@ public class ProductController {
 
     @GetMapping("/")
     public String loadPage(Model model) {
-        List<Category> list = cservice.allCategory();
+        List<Category> list = cservice.getAllCategories();
         model.addAttribute("product", new Product()); 
         model.addAttribute("list", list);              
         return "productform";
@@ -45,7 +45,7 @@ public class ProductController {
         }
 
         model.addAttribute("product", new Product());
-        model.addAttribute("list", cservice.allCategory());
+        model.addAttribute("list", cservice.getAllCategories());
         model.addAttribute("message", message);
 
         return "productform";

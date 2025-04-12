@@ -5,10 +5,8 @@ import java.util.List;
 import in.shraddha.entity.Category;
 
 public interface AddCategory {
-	public Integer saveCategory(Category category);
+	public void addCategoryWithSubcategory(String categoryName, String image, String subcategoryName);
 
-	public List<Category> allCategory();
-	
-	public boolean checkCategory(String category);
+	public List<Category> getAllCategories();
 	
 }

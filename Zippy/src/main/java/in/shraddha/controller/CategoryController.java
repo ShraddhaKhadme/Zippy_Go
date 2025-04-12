@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import in.shraddha.entity.Category;
+import in.shraddha.entity.CategoryForm;
 import in.shraddha.service.AddCategory;
 
 @Controller
@@ -21,39 +22,29 @@ import in.shraddha.service.AddCategory;
 public class CategoryController {
 	
 	@Autowired
-	private AddCategory cservice;
-	
-	
-	@GetMapping("/addCategory")
-	public String addCategory() {
-		return "category";
-	}
-	
-	@PostMapping("/saveCategory")
-	public String saveCategory(@ModelAttribute Category category,Model model) {
-		Integer cid=cservice.saveCategory(category);
-		System.out.println(category.getName());
-		if(cid>0) {
-			model.addAttribute("msg","Category added successfully");
-			System.out.println("Category added successfully : " + category.getName());
-			
-		}
-		else {
-			model.addAttribute("msg","Category not added");
-		}
-		
-		return "addcategory";
-		
-		
-	}
-	
-	@GetMapping("/checkCategory")
-	public ResponseEntity<Boolean> checkCategory(@RequestParam String category)
-	{
-		boolean check =cservice.checkCategory(category);
-		
-		return ResponseEntity.ok(check);
-	}
+    private AddCategory categoryService;
+
+    @GetMapping("/add-category")
+    public String showCategoryForm(Model model) {
+        model.addAttribute("categoryForm", new CategoryForm());
+        return "addcategory";
+    }
+
+    @PostMapping("/add-category")
+    public String addCategory(@ModelAttribute CategoryForm categoryForm) {
+        categoryService.addCategoryWithSubcategory(
+            categoryForm.getCategoryName(),
+            categoryForm.getImage(),
+            categoryForm.getSubcategoryName()
+        );
+        return "redirect:/add-category?success";
+    }
+
+    @GetMapping("/add-product")
+    public String showProductForm(Model model) {
+        model.addAttribute("categories", categoryService.getAllCategories());
+        return "productform";
+    }
 	
 	
 

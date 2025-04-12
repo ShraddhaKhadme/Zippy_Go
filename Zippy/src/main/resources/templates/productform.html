@@ -135,7 +135,7 @@
   <label for="category">Category:</label>
   <select name="category.id" required>
   <option value="">-- Select Category --</option>
-  <option th:each="cat : ${list}" 
+  <option th:each="cat : ${categories}" 
           th:value="${cat.id}" 
           th:text="${cat.name}">
   </option>
@@ -145,7 +145,7 @@
   <label for="subcategory">Sub-Category:</label>
   <select id="subcategory" name="psubCategory" required>
     <option value="" disabled selected>-- Select Sub-Category --</option>
-    <option th:each="ob : ${list}" th:value="${ob.subcategory}" th:text="${ob.subcategory}"></option>
+    <option th:each="ob : ${categories}" th:value="${ob.subcategory}" th:text="${ob.subcategory}"></option>
   </select>
 
   <label for="productName">Product Name:</label>

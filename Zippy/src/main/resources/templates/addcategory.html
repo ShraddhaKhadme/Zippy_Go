@@ -97,19 +97,17 @@ color:black;
 
             
         <p><span style="color: red;">[[${msg}]]</span></p>
-        <form th:action="@{/Category/saveCategory}" method="post" id="category">
-            <label for="name">CATEGORY:</label>
-            <input type="text" id="name" name="name" placeholder="Enter category name" required><br><br>
-            
-            <label for="imagePath">IMAGE PATH:</label>
-            <input type="text" id="img" name="img" placeholder="Enter image path or URL" required><br><br>
-            
-            <label for="name">SUB-CATEGORY:</label>
-            <input type="text" id="subcategory" name="subcategory" placeholder="Enter sub category" required><br><br>
+        <form th:action="@{/add-category}" th:object="${categoryForm}" method="post">
+    <label>Category Name:</label>
+    <input type="text" th:field="*{categoryName}" required/><br/>
 
-          
-            <button type="submit">Submit</button>
-          </form>
+    <label>Image URL:</label>
+    <input type="text" th:field="*{image}" required/><br/>
+
+    <label>Subcategory Name:</label>
+    <input type="text" th:field="*{subcategoryName}" required/><br/>
+
+    <button type="submit">Add</button>
           
     </div>
     <script>
