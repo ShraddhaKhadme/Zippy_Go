@@ -29,8 +29,8 @@
 
 		<div class="d-flex align-items-center">
 
-			<button class="btn btn-success btn-sm me-1">Profile</button>
-			<a th:href="@{/user/logout}" class="btn btn-success btn-sm">Logout</a>
+			<button class="btn btn-success btn-sm me-1 p-2 me-4">Profile</button>
+			<a th:href="@{/user/logout}" class="btn btn-success btn-sm p-2 me-4">Logout</a>
 			
 		</div>
 	</div>
@@ -44,14 +44,11 @@
 			<strong>Delivery In 8 Mins</strong><br>
 
 		</div>
-
-	</div>
-
-	<!-- Search Bar -->
-	<div
+		
+		<div
 		class="search-bar px-3 py-2 d-flex justify-content-end align-items-center gap-2">
-		<input type="text" id="searchInput" class="form-control"
-			placeholder='Search for "items"' style="width: 300px;">
+		<input type="text" id="searchInput" class="form-control me-3"
+			placeholder='Search for "items"' style="width: 400px;">
 
 		<div class="position-relative d-inline-block me-2">
 			<i class="fa-solid fa-cart-shopping fs-4"></i> <span id="cart-count"
@@ -61,6 +58,10 @@
 
 		<button class="btn btn-warning btn-sm">Orders</button>
 	</div>
+
+	</div>
+
+	
 
 
 
@@ -106,14 +107,44 @@
 		</h5>
 
 	</div>
+	
+	
+	<!--All Category card -->
+	<h2 class="bg-warning-subtle p-2 m-2 text-dark rounded-1">Top Rated Categories...</h2>
+	<div class="d-flex overflow-auto px-3 py-4 gap-3 m-2" style="scroll-snap-type: x mandatory;">
+  
+  <div class=" flex-shrink-0" style="width: 10rem; scroll-snap-align: start;"
+       th:each="ob : ${clist}">
+
+    <div class="text-center">
+  <a th:href="@{'/product/' + ${ob.id}}">
+    <img th:src="@{${ob.img}}" 
+         style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;" 
+         alt="Category Image" />
+  </a>
+  <p class="mt-2 fw-bold" th:text="${ob.name}"></p>
+</div>
+  </div>
+</div>
 
 
-<h2 class="m-3 bg-primary p-2 text-white rounded">Top rated Mobiles</h2>
+
+<div class="banner position-relative text-white text-center" style=" background-size: cover; background-position: center; height: 300px;">
+    <div class="banner-content p-5" style="background: rgba(0, 0, 0, 0.5); height: 100%;">
+        <h1 class="display-5 fw-bold">Delicious Food Delivered Fast</h1>
+        <p class="lead">Order now and get 20% off on your first order!</p>
+        <a href="/menu" class="btn btn-warning">Order Now</a>
+    </div>
+</div>
+
+
+
+
 <div class="d-flex overflow-auto px-3 py-4 gap-3 m-2" style="scroll-snap-type: x mandatory;">
 
   <!-- Each product card -->
   <div class="card flex-shrink-0" style="width: 15rem; scroll-snap-align: start;"
-       th:each="ob : ${list}" th:if="${ob.category.name == 'Electronics'}">
+       th:each="ob : ${list}" th:if="${ob.category.name == 'Cafe'}">
 
     <div class="position-relative">
       <a th:href="@{'/product/' + ${ob.id}}">
