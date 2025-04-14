@@ -1,19 +1,12 @@
+<!-- fragments.html -->
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fragments</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
-
-  <div th:fragment="subcategoryOptions">
+  <th:block th:fragment="subcategoryOptions">
     <option value="">-- Select Sub-Category --</option>
     <option th:each="sub : ${subcategories}" 
             th:value="${sub.id}" 
-            th:text="${sub.name}">
-    </option>
-  </div>
-
+            th:text="${sub.name}"></option>
+  </th:block>
 </body>
 </html>

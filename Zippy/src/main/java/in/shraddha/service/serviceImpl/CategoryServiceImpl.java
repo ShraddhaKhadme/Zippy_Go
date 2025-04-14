@@ -44,4 +44,12 @@ public class CategoryServiceImpl implements AddCategory {
         return categoryRepo.findAllWithSubcategories();
     }
 
+
+
+	@Override
+	public Category findByID(Integer id) {
+		// TODO Auto-generated method stub
+		return categoryRepo.findById(id).orElse(null);
+	}
+
 }

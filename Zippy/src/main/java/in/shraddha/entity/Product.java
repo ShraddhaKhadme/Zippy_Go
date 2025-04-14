@@ -31,7 +31,7 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "subcategory_id")
-//	private SubCategory psubCategory;
+	@ManyToOne
+	@JoinColumn(name = "subcategory_id")
+	private SubCategory psubCategory;
 }

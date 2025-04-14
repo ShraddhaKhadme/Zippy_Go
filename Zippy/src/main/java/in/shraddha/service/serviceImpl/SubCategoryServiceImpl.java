@@ -18,4 +18,10 @@ public class SubCategoryServiceImpl implements SubCategoryService{
     public List<SubCategory> getSubcategoriesByCategoryId(Integer categoryId) {
         return subCategoryRepo.findByCategoryId(categoryId);
     }
+
+	@Override
+	public SubCategory findById(Integer id) {
+		// TODO Auto-generated method stub
+		return subCategoryRepo.findById(id).orElse(null);
+	}
 }
