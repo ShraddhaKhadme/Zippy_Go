@@ -40,7 +40,7 @@ public class ProductController {
     }
 
     @PostMapping("/form")
-    public String handleProductForm(@ModelAttribute Product p, Model model) {
+    public String saveProduct(@ModelAttribute Product p, Model model) {
         String message;
 
         if (p.getCategory() == null || p.getCategory().getId() == null ||

@@ -159,5 +159,36 @@
     width: 100%;
   }
 }
-    
+
+.scroll-btn {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 40px;
+		height: 40px;
+		border: none;
+		border-radius: 50%;
+		background-color: black;
+		color: white;
+		font-size: 24px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		z-index: 10;
+		opacity: 0.8;
+		transition: opacity 0.2s ease-in-out;
+	}
+
+	.scroll-btn:hover {
+		opacity: 1;
+	}
+
+	.left-btn {
+		left: 10px;
+	}
+
+	.right-btn {
+		right: 10px;
+	}
 
