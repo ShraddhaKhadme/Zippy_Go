@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>viewAllUsers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.8); /* translucent background */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #0077cc;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: rgba(240, 240, 240, 0.6);
+        }
+        .delete-btn {
+            padding: 6px 12px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <h2>All Users</h2>
+    <H1  style="color: BLACK;"> [[${message}]]</H1>
+    <table>
+        <thead>
+            <tr>
+            	<th>USER ID</th>
+                <th>USER Name</th>
+                <th>EMAIL ID</th>
+                <th>PHOEN NUMBER</th>
+                <th>DELETE</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+              
+             <tr th:each="ob:${list}">
+                              
+                                <td>[[${ob.id}]]</td>
+                                <td>[[${ob.name}]]</td>
+                                <td> [[${ob.email}]]</td>
+                                <td>[[${ob.phone}]]</td>
+                                <td><a class="btn btn-danger" th:href="@{delete(id=${ob.id})}"><i class="fa-solid fa-trash"></i></a></td>
+              </tr>
+        </tbody>
+    </table>
+</body>
+</html>
