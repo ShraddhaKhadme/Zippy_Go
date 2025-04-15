@@ -49,7 +49,7 @@ public class CategoryController {
             e.printStackTrace();
             model.addAttribute("message", "Failed to add category. Please try again.");
         }
-        return "redirect:/Category/add-category";
+        return "redirect:/Category/addcategory";
     }
 	
 

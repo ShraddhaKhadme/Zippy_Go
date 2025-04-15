@@ -40,14 +40,28 @@ public class ProductController {
     }
 
     @PostMapping("/form")
-    public String handleProductForm(@ModelAttribute Product p, Model model) {
-        Integer id = pservice.saveProduct(p);
-
+    public String saveProduct(@ModelAttribute Product p, Model model) {
         String message;
-        if (id != null && id > 0) {
-            message = "Product '" + id + "' added successfully!";
+
+        if (p.getCategory() == null || p.getCategory().getId() == null ||
+            p.getPsubCategory() == null || p.getPsubCategory().getId() == null) {
+            message = "Please select both category and sub-category!";
         } else {
-            message = "Unable to add product. Please try again...";
+            Category category = cservice.findByID(p.getCategory().getId());
+            SubCategory subCategory = subCategoryService.findById(p.getPsubCategory().getId());
+
+            if (category == null || subCategory == null) {
+                message = "Invalid category or sub-category selected.";
+            } else {
+                p.setCategory(category);
+                p.setPsubCategory(subCategory);
+                try {
+                    Integer id = pservice.saveProduct(p);
+                    message = "Product '" + id + "' added successfully!";
+                } catch (Exception e) {
+                    message = "Error while saving product: ";
+                }
+            }
         }
 
         model.addAttribute("product", new Product());
@@ -56,6 +70,8 @@ public class ProductController {
 
         return "productform";
     }
+
+
 
     // This will fetch subcategories dynamically based on the selected category
     @GetMapping("/getSubcategories")

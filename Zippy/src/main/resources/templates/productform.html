@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Add Product</title> <!-- ✅ Updated title -->
   <link rel="stylesheet" href="styles.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.19.5/jquery.validate.min.js"></script>
+  
   <style>
   
   
@@ -113,7 +117,7 @@
 
   <div class="signup-container">
    
-    <form th:action="@{/product/form}" method="post" th:object="${product}">
+    <form id="productForm" th:action="@{/product/form}" method="post" th:object="${product}">
       <h2>Add Product</h2>
   
       <div th:if="${message != null}" style="text-align: center; color: green;">
@@ -121,7 +125,7 @@
       </div>
   
       <label for="category">Category:</label>
-      <select id="category" name="category.id" onchange="updateSubcategories()" >
+      <select id="category" name="category.id" onchange="updateSubcategories()">
         <option value="">-- Select Category --</option>
         <option th:each="cat : ${categories}" 
                 th:value="${cat.id}" 
@@ -147,7 +151,11 @@
 
       <label for="imagePath">Image Path 3:</label>
       <input type="text" id="imagePath" name="pimg3" />
+      
+      <label for="price">Quantity:</label>
+      <input type="text" id="quantity" name="quantity"  />
 
+	
       <label for="price">Price:</label>
       <input type="number" id="price" name="pprice"  />
 
@@ -156,6 +164,8 @@
 
       <label for="description">Description:</label>
       <textarea id="description" name="pdescription" rows="3" ></textarea>
+      
+      <input type="hidden" id="stock" name="stock" value="available">
 
       <button type="submit">Submit</button>
     </form>
@@ -180,70 +190,86 @@
     
   </script>
   
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.5/jquery.validate.min.js"></script>
-
-  <!-- Validation Rules -->
   <script>
-    $(document).ready(function () {
-      $("#productForm").validate({
-        rules: {
-          "category.id": { required: true },
-          "psubCategory.id": { required: true },
-          pname: { required: true, minlength: 3 },
-          pimg: { required: true, url: true },
-          pimg2: { required: true, url: true },
-          pimg3: { required: true, url: true },
-          pprice: { required: true, number: true, min: 0 },
-          pdiscount: { number: true, min: 0, max: 100 },
-          pdescription: { required: true, minlength: 10 }
+  $(document).ready(function () {
+    $("#productForm").validate({
+      rules: {
+        "category.id": {
+          required: true
         },
-        messages: {
-          "category.id": "Please select a category",
-          "psubCategory.id": "Please select a subcategory",
-          pname: {
-            required: "Enter product name",
-            minlength: "At least 3 characters"
-          },
-          pimg: {
-            required: "Enter image path",
-            url: "Enter a valid URL"
-          },
-          pimg2: {
-            required: "Enter second image path",
-            url: "Enter a valid URL"
-          },
-          pimg3: {
-            required: "Enter third image path",
-            url: "Enter a valid URL"
-          },
-          pprice: {
-            required: "Enter price",
-            number: "Only numbers allowed",
-            min: "Must be 0 or more"
-          },
-          pdiscount: {
-            number: "Only numbers allowed",
-            min: "Cannot be less than 0",
-            max: "Cannot be more than 100"
-          },
-          pdescription: {
-            required: "Enter product description",
-            minlength: "At least 10 characters"
-          }
+        "psubCategory.id": {
+          required: true
         },
-        errorPlacement: function(error, element) {
-          error.insertAfter(element);
+        pname: {
+          required: true
         },
-        highlight: function(element) {
-          $(element).css("border-color", "#dc3545");
+        pimg: {
+          required: true
         },
-        unhighlight: function(element) {
-          $(element).css("border-color", "#28a745");
+        pimg2: {
+          required: true
+        },
+        pimg3: {
+          required: true
+        },
+        pprice: {
+          required: true,
+          number: true
+        },
+        pdiscount: {
+          required: true,
+          number: true
+        },
+        pdescription: {
+          required: true
         }
-      });
+      },
+      messages: {
+        "category.id": {
+          required: "Please select a category"
+        },
+        "psubCategory.id": {
+          required: "Please select a sub-category"
+        },
+        pname: {
+          required: "Please enter the product name"
+        },
+        pimg: {
+          required: "Please enter Image Path 1"
+        },
+        pimg2: {
+          required: "Please enter Image Path 2"
+        },
+        pimg3: {
+          required: "Please enter Image Path 3"
+        },
+        pprice: {
+          required: "Please enter the price",
+          number: "Please enter a valid number"
+        },
+        pdiscount: {
+          required: "Please enter discount",
+          number: "Please enter a valid number"
+        },
+        pdescription: {
+          required: "Please enter a description"
+        }
+      },
+      errorPlacement: function (error, element) {
+        error.insertAfter(element);
+      },
+      highlight: function (element) {
+        $(element).css("border-color", "red");
+      },
+      unhighlight: function (element) {
+        $(element).css("border-color", "#ccc");
+      }
     });
-  </script>
+  });
+</script>
+  
+  
+  
 
 </body>
 </html>
