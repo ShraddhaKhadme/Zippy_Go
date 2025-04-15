@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import in.shraddha.entity.Category;
 import in.shraddha.entity.CategoryForm;
+import in.shraddha.entity.User;
 import in.shraddha.service.AddCategory;
 
 @Controller
@@ -59,6 +60,30 @@ public class CategoryController {
     		categoryService.deleteCategory(id);
     	
     	
+    }
+    
+    @GetMapping("/viewCategory")
+	public String viewAllUsers(@RequestParam(required = false) String message, Model model) {
+		List<Category> list= categoryService.getAllCategories();
+		if (message != null) {
+			model.addAttribute("message", message);
+		}
+		model.addAttribute("list", list);
+		return "viewCategory";
+		
+	}
+
+    @PostMapping("/edit")
+    public String editCategory(@RequestParam("id") Integer id, Model model) {
+        Category category = categoryService.findByID(id);
+        
+        if (category != null) {
+            model.addAttribute("category", category);
+            return "editCategory"; 
+        } else {
+            model.addAttribute("message", "User not found.");
+            return "viewCategory"; 
+        }
     }
 
 }
