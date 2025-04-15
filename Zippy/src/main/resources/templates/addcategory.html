@@ -119,8 +119,9 @@ color:black;
         <source src="/video/AddCategory (3).mp4" type="video/mp4">
        
     </video>
-    
-
+   <a th:href="@{/category/view}">
+<button type="button" class="btn btn-warning">View Category</button>
+</a>
     <div class="signup-container">
         <h2>Add Category</h2>
 
@@ -138,7 +139,7 @@ color:black;
     <input type="text" th:field="*{subcategoryName}" id="subcategoryName" required/><br/>
 
     <input type="submit" value="Add Category" class="btn btn-primary"/>
-          
+        
     </div>
 
 <script>

@@ -12,4 +12,6 @@ public interface AddCategory {
 
 	public List<Category> getAllCategories();
 	
+	public void deleteCategory(Integer id);
+	
 }

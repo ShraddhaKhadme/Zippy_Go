@@ -52,5 +52,13 @@ public class CategoryController {
         return "redirect:/Category/addcategory";
     }
 	
+    @GetMapping("/delete")
+    public void deleteCategory( Integer id)
+    {
+    	
+    		categoryService.deleteCategory(id);
+    	
+    	
+    }
 
 }

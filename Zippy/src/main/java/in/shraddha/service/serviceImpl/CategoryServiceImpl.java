@@ -52,4 +52,12 @@ public class CategoryServiceImpl implements AddCategory {
 		return categoryRepo.findById(id).orElse(null);
 	}
 
+
+
+	@Override
+	public void deleteCategory(Integer id) {
+		// TODO Auto-generated method stub
+		categoryRepo.deleteById(id);
+	}
+
 }
