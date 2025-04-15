@@ -179,5 +179,25 @@ public class UserController {
 		return "addcategory";
 		
 	}
+//	Admin to view all users
+	@GetMapping("/allusers")
+	public String viewAllUsers(@RequestParam(required = false) String message, Model model) {
+		List<User> list= service.getAllUser();
+		if (message != null) {
+			model.addAttribute("message", message);
+		}
+		model.addAttribute("list", list);
+		return "viewAllUsers";
+		
+	}
+	
+	@GetMapping("/delete")
+	public String delete(@RequestParam Integer id) {
+		System.out.println("delete method");
+		service.delete(id);
+		return "redirect:allusers?message = User " + id + " Deleted successfully";
+	}
+	
+	
 
 }

@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpSession;
 public interface UserService {
 
 	Integer saveUser(User u);
-	List<User>getAllUser();
+	List<User> getAllUser();
 	User getOneUser(int id);
 	void delete(int id);
 	void update(User u);
