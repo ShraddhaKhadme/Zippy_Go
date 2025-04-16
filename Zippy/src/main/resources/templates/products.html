@@ -4,7 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+        }
+
+        .header {
+            background-color: #FFB300;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .header .left-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .background-video1 {
+            height: 65px;
+            width: 65px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .header .right-section button {
+            margin-left: 10px;
+            padding: 8px 16px;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .delivery-info {
+            background-color: #e6e6fa;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-bar input {
+            border-radius: 10px;
+            padding: 8px 12px;
+            width: 400px;
+        }
+
+        .fa-cart-shopping {
+            font-size: 24px;
+            color: black;
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #ffc107;
+            color: black;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+
+        .btn-warning {
+            background-color: #FFB300;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
         .product-card {
             border: 1px solid #ccc;
             border-radius: 8px;
@@ -14,22 +100,85 @@
             display: inline-block;
             text-align: center;
         }
+
+        @media (max-width: 768px) {
+            .search-bar {
+                flex-direction: column;
+                align-items: stretch;
+                width: 100%;
+            }
+
+            .search-bar input {
+                width: 100%;
+            }
+
+            .delivery-info {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .header .right-section {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
-    <div th:if="${#lists.isEmpty(products)}">
-        <p>No products available in this category.</p>
+
+<!-- Header -->
+<header>
+    <div class="header">
+        <div class="left-section">
+            <a href="#">
+                <video autoplay loop muted playsinline class="background-video1">
+                    <source src="/video/logofinal.mp4" type="video/mp4">
+                </video>
+            </a>
+        </div>
+        <div class="right-section d-flex">
+            <button>Profile</button>
+            <a th:href="@{/user/logout}" class="btn btn-success btn-sm">Logout</a>
+        </div>
     </div>
 
-    <div th:unless="${#lists.isEmpty(products)}">
-        <div th:each="product : ${products}" class="product-card">
+    <!-- Delivery Info + Search -->
+    <div class="delivery-info">
+        <div>
+            <strong>Delivery In 8 Mins</strong>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder='Search for "items"'>
+            <div class="position-relative">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="badge" id="cart-count">0</span>
+            </div>
+            <button class="btn-warning">Orders</button>
+        </div>
+    </div>
+</header>
+
+<!-- Product Listing -->
+<div th:if="${#lists.isEmpty(products)}">
+    <p>No products available in this category.</p>
+</div>
+
+<div th:unless="${#lists.isEmpty(products)}">
+    <div th:each="product : ${products}" class="product-card">
         <img th:src="@{${product.pimg}}" width="150" height="150">
-            <h3 th:text="${product.pname}">Product Name</h3>
-            <strike>&#8377;[[${product.pprice}]]</strike>
+        <h3 th:text="${product.pname}">Product Name</h3>
+        <strike>&#8377;[[${product.pprice}]]</strike>
         <strong class="card-text fs-5"
                 th:text="'&#8377;' + ${#numbers.formatDecimal(product.pprice - product.pdiscount, 2, 2)}">
         </strong>
-        </div>
     </div>
+    
+</div>
+
 </body>
 </html>
