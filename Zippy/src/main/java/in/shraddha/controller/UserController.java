@@ -201,6 +201,7 @@ public class UserController {
 		
 	}
 	
+//	Admin to delete in viewAllUsers 
 	@GetMapping("/delete")
 	public String delete(@RequestParam Integer id) {
 		System.out.println("delete method");
@@ -208,6 +209,6 @@ public class UserController {
 		return "redirect:allusers?message = User " + id + " Deleted successfully";
 	}
 	
-	
+
 
 }

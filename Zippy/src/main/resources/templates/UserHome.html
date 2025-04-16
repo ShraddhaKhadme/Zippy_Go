@@ -120,7 +120,8 @@
 
 		<!-- Category cards -->
 		<div class="flex-shrink-0" style="width: 10rem; scroll-snap-align: start;" th:each="ob : ${clist}">
-			<a th:href="@{'/product/' + ${ob.id}}">
+			<a th:href="@{/product/getproduct/(id=${ob.id})}">
+
 				<img th:src="@{${ob.img}}"
 					style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;" />
 			</a>

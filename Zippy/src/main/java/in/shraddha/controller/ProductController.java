@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -80,4 +81,14 @@ public class ProductController {
         model.addAttribute("subcategories", subcategories);
         return "fragments :: subcategoryOptions";  // This is for Thymeleaf fragment.html class
     }
+    
+    //get products related to that id in homePage
+    @GetMapping("/getproduct/{Id}")
+    public String getProductsByCategory(@RequestParam Integer categoryId, Model model) {
+    	List<Product> products=pservice.getProductsByCategoryId(categoryId);
+    	model.addAttribute("products", products);
+    	return "products";
+    }
+
+    
 }

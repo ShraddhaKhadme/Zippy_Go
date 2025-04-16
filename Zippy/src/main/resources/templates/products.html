@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <style>
+        .product-card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 10px;
+            width: 200px;
+            display: inline-block;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div th:if="${#lists.isEmpty(products)}">
+        <p>No products available in this category.</p>
+    </div>
+
+    <div th:unless="${#lists.isEmpty(products)}">
+        <div th:each="products : ${products}" class="product-card">
+            <h3 th:text="${products.name}">Product Name</h3>
+            <p th:text="'Price: ₹' + ${products.price}">Price</p>
+        </div>
+    </div>
+    
+    
+</body>
+</html>
