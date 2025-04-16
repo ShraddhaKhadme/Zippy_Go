@@ -83,7 +83,7 @@ public class ProductController {
     }
     
     //get products related to that id in homePage
-    @GetMapping("/getproduct/{Id}")
+    @GetMapping("/getproduct")
     public String getProductsByCategory(@RequestParam Integer categoryId, Model model) {
     	List<Product> products=pservice.getProductsByCategoryId(categoryId);
     	model.addAttribute("products", products);

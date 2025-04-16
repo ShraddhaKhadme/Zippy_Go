@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-     <style>
+    <title>Products</title>
+    <style>
         .product-card {
             border: 1px solid #ccc;
             border-radius: 8px;
@@ -22,12 +22,14 @@
     </div>
 
     <div th:unless="${#lists.isEmpty(products)}">
-        <div th:each="products : ${products}" class="product-card">
-            <h3 th:text="${products.name}">Product Name</h3>
-            <p th:text="'Price: ₹' + ${products.price}">Price</p>
+        <div th:each="product : ${products}" class="product-card">
+        <img th:src="@{${product.pimg}}" width="150" height="150">
+            <h3 th:text="${product.pname}">Product Name</h3>
+            <strike>&#8377;[[${product.pprice}]]</strike>
+        <strong class="card-text fs-5"
+                th:text="'&#8377;' + ${#numbers.formatDecimal(product.pprice - product.pdiscount, 2, 2)}">
+        </strong>
         </div>
     </div>
-    
-    
 </body>
 </html>
