@@ -1,17 +1,12 @@
 package in.shraddha.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import in.shraddha.entity.Category;
 import in.shraddha.entity.Product;
@@ -25,190 +20,160 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	
-	@Autowired
-	private UserService service;
-	
-	@Autowired
-	private AddCategory cservice;
-	
-	@Autowired
-	private SubCategoryService sservice;
-	
-	@GetMapping("/")
-	public String loadPage() {
-		return "index";
-	}
-	
-	
-	
-	@GetMapping("/register")
-	public String showForm()
-	{
-		return "register";
-	}
-	
-	@GetMapping("/forgot")
-	public String forgot()
-	{
-		return "forgot";
-	}
-	@GetMapping("/login")
-	public String login()
-	{
-		return "login";
-	}
-	
 
-	
-	@PostMapping("/userregister")
-	public String userRegister(@ModelAttribute User u, Model model) {
-		
-		boolean exist = service.checkUser(u.getEmail());
-		//using the getter method to fetch the details of the users
-		String page = "";
-		if (exist == false) {
-			Integer uid = service.saveUser(u);
-			String uname = u.getName();
+    @Autowired
+    private UserService service;
 
-			if (uid > 0) {
-				model.addAttribute("message", uname + " Registered Succesfully with id :" + uid);
-				page = "login";
-				//the variable which is taken up is used here
-			} else {
-				model.addAttribute("message", "Register UnSuccesfull");
-				page = "register";
-			}
-		} else {
+    @Autowired
+    private AddCategory cservice;
 
-			model.addAttribute("message", "Registration UnSuccesfull");
-			page = "register";
+    @Autowired
+    private SubCategoryService sservice;
 
-		}
-		return page;
-	}
-	
-	
-	
-	@PostMapping("/userlogin")
-	public String userLogin(@ModelAttribute User u, HttpSession session, Model model) {
-		String page = "";
-		String status = service.loginUser(u.getEmail(), u.getPassword(), session);
-//this will get the current name and the password of the user who has entered
-		if (status.equals("success")) {
+    @GetMapping("/")
+    public String loadPage() {
+        return "index";
+    }
 
-			//the status is set in the logic of the service the value of the status is returned as the success and the failure
-			model.addAttribute("uname", session.getAttribute("uname"));
-			model.addAttribute("umail", session.getAttribute("umail"));
-			model.addAttribute("uphone", session.getAttribute("uphone"));
+    @GetMapping("/register")
+    public String showForm() {
+        return "register";
+    }
 
-			if (u.getEmail().equals("admin@gmail.com") ) {
-				System.out.println("Admin login Succesfull..");
-				page = "adminHome";
-			} else {
-				
-				System.out.println("User login sucessful..");
-				
-				List<Product> plist=service.getAllProducts();
-				System.out.println("products"+plist.size());
-				List<Category> clist=cservice.getAllCategories();
-				
-				List<SubCategory> slist=sservice.getAllSubCategories();
-				//List<Product> plist=service.getAllProducts().stream().limit(5).collect(Collectors.toList());
-				model.addAttribute("list", plist);
-				model.addAttribute("clist", clist);
-				model.addAttribute("slist", slist);
+    @GetMapping("/forgot")
+    public String forgot() {
+        return "forgot";
+    }
 
-				
-				page = "UserHome";
-			}
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 
-		}
+    @PostMapping("/userregister")
+    public String userRegister(@ModelAttribute User u, Model model) {
+        boolean exist = service.checkUser(u.getEmail());
+        String page = "";
 
-		else {
-			model.addAttribute("message", "Login failed");
-			System.out.println("Login failed..");
-			page = "login";
-		}
-		return page;
-	}
-	
-	@GetMapping("/logout")
-	public String logout(HttpSession session, Model model) {
-		session.invalidate();
-		System.out.println("Logged out...");
-		model.addAttribute("message", "Successfully Loged Out..!!");
-		return "login";
-	}
-	
+        if (!exist) {
+            Integer uid = service.saveUser(u);
+            String uname = u.getName();
 
-	@GetMapping("/checkEmail")
-	public ResponseEntity<Boolean> getMethodName(@RequestParam String email) {
-		
-		boolean check=service.checkUser(email);
-		
-		return ResponseEntity.ok(check);
-		
-	}
-	
-	/*@PostMapping("forgot")
-	public String forgotPass(User u, Model model) {
-		String page = "";
-		System.out.println(u.getEmail());
-		String result = service.forgotPassword(u.getEmail(), u.getPassword());
-		if (result.equals("success")) {
-			model.addAttribute("message", "Password changed succesfully");
-			page = "login";
-		} else {
-			model.addAttribute(("message"), "No such user email");
-			page = "forgot";
-		}
-		return page;
-	}
-	*/
-	
-	@GetMapping("/userpage")
-	public String userpage( User u, HttpSession session, Model model )
-	{
-		//String message="user page";
-		return "UserHomee";
-	}
-	/*@PostMapping("/userHome")
-	public String userpage( User u,String email, HttpSession session, Model model )
-	{
-		User user1=service.getOneUser(id);
-		model.addAttribute("user",user1);
-		return "UserHome";
-	}
-	*/
-	
-	
-//	Admin- Add category
-	@PostMapping("/")
-	public String adminAddCategory() {
-		return "addcategory";
-		
-	}
-//	Admin to view all users
-	@GetMapping("/allusers")
-	public String viewAllUsers(@RequestParam(required = false) String message, Model model) {
-		List<User> list= service.getAllUser();
-		if (message != null) {
-			model.addAttribute("message", message);
-		}
-		model.addAttribute("list", list);
-		return "viewAllUsers";
-		
-	}
-	
-//	Admin to delete in viewAllUsers 
-	@GetMapping("/delete")
-	public String delete(@RequestParam Integer id) {
-		System.out.println("delete method");
-		service.delete(id);
-		return "redirect:allusers?message = User " + id + " Deleted successfully";
-	}
-	
+            if (uid > 0) {
+                model.addAttribute("message", uname + " Registered Successfully with ID: " + uid);
+                page = "login";
+            } else {
+                model.addAttribute("message", "Registration Unsuccessful");
+                page = "register";
+            }
+        } else {
+            model.addAttribute("message", "Email already registered");
+            page = "register";
+        }
+        return page;
+    }
 
+    @PostMapping("/Home")
+    public String userLogin(@ModelAttribute User u, HttpSession session, Model model) {
+        String page = "";
+        String status = service.loginUser(u.getEmail(), u.getPassword(), session);
 
+        if (status.equals("success")) {
+            model.addAttribute("uname", session.getAttribute("uname"));
+            model.addAttribute("umail", session.getAttribute("umail"));
+            model.addAttribute("uphone", session.getAttribute("uphone"));
+
+            if (u.getEmail().equals("admin@gmail.com")) {
+                System.out.println("Admin login successful");
+                page = "adminHome";
+            } else {
+                System.out.println("User login successful");
+
+                List<Product> plist = service.getAllProducts();
+                List<Category> clist = cservice.getAllCategories();
+                List<SubCategory> slist = sservice.getAllSubCategories();
+
+                model.addAttribute("list", plist);
+                model.addAttribute("clist", clist);
+                model.addAttribute("slist", slist);
+
+                page = "UserHome";
+            }
+        } else {
+            model.addAttribute("message", "Login failed");
+            System.out.println("Login failed..");
+            page = "login";
+        }
+        return page;
+    }
+
+    // ✅ NEW: Handles direct GET request to "/user/Home"
+    @GetMapping("/Home")
+    public String userHome(Model model, HttpSession session) {
+        String uname = (String)session.getAttribute("uname");
+        String umail = (String)session.getAttribute("umail");
+        Long uphone = (Long)session.getAttribute("uphone");
+
+        if (uname == null || umail == null) {
+            model.addAttribute("message", "Please login first.");
+            return "login";
+        }
+
+        model.addAttribute("uname", uname);
+        model.addAttribute("umail", umail);
+        model.addAttribute("uphone", uphone);
+
+        List<Product> plist = service.getAllProducts();
+        List<Category> clist = cservice.getAllCategories();
+        List<SubCategory> slist = sservice.getAllSubCategories();
+
+        model.addAttribute("list", plist);
+        model.addAttribute("clist", clist);
+        model.addAttribute("slist", slist);
+
+        return "UserHome";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session, Model model) {
+        session.invalidate();
+        System.out.println("Logged out...");
+        model.addAttribute("message", "Successfully Logged Out!");
+        return "login";
+    }
+
+    @GetMapping("/checkEmail")
+    public ResponseEntity<Boolean> getMethodName(@RequestParam String email) {
+        boolean check = service.checkUser(email);
+        return ResponseEntity.ok(check);
+    }
+
+    @GetMapping("/userpage")
+    public String userpage(User u, HttpSession session, Model model) {
+        return "UserHomee";
+    }
+
+    // Admin - Add category
+    @PostMapping("/")
+    public String adminAddCategory() {
+        return "addcategory";
+    }
+
+    // Admin - view all users
+    @GetMapping("/allusers")
+    public String viewAllUsers(@RequestParam(required = false) String message, Model model) {
+        List<User> list = service.getAllUser();
+        if (message != null) {
+            model.addAttribute("message", message);
+        }
+        model.addAttribute("list", list);
+        return "viewAllUsers";
+    }
+
+    // Admin - delete user
+    @GetMapping("/delete")
+    public String delete(@RequestParam Integer id) {
+        service.delete(id);
+        return "redirect:allusers?message=User " + id + " deleted successfully";
+    }
 }

@@ -17,50 +17,7 @@
 <body>
 
 	<!-- Header -->
-	<header >
-	<div
-		class="header d-flex justify-content-between align-items-center px-3 py-2">
-		<a class="navbar-brand d-flex align-items-center" href="#">
-			<video autoplay loop muted playsinline class="background-video1">
-				<source src="/video/logofinal.mp4" type="video/mp4" />
-
-			</video>
-		</a>
-
-		<div class="d-flex align-items-center">
-
-			<button class="btn btn-success btn-sm me-1 p-2 me-4">Profile</button>
-			<a th:href="@{/user/logout}" class="btn btn-success btn-sm p-2 me-4">Logout</a>
-			
-		</div>
-	</div>
-
-
-
-	<!-- Delivery Info -->
-	<div
-		class="delivery-info px-3 py-2 d-flex justify-content-between align-items-center">
-		<div>
-			<strong>Delivery In 8 Mins</strong><br>
-
-		</div>
-		
-		<div
-		class="search-bar px-3 py-2 d-flex justify-content-end align-items-center gap-2">
-		<input type="text" id="searchInput" class="form-control me-3"
-			placeholder='Search for "items"' style="width: 400px;">
-
-		<div class="position-relative d-inline-block me-2">
-			<i class="fa-solid fa-cart-shopping fs-4"></i> <span id="cart-count"
-				class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">
-				0 </span>
-		</div>
-
-		<button class="btn btn-warning btn-sm">Orders</button>
-	</div>
-
-	</div>
-	</header>
+	<div th:replace="header :: header"></div>
 
 	
 
@@ -180,7 +137,7 @@
         </strong>
       </div>
       <div class="mt-3" th:attr="id='button-container-' + ${ob.id}">
-        <button class="btn btn-primary" th:onclick="showCounter([[${ob.id}]])">Add</button>
+        <button class="btn btn-primary" th:onclick="addToCart([[${ob.id}]])">Add</button>
       </div>
     </div>
 
@@ -188,39 +145,11 @@
 </div>
 
 
-	<h2 class="m-5">Grocery & Kitchen</h2>
-	<div id="categoryScroll" class="d-flex overflow-auto px-3 py-4 gap-3"
-		style="scroll-snap-type: x mandatory; scroll-behavior: smooth;">
-
-		<!-- Category cards -->
-		<div class="flex-shrink-0 d-flex gap-2" style="width: 10rem; scroll-snap-align: start;">
-			<a th:href="@{/Category/getproducts(category=Fruits)}">
-				<img src="https://cdn.zeptonow.com/production/tr:w-420,ar-486-333,pr-true,f-auto,q-80/cms/category/2b5f2be5-cada-4cd7-b0af-e46c0c065f71.png"
-					style=" object-fit: cover;" />
-			</a>
-			
-			<a href="#">
-				<img src="https://cdn.zeptonow.com/production/tr:w-210,ar-225-333,pr-true,f-auto,q-80/cms/category/54dd01e1-2781-4a45-bc3a-ed53ebab9bd9.png"
-					style=" object-fit: cover;" />
-			</a>
-			
-			<a href="#">
-				<img src="https://cdn.zeptonow.com/production/tr:w-210,ar-225-333,pr-true,f-auto,q-80/cms/category/474e6e58-1894-4378-86f1-168cc7266d1a.png"
-					style=" object-fit: cover;" />
-			</a>
-			
-			<a href="#">
-				<img src="https://cdn.zeptonow.com/production/tr:w-210,ar-225-333,pr-true,f-auto,q-80/cms/category/1237afd6-40bf-4942-a266-25f23025e86c.png"
-					style=" object-fit: cover;" />
-			</a>
-			
-		</div>
-
-	</div>
+	
 
 
 <!-- Cafe Sub categories -->
-<h2 class="mt-4 ms-4">Cafe items</h2>
+<h2 class="m-2 bg-primary text-white p-2">Cafe items</h2>
 <div id="categoryScroll" class="d-flex overflow-auto px-3 py-4 gap-3"
 		style="scroll-snap-type: x mandatory; scroll-behavior: smooth;">
 
@@ -238,197 +167,15 @@
 
 
 	<!-- Toast Container - Top Center -->
-	<div class="position-fixed top-0 start-50 translate-middle-x p-3"
-		style="z-index: 1055;">
-		<div id="maxQtyToast"
-			class="toast align-items-center text-bg-primary border-0"
-			role="alert" aria-live="assertive" aria-atomic="true">
-			<div class="d-flex">
-				<div class="toast-body">Maximum quantity reached (10 per
-					item).</div>
-				<button type="button" class="btn-close btn-close-white me-2 m-auto"
-					data-bs-dismiss="toast" aria-label="Close"></button>
-			</div>
-		</div>
-	</div>
+<div class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1055;">
+    <div id="maxQtyToast" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">Product added to cart</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
 
-
-
-	<div class="product-grid">
-
-		<div class="product-card">
-			<div class="discount-tag">52% Off</div>
-			<img
-				src="https://wallpapercrafter.com/desktop1/616040-red-delicious-apples-macro-photography-fruit-apple.jpg">
-			<h3>Apple</h3>
-			<p class="delivery-time">8 Mins</p>
-			<p class="price">
-				<del>₹67</del>
-				₹32
-			</p>
-			<button onclick="addToCart(32)">Add</button>
-		</div>
-
-		<div class="product-card">
-			<div class="discount-tag">30% Off</div>
-			<img
-				src="https://organicandreal.com/cdn/shop/files/chigrinxxctnl1.jpg?v=1721384736"
-				alt="Chilli Green">
-			<h3>Chilli Green</h3>
-			<p class="delivery-time">8 Mins</p>
-			<p class="price">
-				<del>₹26</del>
-				₹18
-			</p>
-			<button onclick="addToCart(18)">Add</button>
-		</div>
-
-		<div class="product-card">
-			<div class="discount-tag">36% Off</div>
-			<img
-				src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5QV0yp-TRLGQpg60Ej2uykNcjuxDny1fddQ&s"
-				alt="Cucumber Green">
-			<h3>Cucumber Green</h3>
-			<p class="delivery-time">8 Mins</p>
-			<p class="price">
-				<del>₹47</del>
-				₹30
-			</p>
-			<button onclick="addToCart(30)">Add</button>
-		</div>
-
-		<div class="product-card">
-			<div class="discount-tag">81% Off</div>
-			<img
-				src="https://cbx-prod.b-cdn.net/COLOURBOX48095085.jpg?width=800&height=800&quality=70"
-				alt="Vietnamese Cold Coffee">
-			<h3>Vietnamese Cold Coffee</h3>
-			<p class="delivery-time">8 Mins</p>
-			<p class="price">
-				<del>₹439</del>
-				₹80
-			</p>
-			<button onclick="addToCart(80)">Add</button>
-		</div>
-
-		<div class="product-card">
-			<div class="discount-tag">4% Off</div>
-			<img
-				src="https://m.media-amazon.com/images/I/71k5yQ2PnXL.AC_UF350,350_QL50.jpg"
-				alt="Nandini Paneer">
-			<h3>Nandini Paneer</h3>
-			<p class="delivery-time">8 Mins</p>
-			<p class="price">
-				<del>₹100</del>
-				₹96
-			</p>
-			<button onclick="addToCart(96)">Add</button>
-		</div>
-
-
-		<div class="product-card">
-			<div class="discount-tag">4% Off</div>
-			<img
-				src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHl_rzwAEyApWWfXRIEolKFxbKb0gca8zG4Q&s"
-				alt="Potato">
-			<h3>Potato</h3>
-			<p class="delivery-time">8 Mins</p>
-			<p class="price">
-				<del>₹50</del>
-				₹36
-			</p>
-			<button onclick="addToCart(36)">Add</button>
-		</div>
-
-
-		<div class="product-card">
-			<div class="discount-tag">38% Off</div>
-			<img
-				src="https://im.pluckk.in/unsafe/1200x0/uploads/7020-grapes_sonaka.jpg"
-				alt="Potato">
-			<h3>Grapes</h3>
-			<p class="delivery-time">8 Mins</p>
-			<p class="price">
-				<del>₹118</del>
-				₹76
-			</p>
-			<button>Add</button>
-		</div>
-
-		<div class="product-card">
-			<div class="discount-tag">39% Off</div>
-			<img
-				src="https://www.distacart.com/cdn/shop/products/LakmeSunExpertSPF50PAFairnessUVSunscreenLotion_1280x.jpg?v=1720607270"
-				alt="Potato">
-			<h3>Lakme Sun Expert Sunscreen Lotion</h3>
-			<p class="delivery-time">8 Mins</p>
-			<p class="price">
-				<del>₹269</del>
-				₹174
-			</p>
-			<button>Add</button>
-		</div>
-
-
-		<div class="product-card">
-			<div class="discount-tag">5% Off</div>
-			<img
-				src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa9hoKjGDm5BD--RY58ffk05znXSclrz-7ag&s"
-				alt="Potato">
-			<h3>Bingo!Chilli Sprinkled potato Chips</h3>
-			<p class="delivery-time">8 Mins</p>
-			<p class="price">
-				<del>₹20</del>
-				₹16
-			</p>
-			<button>Add</button>
-		</div>
-
-
-		<div class="product-card">
-			<div class="discount-tag">4% Off</div>
-			<img
-				src="https://www.bigbasket.com/media/uploads/p/l/251006_13-sprite-soft-drink-lime-flavoured.jpg"
-				alt="Potato">
-			<h3>Sprite Soft Drink</h3>
-			<p class="delivery-time">8 Mins</p>
-			<p class="price">
-				<del>₹118</del>
-				₹100
-			</p>
-			<button>Add</button>
-		</div>
-
-
-
-		<div class="product-card">
-			<div class="discount-tag">31% Off</div>
-			<img
-				src="https://m.media-amazon.com/images/I/61HKOG2wECL.AC_SL1500.jpg"
-				alt="Potato">
-			<h3>Ariel Liquid Detergent Front Load</h3>
-			<p class="delivery-time">8 Mins</p>
-			<p class="price">
-				<del>₹879</del>
-				₹576
-			</p>
-			<button>Add</button>
-		</div>
-
-
-
-		<div class="product-card">
-			<div class="discount-tag">60% Off</div>
-			<img src="https://specialtyproduce.com/sppics/6745.png " alt="Potato">
-			<h3>Coriander Leaves with roots</h3>
-			<p class="delivery-time">8 Mins</p>
-			<p class="price">
-				<del>₹33</del>
-				₹13
-			</p>
-			<button>Add</button>
-		</div>
-	</div>
 
 
 
@@ -536,74 +283,34 @@
 	</section>
 
 	<script>
-  const itemQuantities = {};
-  let totalCartCount = 0;
-  const MAX_QUANTITY = 10;
+	function addToCart(id) {
+	    fetch(`/cart/add/${id}`, { method: 'POST' })
+	        .then(res => res.text())
+	        .then(message => {
+	            if (message === "Added") {
+	                // Change the button text to "Saved to Cart"
+	                document.getElementById(`add-to-cart-button-${id}`).textContent = "Saved to Cart";
+	                // Optionally, change button style
+	                document.getElementById(`add-to-cart-button-${id}`).classList.remove("btn-primary");
+	                document.getElementById(`add-to-cart-button-${id}`).classList.add("btn-secondary");
+	            }
+	            updateCartCount(); // Update cart item count in the header
+	        })
+	        .catch(err => {
+	            console.error("Error adding to cart:", err);
+	        });
+	}
 
-  function updateCartCountDisplay() {
-    document.getElementById("cart-count").innerText = totalCartCount;
-  }
-
-  function showCounter(productId) {
-    if (!itemQuantities[productId]) {
-      itemQuantities[productId] = 1;
-      totalCartCount++;
-      updateCartCountDisplay();
+    function updateCartCount() {
+        fetch('/cart/count')
+            .then(res => res.text())
+            .then(count => {
+                document.getElementById('cart-count').innerText = count;
+            });
     }
 
-    const container = document.getElementById(`button-container-${productId}`);
-    container.innerHTML = `
-      <div class="d-flex justify-content-center align-items-center">
-        <button class="btn btn-warning btn-sm me-2" onclick="decrement(${productId})">-</button>
-        <span id="quantity-${productId}" class="mx-2">${itemQuantities[productId]}</span>
-        <button class="btn btn-primary btn-sm ms-2" onclick="increment(${productId})">+</button>
-      </div>
-    `;
-  }
-
-  function increment(productId) {
-    if (itemQuantities[productId] < MAX_QUANTITY) {
-      itemQuantities[productId]++;
-      totalCartCount++;
-      document.getElementById(`quantity-${productId}`).innerText = itemQuantities[productId];
-      updateCartCountDisplay();
-    } else {
-      showMaxQtyToast();
-    }
-  }
-
-  function decrement(productId) {
-    if (itemQuantities[productId] > 0) {
-      itemQuantities[productId]--;
-      totalCartCount--;
-      updateCartCountDisplay();
-
-      if (itemQuantities[productId] === 0) {
-        const container = document.getElementById(`button-container-${productId}`);
-        container.innerHTML = `
-          <button class="btn btn-primary" onclick="showCounter(${productId})">Add</button>
-        `;
-        delete itemQuantities[productId];
-        return;
-      }
-
-      document.getElementById(`quantity-${productId}`).innerText = itemQuantities[productId];
-    }
-  }
-
-  function showMaxQtyToast() {
-    const toastEl = document.getElementById('maxQtyToast');
-    const toast = new bootstrap.Toast(toastEl);
-    toast.show();
-  }
-  
-  document.querySelectorAll('.categories button').forEach(btn => {
-	  btn.addEventListener('click', () => {
-	    document.querySelectorAll('.categories button').forEach(b => b.classList.remove('active'));
-	    btn.classList.add('active');
-	  });
-	});
-
+    document.addEventListener("DOMContentLoaded", updateCartCount);
+    
   function scrollLeft() {
 		const container = document.getElementById('categoryScroll');
 		// Scroll to the LEFT (this makes the view move RIGHT)

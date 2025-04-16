@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}" />
+</head>
+<body>
+
+<div th:fragment="header">
+    <header>
+        <div class="header d-flex justify-content-between align-items-center px-3 py-2">
+            <a class="navbar-brand d-flex align-items-center" href="/user/Home">
+                <video autoplay loop muted playsinline class="background-video1">
+                    <source src="/video/logofinal.mp4" type="video/mp4" />
+                </video>
+            </a>
+
+            <div class="d-flex align-items-center">
+                <button class="btn btn-success btn-sm me-1 p-2 me-4">Profile</button>
+                <a th:href="@{/user/logout}" class="btn btn-success btn-sm p-2 me-4">Logout</a>
+            </div>
+        </div>
+
+        <!-- Delivery Info -->
+        <div class="delivery-info px-3 py-2 d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Delivery In 8 Mins</strong><br>
+            </div>
+            
+            <div class="search-bar px-3 py-2 d-flex justify-content-end align-items-center gap-2">
+                <input type="text" id="searchInput" class="form-control me-3" placeholder='Search for "items"' style="width: 400px;">
+
+                <div class="position-relative d-inline-block me-2">
+                    <a href="/cart" class="position-relative text-decoration-none text-dark">
+                        <i class="fa fa-shopping-cart fs-4"></i>
+                        
+                    </a>
+                </div>
+
+                <button class="btn btn-warning btn-sm">Orders</button>
+            </div>
+        </div>
+    </header>
+</div>
+
+</body>
+</html>
