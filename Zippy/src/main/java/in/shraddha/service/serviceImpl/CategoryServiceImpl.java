@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import in.shraddha.entity.Category;
+import in.shraddha.entity.CategoryForm;
 import in.shraddha.entity.SubCategory;
 import in.shraddha.repository.CategoryRepo;
 import in.shraddha.repository.SubCategoryRepo;
@@ -19,21 +20,22 @@ public class CategoryServiceImpl implements AddCategory {
     @Autowired
     private SubCategoryRepo subcategoryRepo;
 
-    public void addCategory(String categoryName, String image, String subcategoryName) {
+    public void addCategory(CategoryForm cat) {
         System.out.println("Inside addCategoryWithSubcategory");
-        System.out.println("categoryName = " + categoryName);
-        System.out.println("subcategoryName = " + subcategoryName);
+        System.out.println("categoryName = " + cat.getCategoryName());
+        System.out.println("subcategoryName = " + cat.getSubcategoryName());
 
-        Category category = categoryRepo.findByName(categoryName)
+        Category category = categoryRepo.findByName(cat.getCategoryName())
                 .orElseGet(() -> {
                     Category newCat = new Category();
-                    newCat.setName(categoryName);
-                    newCat.setImg(image);
+                    newCat.setName(cat.getCategoryName());
+                    newCat.setImg(cat.getImage());
                     return categoryRepo.save(newCat);
                 });
 
         SubCategory subcategory = new SubCategory();
-        subcategory.setName(subcategoryName);
+        subcategory.setName(cat.getSubcategoryName());
+        subcategory.setImg(cat.getSubimage());
         subcategory.setCategory(category);
         subcategoryRepo.save(subcategory);
     }

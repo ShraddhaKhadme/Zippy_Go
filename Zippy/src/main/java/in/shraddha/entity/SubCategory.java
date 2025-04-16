@@ -22,6 +22,8 @@ public class SubCategory {
     private Integer id;
 
     private String name;
+    
+    private String img;
 
     @ToString.Exclude
     @ManyToOne

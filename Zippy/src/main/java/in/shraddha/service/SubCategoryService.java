@@ -9,4 +9,6 @@ public interface SubCategoryService {
 	public SubCategory findById(Integer id);
 
 	 public List<SubCategory> getSubcategoriesByCategoryId(Integer categoryId);
+	 
+	 public List<SubCategory> getAllSubCategories();
 }

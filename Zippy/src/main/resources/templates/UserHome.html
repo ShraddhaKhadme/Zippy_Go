@@ -187,6 +187,54 @@
 </div>
 
 
+	<h2 class="m-5">Grocery & Kitchen</h2>
+	<div id="categoryScroll" class="d-flex overflow-auto px-3 py-4 gap-3"
+		style="scroll-snap-type: x mandatory; scroll-behavior: smooth;">
+
+		<!-- Category cards -->
+		<div class="flex-shrink-0 d-flex gap-2" style="width: 10rem; scroll-snap-align: start;">
+			<a th:href="@{/Category/getproducts(category=Fruits)}">
+				<img src="https://cdn.zeptonow.com/production/tr:w-420,ar-486-333,pr-true,f-auto,q-80/cms/category/2b5f2be5-cada-4cd7-b0af-e46c0c065f71.png"
+					style=" object-fit: cover;" />
+			</a>
+			
+			<a href="#">
+				<img src="https://cdn.zeptonow.com/production/tr:w-210,ar-225-333,pr-true,f-auto,q-80/cms/category/54dd01e1-2781-4a45-bc3a-ed53ebab9bd9.png"
+					style=" object-fit: cover;" />
+			</a>
+			
+			<a href="#">
+				<img src="https://cdn.zeptonow.com/production/tr:w-210,ar-225-333,pr-true,f-auto,q-80/cms/category/474e6e58-1894-4378-86f1-168cc7266d1a.png"
+					style=" object-fit: cover;" />
+			</a>
+			
+			<a href="#">
+				<img src="https://cdn.zeptonow.com/production/tr:w-210,ar-225-333,pr-true,f-auto,q-80/cms/category/1237afd6-40bf-4942-a266-25f23025e86c.png"
+					style=" object-fit: cover;" />
+			</a>
+			
+		</div>
+
+	</div>
+
+
+<!-- Cafe Sub categories -->
+<h2 class="mt-4 ms-4">Cafe items</h2>
+<div id="categoryScroll" class="d-flex overflow-auto px-3 py-4 gap-3"
+		style="scroll-snap-type: x mandatory; scroll-behavior: smooth;">
+
+		<!-- Category cards -->
+		<div class="flex-shrink-0" style="width: 10rem; scroll-snap-align: start;" th:each="ob : ${slist}" th:if="${ob.category.name == 'Cafe'}">
+			<a th:href="@{'/product/' + ${ob.id}}">
+				<img th:src="@{${ob.img}}"
+					style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;" />
+			</a>
+			<p class="mt-2 fw-bold text-center" th:text="${ob.name}"></p>
+		</div>
+
+	</div>
+
+
 
 	<!-- Toast Container - Top Center -->
 	<div class="position-fixed top-0 start-50 translate-middle-x p-3"

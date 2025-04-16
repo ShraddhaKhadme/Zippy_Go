@@ -39,11 +39,7 @@ public class CategoryController {
     @PostMapping("/addcategory")
     public String addCategory(@ModelAttribute CategoryForm categoryForm, RedirectAttributes model) {
         try {
-            categoryService.addCategory(
-                categoryForm.getCategoryName(),
-                categoryForm.getImage(),
-                categoryForm.getSubcategoryName()
-            );
+            categoryService.addCategory(categoryForm);
             model.addAttribute("message", "Category added successfully!");
             System.out.println("Category added successfully...");
         } catch (Exception e) {

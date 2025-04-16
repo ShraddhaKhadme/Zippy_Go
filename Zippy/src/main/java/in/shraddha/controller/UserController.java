@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import in.shraddha.entity.Category;
 import in.shraddha.entity.Product;
+import in.shraddha.entity.SubCategory;
 import in.shraddha.entity.User;
 import in.shraddha.service.AddCategory;
+import in.shraddha.service.SubCategoryService;
 import in.shraddha.service.UserService;
 import jakarta.servlet.http.HttpSession;
 
@@ -29,6 +31,9 @@ public class UserController {
 	
 	@Autowired
 	private AddCategory cservice;
+	
+	@Autowired
+	private SubCategoryService sservice;
 	
 	@GetMapping("/")
 	public String loadPage() {
@@ -102,14 +107,19 @@ public class UserController {
 				page = "adminHome";
 			} else {
 				
+				System.out.println("User login sucessful..");
+				
 				List<Product> plist=service.getAllProducts();
 				System.out.println("products"+plist.size());
 				List<Category> clist=cservice.getAllCategories();
+				
+				List<SubCategory> slist=sservice.getAllSubCategories();
 				//List<Product> plist=service.getAllProducts().stream().limit(5).collect(Collectors.toList());
 				model.addAttribute("list", plist);
 				model.addAttribute("clist", clist);
+				model.addAttribute("slist", slist);
 
-				System.out.println("User login sucessful..");
+				
 				page = "UserHome";
 			}
 

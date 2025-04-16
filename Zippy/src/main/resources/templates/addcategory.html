@@ -141,6 +141,9 @@ top:20px;
 
     <label>Subcategory Name:</label>
     <input type="text" th:field="*{subcategoryName}" id="subcategoryName" required/><br/>
+    
+    <label>Sub Category image URL:</label>
+    <input type="text" th:field="*{subimage}" id="subimage" required/><br/>
 
     <input type="submit" value="Add Category" class="btn btn-primary"/>
         
@@ -159,6 +162,10 @@ top:20px;
           required: true,
           url: true
         },
+        subimage: {
+            required: "Please enter image URL",
+            url: "Enter a valid URL"
+          },
         subcategoryName: {
           required: true,
           minlength: 3
@@ -173,6 +180,10 @@ top:20px;
           required: "Please enter image URL",
           url: "Enter a valid URL"
         },
+        subimage: {
+            required: "Please enter image URL",
+            url: "Enter a valid URL"
+          },
         subcategoryName: {
           required: "Please enter a subcategory name",
           minlength: "At least 3 characters"

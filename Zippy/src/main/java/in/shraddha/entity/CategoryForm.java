@@ -12,5 +12,6 @@ public class CategoryForm {
 	    private String categoryName;
 	    private String image;
 	    private String subcategoryName;
+	    private String subimage;
 
 }
