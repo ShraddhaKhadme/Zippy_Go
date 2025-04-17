@@ -53,37 +53,50 @@
   </div>
 
   <!-- Product Cards -->
-  <div class="d-flex overflow-auto px-3 py-4 gap-3 m-2" style="scroll-snap-type: x mandatory;">
-
-    <div class="card flex-shrink-0" style="width: 15rem; scroll-snap-align: start;"
-         th:each="product : ${products}">
-
-      <div class="position-relative">
-        <a th:href="@{'/product/' + ${product.id}}">
-          <img th:src="@{${product.pimg}}" class="card-img-top" height="180" width="100%" />
-        </a>
-        <span class="discount-tag"
-              th:text="${#numbers.formatDecimal((product.pdiscount / product.pprice) * 100, 2, 2)} + '%' + ' Off'">
-        </span>
-      </div>
-
-      <div class="card-body d-flex flex-column justify-content-between text-center">
-        <div>
-          <h5 class="card-title" th:text="${product.pname}">Product Name</h5>
-          <p class="card-text" th:text="${product.quantity}">Quantity</p>
-          <strike class="card-text">&#8377;<span th:text="${product.pprice}">0.00</span></strike>
-          <strong class="card-text fs-5"
-                  th:text="'&#8377;' + ${#numbers.formatDecimal(product.pprice - product.pdiscount, 2, 2)}">
-          </strong>
+  <div class="container py-4">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
+    
+    <!-- Start Loop -->
+    <div class="col" th:each="product : ${products}">
+      <div class="card h-100">
+        
+        <!-- Product Image & Discount -->
+        <div class="position-relative">
+          <a th:href="@{'/product/' + ${product.id}}">
+            <img th:src="@{${product.pimg}}" class="card-img-top" style="height: 180px; object-fit: cover;" />
+          </a>
+          <span class="position-absolute top-0 end-0 bg-danger text-white px-2 py-1 rounded-start"
+                style="font-size: 0.8rem;"
+                th:text="${#numbers.formatDecimal((product.pdiscount / product.pprice) * 100, 2, 2)} + '%' + ' Off'">
+          </span>
         </div>
-        <div class="mt-3" th:attr="id='button-container-' + ${product.id}">
-        <button class="btn btn-primary" th:onclick="showCounter([[${product.id}]])">Add</button>
-      </div>
-      </div>
 
+        <!-- Card Body -->
+        <div class="card-body d-flex flex-column justify-content-between text-center">
+          <div>
+            <h5 class="card-title mb-2" th:text="${product.pname}">Product Name</h5>
+            <p class="card-text mb-1" th:text="${product.quantity}">Quantity</p>
+            <p class="mb-1">
+              <strike class="text-muted">&#8377;<span th:text="${product.pprice}">0.00</span></strike>
+            </p>
+            <strong class="fs-5 text-success"
+                    th:text="'&#8377;' + ${#numbers.formatDecimal(product.pprice - product.pdiscount, 2, 2)}">
+            </strong>
+          </div>
+
+          <!-- Add Button -->
+          <div class="mt-3" th:attr="id='button-container-' + ${product.id}">
+            <button class="btn btn-primary w-100" th:onclick="showCounter([[${product.id}]])">Add</button>
+          </div>
+        </div>
+
+      </div>
     </div>
+    <!-- End Loop -->
 
   </div>
+</div>
+  
 
 </body>
 </html>
