@@ -137,7 +137,9 @@
         </strong>
       </div>
       <div class="mt-3" th:attr="id='button-container-' + ${ob.id}">
-        <button class="btn btn-primary" th:onclick="addToCart([[${ob.id}]])">Add</button>
+       <button class="btn btn-primary" id="add-to-cart-button-[[${ob.id}]]"
+        th:onclick="addToCart([[${ob.id}]])">Add</button>
+
       </div>
     </div>
 

@@ -59,6 +59,7 @@ public class UserServiceImpl implements UserService {
 		if ((urepo.findByEmailAndPassword(email).getEmail().equals(email))
 				&& (urepo.findByEmailAndPassword(email).getPassword().equals(password))) {
 			System.out.println("login Succesfull...........");
+			session.setAttribute("uid", urepo.findByEmailAndPassword(email).getId());
 			session.setAttribute("umail", urepo.findByEmailAndPassword(email).getEmail());
 			session.setAttribute("uname", urepo.findByEmailAndPassword(email).getName());
 			session.setAttribute("uphone", urepo.findByEmailAndPassword(email).getPhone());

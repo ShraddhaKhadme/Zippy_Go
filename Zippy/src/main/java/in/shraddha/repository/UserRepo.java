@@ -1,5 +1,7 @@
 package in.shraddha.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +17,8 @@ public interface UserRepo extends JpaRepository<User, Integer>{
 
 	//@Query("select u from User u where u.email=:email")
 	boolean existsByEmail(String email);
+	
+	Optional<User> findByEmail(String email);
 
 	
 
