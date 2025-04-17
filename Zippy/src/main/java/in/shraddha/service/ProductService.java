@@ -10,5 +10,6 @@ public interface ProductService {
 	List<Product> getProductsByCategoryId(Integer categoryId);
 	
 	public Product getProduct(Integer id);
+	 List<Product> getFilteredProducts(Double minPrice, Double maxPrice, String discount);
 	
 }
