@@ -9,4 +9,6 @@ public interface ProductService {
 	Integer  saveProduct(Product p);
 	List<Product> getProductsByCategoryId(Integer categoryId);
 	
+	public Product getProduct(Integer id);
+	
 }

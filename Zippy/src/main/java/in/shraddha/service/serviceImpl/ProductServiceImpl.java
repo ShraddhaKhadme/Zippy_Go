@@ -25,6 +25,11 @@ public class ProductServiceImpl implements ProductService{
 		return prepo.findByCategoryId(categoryId);
 		
 	}
+	@Override
+	public Product getProduct(Integer id) {
+		// TODO Auto-generated method stub
+		return prepo.findById(id).get();
+	}
 	
 
 }
