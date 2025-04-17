@@ -82,13 +82,22 @@ public class ProductController {
         return "fragments :: subcategoryOptions";  // This is for Thymeleaf fragment.html class
     }
     
-    //get products related to that id in homePage
+    //get products related to that id from homePage
     @GetMapping("/getproduct")
     public String getProductsByCategory(@RequestParam Integer categoryId, Model model) {
     	List<Product> products=pservice.getProductsByCategoryId(categoryId);
     	model.addAttribute("products", products);
     	return "products";
     }
-
+    
+    @GetMapping("/products/filter")
+    public String filterProducts(@RequestParam(required = false) Double minPrice,
+                                 @RequestParam(required = false) Double maxPrice,
+                                 @RequestParam(required = false) String discount,
+                                 Model model) {
+        List<Product> filtered = pservice.getFilteredProducts(minPrice, maxPrice, discount);
+        model.addAttribute("products", filtered);
+        return "redirect:/products";
+    }
     
 }

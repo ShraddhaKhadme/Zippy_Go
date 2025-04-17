@@ -30,6 +30,10 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		return prepo.findById(id).get();
 	}
+	@Override
+    public List<Product> getFilteredProducts(Double minPrice, Double maxPrice, String discount) {
+        return prepo.filterProducts(minPrice, maxPrice, discount);
+    }
 	
 
 }
