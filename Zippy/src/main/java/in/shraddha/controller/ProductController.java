@@ -90,7 +90,7 @@ public class ProductController {
     	return "products";
     }
     
-    @GetMapping("/products/filter")
+    @GetMapping("/filter")
     public String filterProducts(@RequestParam(required = false) Double minPrice,
                                  @RequestParam(required = false) Double maxPrice,
                                  @RequestParam(required = false) String discount,
