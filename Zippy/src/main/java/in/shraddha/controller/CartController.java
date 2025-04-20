@@ -1,15 +1,23 @@
 package in.shraddha.controller;
 
-import in.shraddha.repository.ProductRepo;
-import in.shraddha.entity.Cart;
-import in.shraddha.entity.Product;
-import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.*;
+import in.shraddha.entity.CartItem;
+import in.shraddha.entity.Product;
+import in.shraddha.entity.User;
+import in.shraddha.repository.CartItemRepository;
+import in.shraddha.repository.ProductRepo;
+import in.shraddha.repository.UserRepo;
+import in.shraddha.service.ProductService;
+import in.shraddha.service.UserService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class CartController {
@@ -17,112 +25,139 @@ public class CartController {
     @Autowired
     private ProductRepo productRepo;
 
-    @PostMapping("/cart/add/{id}")
-    @ResponseBody
-    public String addToCart(@PathVariable Integer id, HttpSession session) {
-        Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new HashMap<>();
-        }
+    @Autowired
+    private ProductService pservice;
 
-        Product product = productRepo.findById(id).orElse(null);
-        if (product == null) return "Product not found";
+    @Autowired
+    private CartItemRepository cartRepo;
 
-        Cart item = cart.get(id);
-        if (item == null) {
-            item = new Cart(id, product.getPname(), product.getPimg(), product.getPprice(), 1, product.getPdiscount());
-        } else {
-            if (item.getQuantity() < 10) {
-                item.setQuantity(item.getQuantity() + 1);
-            }
-        }
+    @Autowired
+    private UserService uservice;
 
-        cart.put(id, item);
-        session.setAttribute("cart", cart);
-
-        return "Added";  // Change button to "Saved to Cart" on success
-    }
-
-    @PostMapping("/cart/update/{id}")
-    @ResponseBody
-    public String updateQuantity(@PathVariable Integer id,
-                                 @RequestParam("action") String action,
-                                 HttpSession session) {
-        Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
-        if (cart == null) return "No cart found";
-
-        Cart item = cart.get(id);
-        if (item == null) return "Item not found";
-
-        if ("inc".equals(action) && item.getQuantity() < 10) {
-            item.setQuantity(item.getQuantity() + 1);
-        } else if ("dec".equals(action)) {
-            item.setQuantity(item.getQuantity() - 1);
-            if (item.getQuantity() <= 0) cart.remove(id);
-        }
-
-        session.setAttribute("cart", cart);
-        return "Updated";  // Cart quantity updated
-    }
+    @Autowired
+    private UserRepo urepo;
 
     @GetMapping("/cart")
-    public String viewCart(HttpSession session, Model model) {
-        Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
-        model.addAttribute("cartItems", cart != null ? cart.values() : Collections.emptyList());
+    public String viewCart(Model model, HttpSession session) {
+        String email = (String) session.getAttribute("umail");
+        User user = urepo.findByEmail(email);
+        List<CartItem> cartItems = cartRepo.findByUser(user);
 
-        double total = 0;
-        if (cart != null) {
-            for (Cart item : cart.values()) {
-                total += item.getTotalPrice(); // Calculate total using discounted price
-            }
+        double total = cartItems.stream().mapToDouble(CartItem::getTotalPrice).sum();
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("total", total);
+
+        return "cart";
+    }
+
+    @PostMapping("/add-to-cart/{id}")
+    @ResponseBody
+    public String addToCart(@PathVariable Integer id, HttpSession session) {
+        String email = (String) session.getAttribute("umail");
+        if (email == null) return "0";
+
+        User user = urepo.findByEmail(email);
+        Product product = pservice.getProduct(id);
+
+        CartItem item = cartRepo.findByUserAndProduct(user, product).orElse(new CartItem());
+        item.setUser(user);
+        item.setProduct(product);
+
+        int currentQty = item.getQuantity();
+        if (currentQty < 10) {
+            item.setQuantity(currentQty + 1);
+            cartRepo.save(item);
         }
 
-        model.addAttribute("total", total);
-        return "cart"; // Display the cart view with the total
+        long count = cartRepo.countByUser(user);
+        return String.valueOf(count);
     }
 
-    @GetMapping("/cart/count")
-    @ResponseBody
-    public int getCartCount(HttpSession session) {
-        Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
-        return cart != null ? cart.values().stream().mapToInt(Cart::getQuantity).sum() : 0;
-    }
 
     @PostMapping("/cart/increase/{productId}")
-    public String increaseQuantity(@PathVariable int productId, HttpSession session,Model model) {
-        Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
-        if (cart != null && cart.containsKey(productId)) {
-            Cart item = cart.get(productId);
+    @ResponseBody
+    public String increaseQty(@PathVariable Integer productId, HttpSession session) {
+        String email = (String) session.getAttribute("umail");
+        if (email == null) return "0";
+
+        User user = urepo.findByEmail(email);
+        Product product = pservice.getProduct(productId);
+
+        Optional<CartItem> optionalItem = cartRepo.findByUserAndProduct(user, product);
+        if (optionalItem.isPresent()) {
+            CartItem item = optionalItem.get();
             int currentQty = item.getQuantity();
             if (currentQty < 10) {
                 item.setQuantity(currentQty + 1);
+                cartRepo.save(item);
+                return String.valueOf(item.getQuantity());
+            } else {
+                return "max"; // return "max" if quantity exceeds the limit
             }
         }
-        return "redirect:/cart"; // Redirect to cart page after increasing quantity
+        return "0";
     }
 
-
     @PostMapping("/cart/decrease/{productId}")
-    public String decreaseQuantity(@PathVariable int productId, HttpSession session) {
-        Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
-        if (cart != null && cart.containsKey(productId)) {
-            Cart item = cart.get(productId);
+    @ResponseBody
+    public String decreaseQty(@PathVariable Integer productId, HttpSession session) {
+        String email = (String) session.getAttribute("umail");
+        if (email == null) return "0";
+
+        User user = urepo.findByEmail(email);
+        Product product = pservice.getProduct(productId);
+
+        Optional<CartItem> optionalItem = cartRepo.findByUserAndProduct(user, product);
+        if (optionalItem.isPresent()) {
+            CartItem item = optionalItem.get();
             int qty = item.getQuantity();
             if (qty > 1) {
                 item.setQuantity(qty - 1);
+                cartRepo.save(item);
+                return String.valueOf(item.getQuantity());
             } else {
-                cart.remove(productId);
+                cartRepo.delete(item); // Delete item if quantity becomes 0
+                return "0";
             }
         }
-        return "redirect:/cart"; // Redirect to cart page after decreasing quantity
+        return "0";
     }
 
-    @PostMapping("/cart/remove/{productId}")
-    public String removeItem(@PathVariable int productId, HttpSession session) {
-        Map<Integer, Cart> cart = (Map<Integer, Cart>) session.getAttribute("cart");
-        if (cart != null) {
-            cart.remove(productId); // Remove item from cart
+
+    @GetMapping("/cart/count")
+    @ResponseBody
+    public long cartCount(HttpSession session) {
+        String email = (String) session.getAttribute("umail");
+        if (email == null) return 0;
+        User user = urepo.findByEmail(email);
+        return cartRepo.countByUser(user);
+    }
+
+    @PostMapping("/cart/remove/{id}")
+    public String removeItem(@PathVariable Long id, HttpSession session) {
+        cartRepo.deleteById(id);
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/checkout")
+    public String checkout(HttpSession session, RedirectAttributes redirectAttributes) {
+        String email = (String) session.getAttribute("umail");
+        if (email == null) {
+            redirectAttributes.addFlashAttribute("error", "User not logged in!");
+            return "redirect:/login";
         }
-        return "redirect:/cart"; // Redirect to cart page after removal
+
+        User user = urepo.findByEmail(email);
+        List<CartItem> cartItems = cartRepo.findByUser(user);
+
+        if (cartItems.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Cart is empty!");
+            return "redirect:/cart";
+        }
+
+        // Simulate order save (optional)
+        cartRepo.deleteAll(cartItems);
+        redirectAttributes.addFlashAttribute("success", "Checkout successful! Thank you for your purchase.");
+        return "redirect:/cart";
     }
 }
