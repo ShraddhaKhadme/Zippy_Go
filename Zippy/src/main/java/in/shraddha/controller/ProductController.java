@@ -1,6 +1,7 @@
 package in.shraddha.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import in.shraddha.entity.Category;
 import in.shraddha.entity.Product;
 import in.shraddha.entity.SubCategory;
+import in.shraddha.repository.CategoryRepo;
 import in.shraddha.service.AddCategory;
 import in.shraddha.service.ProductService;
 import in.shraddha.service.SubCategoryService;
@@ -31,6 +33,9 @@ public class ProductController {
 
     @Autowired
     private SubCategoryService subCategoryService;
+    
+    @Autowired
+    private CategoryRepo categoryRepo;
 
     @GetMapping("/form")
     public String loadPage(Model model) {
@@ -90,14 +95,36 @@ public class ProductController {
     	return "products";
     }
     
+
+//    @GetMapping("/filter")
+//    public String filterProducts(@RequestParam(required = false) Double minPrice,
+//                                 @RequestParam(required = false) Double maxPrice,
+//                                 @RequestParam(required = false) String discount,
+//                                 Model model) {
+//        List<Product> filtered = pservice.getFilteredProducts(minPrice, maxPrice, discount);
+//        model.addAttribute("products", filtered);
+//        model.addAttribute("param", Map.of(
+//            "minPrice", minPrice,
+//            "maxPrice", maxPrice,
+//            "discount", discount
+//        ));
+//        return "products";  // DO NOT REDIRECT — just return the view
+//    }
+    
     @GetMapping("/filter")
-    public String filterProducts(@RequestParam(required = false) Double minPrice,
-                                 @RequestParam(required = false) Double maxPrice,
-                                 @RequestParam(required = false) String discount,
-                                 Model model) {
-        List<Product> filtered = pservice.getFilteredProducts(minPrice, maxPrice, discount);
-        model.addAttribute("products", filtered);
-        return "redirect:/products";
+    public String showProducts(
+        @RequestParam(required = false) String category,
+        @RequestParam(required = false) Double minPrice,
+        @RequestParam(required = false) Double maxPrice,
+        @RequestParam(required = false) Double discount,
+        Model model
+    ) {
+        List<Product> products = pservice.getFilteredProducts(category, minPrice, maxPrice, discount);
+        model.addAttribute("products", products);
+        return "products";
     }
+
+   
+
     
 }
