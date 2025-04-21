@@ -39,31 +39,49 @@
   <div class="row">
     
     <!-- FILTER SIDEBAR -->
-    <div class="col-md-3 sidebar">
-      <h5>Filter Products</h5>
-      <form method="get" th:action="@{/product/filter}">
-        <div class="mb-3">
-          <label for="minPrice" class="form-label">Min Price</label>
-          <input type="number" class="form-control" name="pprice" id="minPrice" placeholder="e.g. 100"
-                 th:value="${minPrice}">
-        </div>
-        <div class="mb-3">
-          <label for="maxPrice" class="form-label">Max Price</label>
-          <input type="number" class="form-control" name="pprice" id="maxPrice" placeholder="e.g. 1000"
-                 th:value="${maxPrice}">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Discount</label>
-          <select class="form-select" name="discount">
-            <option value="">Select</option>
-            <option value="gt10" th:selected="${pdiscount == 'gt10'}">More than 10%</option>
-            <option value="30to50" th:selected="${pdiscount == '30to50'}">30% - 50%</option>
-            <option value="gt50" th:selected="${pdiscount == 'gt50'}">More than 50%</option>
-          </select>
-        </div>
-        <button class="btn btn-primary w-100" type="submit">Apply Filters</button>
-      </form>
-    </div>
+   <!-- FILTER SIDEBAR -->
+<div class="col-md-3 sidebar">
+  <h5>Filter Products</h5>
+    <form method="get" th:action="@{/product/filter}">
+          <div class="mb-3">
+           <label for="categoryId" class="form-label">Category</label>
+				<select class="form-select" name="categoryId" id="categoryId">
+				  <option value="">All Categories</option>
+				  <option value="Electronics" th:selected="${param.categoryId == 'Electronics'}">Electronics</option>
+				  <option value="Flowers" th:selected="${param.categoryId == 'Flowers'}">Flowers</option>
+				  <option value="Fashion" th:selected="${param.categoryId == 'Fashion'}">Fashion</option>
+				  <option value="Fruits" th:selected="${param.categoryId == 'Fruits'}">Fruits</option>
+				  <option value="Vegetables" th:selected="${param.categoryId == 'Vegetables'}">Vegetables</option>
+				</select>
+           
+          </div>
+
+          <div class="mb-3">
+            <label for="minPrice" class="form-label">Min Price</label>
+            <input type="number" class="form-control" name="minPrice" id="minPrice"
+                   placeholder="e.g. 100" th:value="${param.minPrice}">
+          </div>
+
+          <div class="mb-3">
+            <label for="maxPrice" class="form-label">Max Price</label>
+            <input type="number" class="form-control" name="maxPrice" id="maxPrice"
+                   placeholder="e.g. 1000" th:value="${param.maxPrice}">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Discount</label>
+            <select class="form-select" name="discount">
+              <option value="">Select</option>
+              <option value="gt10" th:selected="${param.discount == 'gt10'}">More than 10%</option>
+              <option value="30to50" th:selected="${param.discount == '30to50'}">30% - 50%</option>
+              <option value="gt50" th:selected="${param.discount == 'gt50'}">More than 50%</option>
+            </select>
+          </div>
+
+          <button class="btn btn-primary w-100" type="submit">Apply Filters</button>
+        </form>
+</div>
+   
 
     <!-- PRODUCT CARDS -->
     <div class="col-md-9">

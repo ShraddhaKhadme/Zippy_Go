@@ -15,4 +15,5 @@ public interface CategoryRepo extends JpaRepository<Category, Integer>{
 	
 	@Query("SELECT DISTINCT c FROM Category c LEFT JOIN FETCH c.subcategories")
 	List<Category> findAllWithSubcategories();
+	
 }
