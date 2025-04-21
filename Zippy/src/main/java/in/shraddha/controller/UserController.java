@@ -114,14 +114,21 @@ public class UserController {
         String umail = (String)session.getAttribute("umail");
         Long uphone = (Long)session.getAttribute("uphone");
 
+        String page="";
         if (uname == null || umail == null) {
             model.addAttribute("message", "Please login first.");
             return "login";
         }
+        
 
         model.addAttribute("uname", uname);
         model.addAttribute("umail", umail);
         model.addAttribute("uphone", uphone);
+        
+        if (umail.equals("admin@gmail.com")) {
+            System.out.println("Admin login successful");
+            page = "adminHome";
+        } else {
 
         List<Product> plist = service.getAllProducts();
         List<Category> clist = cservice.getAllCategories();
@@ -131,7 +138,10 @@ public class UserController {
         model.addAttribute("clist", clist);
         model.addAttribute("slist", slist);
 
-        return "UserHome";
+        page= "UserHome";
+        }
+        
+        return page;
     }
 
     @GetMapping("/logout")
