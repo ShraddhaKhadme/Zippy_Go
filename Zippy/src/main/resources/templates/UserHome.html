@@ -12,6 +12,10 @@
 <!-- CSS file path -->
 <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}" />
 
+<!-- Javascript file path -->
+<script th:src="@{/assets/js/cart.js}"></script>
+
+
 </head>
 
 <body>
@@ -137,8 +141,8 @@
         </strong>
       </div>
       <div class="mt-3" th:attr="id='button-container-' + ${ob.id}">
-       <button class="btn btn-primary" id="add-to-cart-button-[[${ob.id}]]"
-        th:onclick="addToCart([[${ob.id}]])">Add</button>
+  <button class="btn btn-primary" th:onclick="'addToCart(' + ${ob.id} + ')'">Add</button>
+</div>
 
       </div>
     </div>
@@ -152,12 +156,12 @@
 
 <!-- Cafe Sub categories -->
 <h2 class="m-2 bg-primary text-white p-2">Cafe items</h2>
-<div id="categoryScroll" class="d-flex overflow-auto px-3 py-4 gap-3"
+<div  class="d-flex overflow-auto px-3 py-4 gap-3"
 		style="scroll-snap-type: x mandatory; scroll-behavior: smooth;">
 
 		<!-- Category cards -->
 		<div class="flex-shrink-0" style="width: 10rem; scroll-snap-align: start;" th:each="ob : ${slist}" th:if="${ob.category.name == 'Cafe'}">
-			<a th:href="@{'/product/' + ${ob.id}}">
+			<a th:href="@{/product/getproduct(categoryId=${ob.category.id})}">
 				<img th:src="@{${ob.img}}"
 					style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;" />
 			</a>
@@ -169,14 +173,11 @@
 
 
 	<!-- Toast Container - Top Center -->
-<div class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1055;">
-    <div id="maxQtyToast" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">Product added to cart</div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
+<div id="cart-success-alert" class="alert alert-success position-fixed top-0 start-50 translate-middle-x m-4 d-none" role="alert">
+    Product successfully added to cart!
 </div>
+
+
 
 
 
@@ -285,54 +286,21 @@
 	</section>
 
 	<script>
-	function addToCart(id) {
-	    fetch(`/cart/add/${id}`, { method: 'POST' })
-	        .then(res => res.text())
-	        .then(message => {
-	            if (message === "Added") {
-	                // Change the button text to "Saved to Cart"
-	                document.getElementById(`add-to-cart-button-${id}`).textContent = "Saved to Cart";
-	                // Optionally, change button style
-	                document.getElementById(`add-to-cart-button-${id}`).classList.remove("btn-primary");
-	                document.getElementById(`add-to-cart-button-${id}`).classList.add("btn-secondary");
-	            }
-	            updateCartCount(); // Update cart item count in the header
-	        })
-	        .catch(err => {
-	            console.error("Error adding to cart:", err);
-	        });
-	}
+  
 
-    function updateCartCount() {
-        fetch('/cart/count')
-            .then(res => res.text())
-            .then(count => {
-                document.getElementById('cart-count').innerText = count;
-            });
-    }
-
-    document.addEventListener("DOMContentLoaded", updateCartCount);
-    
   function scrollLeft() {
-		const container = document.getElementById('categoryScroll');
-		// Scroll to the LEFT (this makes the view move RIGHT)
-		container.scrollBy({
-			left: -300,
-			behavior: 'smooth'
-		});
+	  const container = document.getElementById("categoryScroll");
+	  container.scrollBy({ left: -300, behavior: "smooth" });
 	}
 
 	function scrollRight() {
-		const container = document.getElementById('categoryScroll');
-		// Scroll to the RIGHT (this makes the view move LEFT)
-		container.scrollBy({
-			left: 300,
-			behavior: 'smooth'
-		});
+	  const container = document.getElementById("categoryScroll");
+	  container.scrollBy({ left: 300, behavior: "smooth" });
 	}
 
-</script>
 
+  window.onload = updateCartCount;
+</script>
 
 
 
