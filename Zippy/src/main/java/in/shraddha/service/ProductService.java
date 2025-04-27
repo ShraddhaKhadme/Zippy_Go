@@ -10,7 +10,6 @@ public interface ProductService {
 	List<Product> getProductsByCategoryId(Integer categoryId);
 	
 	public Product getProduct(Integer id);
-//	 List<Product> getFilteredProducts(Double minPrice, Double maxPrice, String discount);
-	List<Product> getFilteredProducts(String category, Double minPrice, Double maxPrice, Double minDiscount);
+	List<Product> filterProducts(Integer subCategoryId, String sort, Integer id);
 	
 }

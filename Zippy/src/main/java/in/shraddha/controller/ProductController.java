@@ -91,40 +91,29 @@ public class ProductController {
     @GetMapping("/getproduct")
     public String getProductsByCategory(@RequestParam Integer categoryId, Model model) {
     	List<Product> products=pservice.getProductsByCategoryId(categoryId);
+        List<SubCategory> subcategories = subCategoryService.getSubcategoriesByCategoryId(categoryId);
+
+        model.addAttribute("subcat", subcategories);
     	model.addAttribute("products", products);
     	return "products";
     }
     
 
-//    @GetMapping("/filter")
-//    public String filterProducts(@RequestParam(required = false) Double minPrice,
-//                                 @RequestParam(required = false) Double maxPrice,
-//                                 @RequestParam(required = false) String discount,
-//                                 Model model) {
-//        List<Product> filtered = pservice.getFilteredProducts(minPrice, maxPrice, discount);
-//        model.addAttribute("products", filtered);
-//        model.addAttribute("param", Map.of(
-//            "minPrice", minPrice,
-//            "maxPrice", maxPrice,
-//            "discount", discount
-//        ));
-//        return "products";  // DO NOT REDIRECT — just return the view
-//    }
     
     @GetMapping("/filter")
-    public String showProducts(
-        @RequestParam(required = false) String category,
-        @RequestParam(required = false) Double minPrice,
-        @RequestParam(required = false) Double maxPrice,
-        @RequestParam(required = false) Double discount,
-        Model model
-    ) {
-        List<Product> products = pservice.getFilteredProducts(category, minPrice, maxPrice, discount);
-        model.addAttribute("products", products);
+    public String filterProducts(
+            @RequestParam(required = false) Integer subCategoryId,
+            @RequestParam(required = false) String sort,
+            @RequestParam(required = false) Integer id,
+            Model model) {
+
+        List<Product> filteredProducts = pservice.filterProducts(subCategoryId, sort, id);
+
+        model.addAttribute("products", filteredProducts);
+        model.addAttribute("subcat", subCategoryService.getSubcategoriesByCategoryId(id)); // For dropdown
         return "products";
     }
 
-   
 
     
 }

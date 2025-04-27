@@ -30,14 +30,22 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		return prepo.findById(id).get();
 	}
-//	@Override
-//    public List<Product> getFilteredProducts(Double minPrice, Double maxPrice, String discount) {
-//        return prepo.filterProducts(minPrice, maxPrice, discount);
-//    }
-	 @Override
-	    public List<Product> getFilteredProducts(String category, Double minPrice, Double maxPrice, Double minDiscount) {
-	        return prepo.findFilteredProducts(category, minPrice, maxPrice, minDiscount);
+	
+	@Override
+	public List<Product> filterProducts(Integer subCategoryId, String sort, Integer id) {
+	    if (subCategoryId == null && (sort == null || sort.isEmpty())) {
+	        return prepo.findByCategoryId(id);
 	    }
+
+	    if (sort != null && sort.equals("lowToHigh")) {
+	        return prepo.findByFiltersOrderByPriceAsc(subCategoryId, id);
+	    } else if (sort != null && sort.equals("highToLow")) {
+	        return prepo.findByFiltersOrderByPriceDesc(subCategoryId, id);
+	    } else {
+	        return prepo.findByFilters(subCategoryId, id); 
+	    }
+	}
+
 
 
 }

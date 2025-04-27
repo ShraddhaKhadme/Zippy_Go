@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import in.shraddha.entity.Category;
 import in.shraddha.entity.Product;
@@ -79,6 +80,7 @@ public class UserController {
         String status = service.loginUser(u.getEmail(), u.getPassword(), session);
 
         if (status.equals("success")) {
+        	 model.addAttribute("uid", session.getAttribute("uid"));
             model.addAttribute("uname", session.getAttribute("uname"));
             model.addAttribute("umail", session.getAttribute("umail"));
             model.addAttribute("uphone", session.getAttribute("uphone"));
@@ -110,22 +112,20 @@ public class UserController {
     // ✅ NEW: Handles direct GET request to "/user/Home"
     @GetMapping("/Home")
     public String userHome(Model model, HttpSession session) {
-        String uname = (String)session.getAttribute("uname");
-        String umail = (String)session.getAttribute("umail");
-        Long uphone = (Long)session.getAttribute("uphone");
+        User user = (User)session.getAttribute("user");
 
         String page="";
-        if (uname == null || umail == null) {
+        if (user == null) {
             model.addAttribute("message", "Please login first.");
             return "login";
         }
         
 
-        model.addAttribute("uname", uname);
-        model.addAttribute("umail", umail);
-        model.addAttribute("uphone", uphone);
+        model.addAttribute("uname", user.getName());
+        model.addAttribute("umail", user.getEmail());
+        model.addAttribute("uphone", user.getPhone());
         
-        if (umail.equals("admin@gmail.com")) {
+        if (user.getEmail().equals("admin@gmail.com")) {
             System.out.println("Admin login successful");
             page = "adminHome";
         } else {
@@ -182,8 +182,44 @@ public class UserController {
 
     // Admin - delete user
     @GetMapping("/delete")
-    public String delete(@RequestParam Integer id) {
+    public String delete(@RequestParam Integer id, HttpSession session,RedirectAttributes attributes) {
+    	
+    	User user=(User) session.getAttribute("user");
+    	if(user==null)
+    	{
+    		return "login";
+    	}
+    	
+    	if(user.getEmail().equals("admin@gmail.com"))
+    	{
+    		attributes.addFlashAttribute("message", "Admin account can't be deleted");
+    	}
+    	else {
         service.delete(id);
-        return "redirect:allusers?message=User " + id + " deleted successfully";
+        attributes.addFlashAttribute("message", "User " + id + " deleted successfully");
+    	}
+        return "redirect:allusers";
+    	
+    }
+    
+    @GetMapping("/profile")
+    public String getUser(Model model,HttpSession session)
+    {
+    	User u=service.getOneUser((Integer) session.getAttribute("uid"));
+    	model.addAttribute("user", u);
+    	return "Profile";
+    }
+    
+    @PostMapping("/update")
+    public String updateUser(@ModelAttribute User user,RedirectAttributes model)
+    {
+    	User u=service.getOneUser(user.getId());
+    	if(u!=null)
+    	{
+    		user.setPassword(u.getPassword());
+    		service.update(user);
+    	}
+    	model.addFlashAttribute("message","Profile Updated Sucessfully...");
+    	return "redirect:profile";
     }
 }

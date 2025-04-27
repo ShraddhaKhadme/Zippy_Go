@@ -40,15 +40,35 @@ public class CartController {
     @GetMapping("/cart")
     public String viewCart(Model model, HttpSession session) {
         String email = (String) session.getAttribute("umail");
+        if (email == null) {
+            return "redirect:/login"; // Redirect if the user is not logged in
+        }
+        
         User user = urepo.findByEmail(email);
         List<CartItem> cartItems = cartRepo.findByUser(user);
 
+        // Calculate the total price of all items in the cart
         double total = cartItems.stream().mapToDouble(CartItem::getTotalPrice).sum();
+        
+        double discount = 0;
+        double discountedTotal = total;
+
+        // Apply 10% discount if total price is greater than 1000
+        if (total > 1000) {
+            discount = total * 0.10;
+            discountedTotal = total - discount;
+        }
+
+        // Add attributes to the model for rendering in the view
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("total", total);
+        model.addAttribute("discount", discount);
+        model.addAttribute("discountedTotal", discountedTotal);
+        model.addAttribute("user", user);
 
         return "cart";
     }
+
 
     @PostMapping("/add-to-cart/{id}")
     @ResponseBody
