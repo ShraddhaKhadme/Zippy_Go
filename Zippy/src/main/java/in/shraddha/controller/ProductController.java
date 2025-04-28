@@ -124,6 +124,11 @@ public class ProductController {
         return "products";
     }
 
+    @GetMapping("/productDetails")
+    public String productDetails(@RequestParam Integer id) {
+    	return "productDetails";
+    	
+    }
    
 
     
