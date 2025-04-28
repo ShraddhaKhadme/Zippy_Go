@@ -8,34 +8,23 @@ import org.springframework.data.repository.query.Param;
 
 import in.shraddha.entity.Product;
 
-public interface ProductRepo extends JpaRepository<Product, Integer>{
+public interface ProductRepo extends JpaRepository<Product, Integer> {
 	List<Product> findByCategoryId(Integer categoryId);
-//	@Query("SELECT p FROM Product p WHERE " +
-//		       "(" +
-//		       "  (:minPrice IS NOT NULL AND p.pprice >= :minPrice) OR " +
-//		       "  (:maxPrice IS NOT NULL AND p.pprice <= :maxPrice) OR " +
-//		       "  (:discount IS NOT NULL AND (" +
-//		       "    (:discount = 'gt10' AND (p.pdiscount / p.pprice) * 100 > 10) OR " +
-//		       "    (:discount = '30to50' AND (p.pdiscount / p.pprice) * 100 BETWEEN 30 AND 50) OR " +
-//		       "    (:discount = 'gt50' AND (p.pdiscount / p.pprice) * 100 > 50)" +
-//		       "  ))" +
-//		       ")")
-//		List<Product> filterProducts(
-//		    @Param("minPrice") Double minPrice,
-//		    @Param("maxPrice") Double maxPrice,
-//		    @Param("discount") String discount
-//		);
-	@Query("SELECT p FROM Product p WHERE "
-		     + "(:category IS NOT NULL AND p.category = :category) OR "
-		     + "(:minPrice IS NOT NULL AND p.pprice >= :minPrice) OR "
-		     + "(:maxPrice IS NOT NULL AND p.pprice <= :maxPrice) OR "
-		     + "(:minDiscount IS NOT NULL AND p.pdiscount >= :minDiscount)")
-		List<Product> findFilteredProducts(
-		    @Param("category") String category,
-		    @Param("minPrice") Double minPrice,
-		    @Param("maxPrice") Double maxPrice,
-		    @Param("minDiscount") Double minDiscount
-		);
 
+	@Query("SELECT p FROM Product p WHERE " + "(:subCategoryId IS NULL OR p.psubCategory.id = :subCategoryId) AND "
+			+ "p.category.id = :id " + "ORDER BY (p.pprice - p.pdiscount) ASC")
+	
+	List<Product> findByFiltersOrderByPriceAsc(@Param("subCategoryId") Integer subCategoryId, @Param("id") Integer id);
+
+	
+	@Query("SELECT p FROM Product p WHERE " + "(:subCategoryId IS NULL OR p.psubCategory.id = :subCategoryId) AND "
+			+ "p.category.id = :id " + "ORDER BY (p.pprice - p.pdiscount) DESC")
+	
+	List<Product> findByFiltersOrderByPriceDesc(@Param("subCategoryId") Integer subCategoryId, @Param("id") Integer id);
+
+	@Query("SELECT p FROM Product p WHERE " + "(:subCategoryId IS NULL OR p.psubCategory.id = :subCategoryId) AND "
+			+ "p.category.id = :id")
+	
+	List<Product> findByFilters(@Param("subCategoryId") Integer subCategoryId, @Param("id") Integer id);
 
 }

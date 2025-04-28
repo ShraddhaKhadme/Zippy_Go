@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import in.shraddha.entity.CartItem;
 import in.shraddha.entity.Product;
@@ -11,6 +12,7 @@ import in.shraddha.entity.User;
 import in.shraddha.repository.CartItemRepository;
 import in.shraddha.service.CartService;
 
+@Service
 public class CartServiceImpl implements CartService{
 
 	@Autowired

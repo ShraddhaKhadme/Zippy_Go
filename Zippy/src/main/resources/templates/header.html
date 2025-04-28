@@ -25,7 +25,7 @@
             </a>
 
             <div class="d-flex align-items-center">
-                <button class="btn btn-success btn-sm me-1 p-2 me-4">Profile</button>
+                 <a th:href="@{/user/profile}" class="btn btn-success btn-sm p-2 me-4">Profile</a>
                 <a th:href="@{/user/logout}" class="btn btn-success btn-sm p-2 me-4">Logout</a>
             </div>
         </div>
@@ -48,7 +48,7 @@
 </a>
                 </div>
 
-                <a href="#" class="btn btn-warning btn-sm">Orders</a>
+                <a th:href="@{/order/orders}" class="btn btn-warning btn-sm">Orders</a>
             </div>
         </div>
     </header>
