@@ -21,7 +21,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
+import in.shraddha.controller.CategoryController;
 import in.shraddha.entity.Order;
 import in.shraddha.entity.User;
 import jakarta.mail.internet.MimeMessage;
@@ -29,8 +29,14 @@ import jakarta.mail.internet.MimeMessage;
 @Service
 public class EmailService {
 
+    private final CategoryController categoryController;
+
     @Autowired
     private JavaMailSender mailSender;
+
+    EmailService(CategoryController categoryController) {
+        this.categoryController = categoryController;
+    }
 
     public void sendOrderConfirmationWithPdf(User user, List<Order> orders) throws Exception {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -96,6 +102,8 @@ public class EmailService {
         helper.addAttachment("OrderConfirmation.pdf", new ByteArrayResource(baos.toByteArray()));
 
         mailSender.send(message);
+        
+        System.out.println("mail send successfully....");
     }
 
     private void addTableHeader(PdfPTable table) {
