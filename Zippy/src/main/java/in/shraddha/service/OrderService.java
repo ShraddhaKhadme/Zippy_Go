@@ -11,7 +11,7 @@ import in.shraddha.entity.User;
 
 public interface OrderService {
 
-	void placeOrder(User user, List<CartItem> cartItems, String deliveryAddress, String paymentMode);
+	List<Order> placeOrder(User user, List<CartItem> cartItems, String deliveryAddress, String paymentMode);
 
 	Page<Order> getUserOrders(Integer id, int page, int size);
 
@@ -26,4 +26,5 @@ public interface OrderService {
 	void outForDelivery(Long id);
 
 	void orderDelivered(Long id);
+	
 }

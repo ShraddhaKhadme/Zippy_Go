@@ -1,6 +1,8 @@
 package in.shraddha.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import in.shraddha.entity.CartItem;
@@ -18,6 +22,8 @@ import in.shraddha.entity.Order;
 import in.shraddha.entity.User;
 import in.shraddha.service.CartService;
 import in.shraddha.service.OrderService;
+import in.shraddha.service.ReviewService;
+import in.shraddha.service.serviceImpl.EmailService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -29,15 +35,22 @@ public class OrderController {
 
     @Autowired
     private CartService cartService;
+    
+    @Autowired
+    private EmailService emailService;
+    
+    @Autowired
+    private ReviewService reviewService;
 
     @PostMapping("/place")
     public String placeOrder(@RequestParam("deliveryAddress") String deliveryAddress,
                              @RequestParam("paymentMode") String paymentMode,
                              HttpSession session, RedirectAttributes redirectAttributes) {
+
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
-            return "redirect:/user/login"; 
+            return "redirect:/user/login";
         }
 
         List<CartItem> cartItems = cartService.getAllItems(user);
@@ -48,15 +61,24 @@ public class OrderController {
         }
 
         try {
-            orderService.placeOrder(user, cartItems, deliveryAddress, paymentMode);
-            cartService.removeCart(user); 
+            // Step 1: Place Orders
+            List<Order> orders = orderService.placeOrder(user, cartItems, deliveryAddress, paymentMode);
+
+            // Step 2: Clear Cart
+            cartService.removeCart(user);
+
+            // Step 3: Send Email with PDF
+            emailService.sendOrderConfirmationWithPdf(user, orders);
+
             redirectAttributes.addFlashAttribute("success", "Order placed successfully!");
         } catch (Exception e) {
+            e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Failed to place the order. Please try again.");
         }
 
         return "redirect:/cart";
     }
+
     
     @GetMapping("/orders")
     public String orders(
@@ -177,6 +199,23 @@ public class OrderController {
         return "redirect:/order/allOrders";
     }
 
-    
+    @PostMapping("/submitReview")
+    @ResponseBody
+    public Map<String, Object> submitReview(@RequestBody Map<String, Object> data) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            Long orderId = Long.valueOf(data.get("orderId").toString());
+            int rating = (int) data.get("rating");
+            String message = data.get("reviewMessage").toString();
+
+            boolean success = reviewService.submitReview(orderId, rating, message);
+            response.put("success", success);
+            response.put("message", success ? "Review saved." : "Review already submitted or invalid order.");
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Error occurred.");
+        }
+        return response;
+    }
 
 }

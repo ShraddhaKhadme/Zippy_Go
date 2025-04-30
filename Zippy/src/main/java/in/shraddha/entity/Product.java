@@ -35,7 +35,6 @@ public class Product {
 	private String pdescription;
 	private Double pdiscount;
 	
-	@Column(name = "stock", columnDefinition = "VARCHAR(40) DEFAULT 'available'")
 	private String stock;
 	
 	@ManyToOne

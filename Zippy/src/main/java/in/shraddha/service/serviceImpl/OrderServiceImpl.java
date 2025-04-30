@@ -1,5 +1,7 @@
 package in.shraddha.service.serviceImpl;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +24,9 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepo orderRepo;
 
     @Override
-    public void placeOrder(User user, List<CartItem> cartItems, String deliveryAddress, String paymentMode) {
+    public List<Order> placeOrder(User user, List<CartItem> cartItems, String deliveryAddress, String paymentMode) {
+        List<Order> placedOrders = new ArrayList<>();
+
         for (CartItem cartItem : cartItems) {
             Order order = new Order();
             order.setUser(user);
@@ -31,10 +35,14 @@ public class OrderServiceImpl implements OrderService {
             order.setTotalPrice(cartItem.getTotalPrice());
             order.setDeliveryAddress(deliveryAddress);
             order.setPaymentMode(paymentMode);
+            order.setOrderDate(LocalDate.now());
 
-            orderRepo.save(order);
+            placedOrders.add(orderRepo.save(order));
         }
+
+        return placedOrders;
     }
+
 
 	@Override
 	public Page<Order> getUserOrders(Integer id, int page, int size) {
@@ -82,7 +90,7 @@ public class OrderServiceImpl implements OrderService {
 		orderRepo.orderDelivered(id);
 		
 	}
-
 	
+		
 
 }

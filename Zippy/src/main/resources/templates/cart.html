@@ -79,14 +79,13 @@
 
     <!-- Total Amount -->
     <h5 class="m-3">
-    <span th:if="${total > 1000}" class="badge bg-danger">10% OFF</span>
-    Total: 
-    <span th:if="${total > 1000}" class="text-decoration-line-through me-2" id="cart-total">
-        &#8377;[[${total}]] 
-    </span>
-    <span th:text="'&#8377;' + ${discountedTotal}"> </span>
-</h5>
-
+        <span th:if="${total > 1000}" class="badge bg-danger">10% OFF</span>
+        Total:
+        <span th:if="${total > 1000}" class="text-decoration-line-through me-2" id="cart-total">
+            &#8377;[[${total}]]
+        </span>
+        <span th:text="'&#8377;' + ${discountedTotal}"></span>
+    </h5>
 
     <!-- Action Buttons -->
     <div class="d-flex justify-content-end m-4">
@@ -101,7 +100,6 @@
     </div>
 </div>
 
-
 <!-- Checkout Modal -->
 <div class="modal fade mt-5 mb-5" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -114,7 +112,6 @@
 
             <div class="modal-body">
                 <h5>Product Details:</h5>
-
                 <ul th:each="item : ${cartItems}" style="list-style: none;">
                     <li>
                         <img th:src="@{${item.product.pimg}}" width="40" height="40">
@@ -123,7 +120,7 @@
                 </ul>
 
                 <!-- Checkout Form -->
-                <form th:action="@{/order/place}" method="post">
+                <form id="orderForm" th:action="@{/order/place}" method="post" onsubmit="return handleOrderSubmit()">
                     <div class="mb-3">
                         <label for="deliveryAddress" class="form-label">Delivery Address</label>
                         <input type="text" class="form-control" id="deliveryAddress" name="deliveryAddress" required>
@@ -136,6 +133,20 @@
                         </select>
                     </div>
 
+                    <div>
+                        <label for="captchaInput">Enter CAPTCHA:</label>
+                        <canvas id="captchaCanvas" width="150" height="50" class="bg-outline-primary"></canvas><br/>
+                        <input type="text" id="captchaInput" placeholder="Enter CAPTCHA" required />
+                        <button type="button" onclick="generateCaptcha()" class="btn btn-outline-secondary">🔄</button>
+                        <input type="hidden" id="actualCaptcha" />
+                    </div>
+
+                    <!-- Loader Image (Initially Hidden) -->
+                    <div id="loader" class="text-center my-3" style="display: none;">
+                        <img src="https://i.gifer.com/YCZH.gif" width="50" height="50" alt="Loading...">
+                        <p class="text-muted">Placing your order, please wait...</p>
+                    </div>
+
                     <button type="submit" class="btn btn-primary">Place Order</button>
                 </form>
             </div>
@@ -144,10 +155,10 @@
     </div>
 </div>
 
-<!-- SweetAlert2 Success/Error Messages -->
+<!-- SweetAlert2 Messages -->
 <script th:inline="javascript">
     /*<![CDATA[*/
-    let successMessage = '[[${success}]]' ;
+    let successMessage = '[[${success}]]';
     let errorMessage = '[[${error}]]';
 
     if (successMessage && successMessage !== 'null') {
@@ -168,6 +179,58 @@
         });
     }
     /*]]>*/
+
+    let generatedCaptcha = "";
+
+    function generateCaptcha() {
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%!";
+        generatedCaptcha = "";
+        for (let i = 0; i < 6; i++) {
+            generatedCaptcha += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+
+        const canvas = document.getElementById("captchaCanvas");
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = "20px Arial";
+        ctx.fillStyle = "#000";
+        ctx.fillText(generatedCaptcha, 10, 30);
+    }
+
+    function validateCaptcha() {
+        const userInput = document.getElementById("captchaInput").value.trim();
+
+        if (userInput !== generatedCaptcha) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid CAPTCHA',
+                text: 'Please enter the correct CAPTCHA!',
+            });
+            generateCaptcha();
+            document.getElementById("captchaInput").value = "";
+            return false;
+        }
+
+        return true;
+    }
+
+    function handleOrderSubmit() {
+        if (!validateCaptcha()) {
+            return false;
+        }
+
+        document.getElementById("loader").style.display = "block";
+        return true;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        generateCaptcha();
+    });
+
+    document.getElementById('checkoutModal').addEventListener('shown.bs.modal', function () {
+        generateCaptcha();
+    });
 </script>
 
 </body>

@@ -1,5 +1,8 @@
 package in.shraddha.entity;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -28,5 +31,12 @@ public class Order {
 
     private String paymentMode;
     
+    private LocalDate orderDate;
+    
     private String status = "Pending";
+    
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private OrderReview review;
+
+
 }
