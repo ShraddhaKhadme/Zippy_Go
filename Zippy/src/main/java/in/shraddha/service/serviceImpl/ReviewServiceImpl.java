@@ -1,5 +1,8 @@
 package in.shraddha.service.serviceImpl;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +19,10 @@ public class ReviewServiceImpl implements ReviewService{
     private OrderRepo orderRepository;
 
     @Autowired
-    private ReviewRepo reviewRepository;
+    private ReviewRepo reviewRepo;
 
     public boolean submitReview(Long orderId, int rating, String message) {
-        if (reviewRepository.existsByOrderId(orderId)) return false;
+        if (reviewRepo.existsByOrderId(orderId)) return false;
 
         Order order = orderRepository.findById(orderId).orElse(null);
         if (order == null || !"delivered".equals(order.getStatus())) return false;
@@ -29,7 +32,15 @@ public class ReviewServiceImpl implements ReviewService{
         review.setRating(rating);
         review.setMessage(message);
 
-        reviewRepository.save(review);
+        reviewRepo.save(review);
         return true;
     }
+
+	@Override
+	public List<OrderReview> getOrderReview() {
+		
+		return reviewRepo.findAll();
+	}
+
+	
 }

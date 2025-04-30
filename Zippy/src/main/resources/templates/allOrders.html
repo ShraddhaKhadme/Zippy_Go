@@ -56,19 +56,19 @@
           <td class="d-flex justify-content-center" th:switch="${ob.status}">
             <span th:case="Pending">
               <a th:href="@{/order/admincancel(id=${ob.id})}" class="btn btn-danger btn-sm mx-1">Cancel</a>
-              <a th:href="@{/order/packing(id=${ob.id})}" class="btn btn-warning btn-sm mx-1">Packing</a>
+              <a th:href="@{/order/packing(id=${ob.id})}" class="btn btn-warning btn-sm mx-1">marked as Packing</a>
             </span>
             <span th:case="packing">
-              <a th:href="@{/order/outfordelivery(id=${ob.id})}" class="btn btn-info btn-sm mx-1">Out for Delivery</a>
+              <a th:href="@{/order/outfordelivery(id=${ob.id})}" class="btn btn-info btn-sm mx-1">marked as Out for Delivery</a>
             </span>
             <span th:case="out-for-delivery">
-              <a th:href="@{/order/delivered(id=${ob.id})}" class="btn btn-success btn-sm mx-1">Delivered</a>
+              <a th:href="@{/order/delivered(id=${ob.id})}" class="btn btn-success btn-sm mx-1">marked as Delivered</a>
             </span>
             <span th:case="delivered">
-              <span class="btn btn-secondary btn-sm mx-1 disabled">Delivered</span>
+              <span class="btn btn-secondary btn-sm mx-1 disabled">Order Delivered</span>
             </span>
             <span th:case="canceled">
-              <span class="btn btn-secondary btn-sm mx-1 disabled">Canceled</span>
+              <span class="btn btn-secondary btn-sm mx-1 disabled">Order Canceled</span>
             </span>
           </td>
         </tr>

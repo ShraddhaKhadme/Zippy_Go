@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import in.shraddha.entity.CartItem;
 import in.shraddha.entity.Order;
+import in.shraddha.entity.OrderReview;
 import in.shraddha.entity.User;
 import in.shraddha.service.CartService;
 import in.shraddha.service.OrderService;
@@ -162,7 +163,7 @@ public class OrderController {
 
         orderService.orderPacking(id);
         
-        attribute.addFlashAttribute("success", "Your order is packing..!");
+        attribute.addFlashAttribute("success", "order is packing..!");
         
         return "redirect:/order/allOrders";
     }
@@ -218,4 +219,20 @@ public class OrderController {
         return response;
     }
 
+    @GetMapping("/viewReview")
+    public String viewReview( RedirectAttributes attribute, Model model)
+    {
+        
+        List<OrderReview> review=reviewService.getOrderReview();
+        if(review.isEmpty())
+        {
+        	attribute.addFlashAttribute("noReviewId","no reviews found");
+        }
+        else {
+        	model.addAttribute("review",review);
+        }
+    	
+    	return "viewReviews";
+    }
+    
 }
