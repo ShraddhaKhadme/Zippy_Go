@@ -38,7 +38,7 @@ public class EmailService {
         this.categoryController = categoryController;
     }
 
-    public void sendOrderConfirmationWithPdf(User user, List<Order> orders) throws Exception {
+    public void sendEmail(User user, List<Order> orders) throws Exception {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         // Create PDF
@@ -56,6 +56,7 @@ public class EmailService {
         // User info
         document.add(new Paragraph("User Name: " + user.getName()));
         document.add(new Paragraph("Email: " + user.getEmail()));
+        document.add(new Paragraph("Email: " + user.getPhone()));
         document.add(new Paragraph(" "));
 
         // Order table

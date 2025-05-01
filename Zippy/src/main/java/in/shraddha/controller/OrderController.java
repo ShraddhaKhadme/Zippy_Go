@@ -69,7 +69,7 @@ public class OrderController {
             cartService.removeCart(user);
 
             // Step 3: Send Email with PDF
-            emailService.sendOrderConfirmationWithPdf(user, orders);
+            emailService.sendEmail(user, orders);
 
             redirectAttributes.addFlashAttribute("success", "Order placed successfully!");
         } catch (Exception e) {
